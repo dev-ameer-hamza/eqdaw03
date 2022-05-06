@@ -86,7 +86,7 @@ select max(id_jornada) into ultimaJornada from jornada;
 if ultimaJornada is null then
 raise jornadaNoExiste;
 else
-open datoUltimaJornada for select * from partido where id_jornada=ultimaJornada;
+open datoUltimaJornada for select * from todos_partidos where id_jornada=ultimaJornada;
 end if;
 exception
 when jornadaNoExiste then
@@ -104,7 +104,7 @@ procedure partidosDeCadaJornada(idJornada in number,losPartidos out tcursor)
 as
 
 begin
-open lospartidos for select *from partido where id_jornada=idJornada;
+open lospartidos for select * from todos_partidos where id_jornada=idJornada;
 end partidosDeCadaJornada;
 
 procedure lista_clasificacion(datoClasificacion out tcursor) as
@@ -117,8 +117,8 @@ procedure lista_equipos(datoEquipos out tcursor) as
 
 begin
  open datoEquipos for select eq.id_equipo "ID",eq.nombre_equipo "Nombre Equipo",
-enp.nombre "Entrenador",dep.nombre "Dueño" from entrenador e
-,persona enp,persona dep,duenyo d,equipo eq
+enp.nombre "Entrenador", enp.apellido "Apellido entrenador",dep.nombre "Dueño", dep.apellido "Apellido dueño" 
+from entrenador e,persona enp,persona dep,duenyo d,equipo eq
 where (e.id_persona=enp.id_persona and d.id_persona=dep.id_persona) and 
 (e.id_equipo=eq.id_equipo and e.id_equipo=d.id_equipo);
 end lista_equipos;

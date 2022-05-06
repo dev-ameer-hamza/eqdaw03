@@ -39,7 +39,7 @@ set serveroutput on;
 /* prueba del procedimiento lista_ultima_jornada   */
 declare
 datoJornada datos_liga.tcursor;
-reg_emp partido%rowtype;
+reg_emp todos_partidos%rowtype;
 begin
 datos_liga.lista_ultima_jornada(datoJornada);
 fetch datoJornada into reg_emp;
@@ -48,7 +48,7 @@ dbms_output.put_line(datoJornada%rowcount);
 dbms_output.put_line('no hay datos');
  else
  while datoJornada%found loop
- dbms_output.put_line(reg_emp.id_partido || '-' || reg_emp.id_equipo1 || '-' || reg_emp.id_equipo2 || '-' || reg_emp.equipo_ganador);
+ dbms_output.put_line(reg_emp.id_jornada || '-' || reg_emp.equipo_local || '-' || reg_emp.equipo_visitante || '-' || reg_emp.equipo_ganador);
  fetch datoJornada into reg_emp;
  end loop;
 end if;
@@ -61,7 +61,7 @@ declare
 todasJornadas datos_liga.tcursor;
 losPartidos datos_liga.tcursor;
 cadaJornada jornada%rowtype;
-cadaPartido partido%rowtype;
+cadaPartido todos_partidos%rowtype;
 begin
 datos_liga.lista_todas_jornadas(todasJornadas);
 fetch todasJornadas into cadaJornada;
@@ -76,7 +76,8 @@ if lospartidos%notfound then
 dbms_output.put_line('no hay partidos en jornada ' || cadaJornada.id_jornada);
 else
 while lospartidos%found loop
-dbms_output.put_line('partido ' || cadaPartido.equipo_ganador);
+dbms_output.put_line('Equipo Local ' || cadaPartido.equipo_local || 
+' Equipo Visitante ' || cadaPartido.equipo_visitante || ' Equipo Ganador ' || cadaPartido.equipo_ganador);
 fetch losPartidos into cadaPartido;
 end loop;
 end if;
