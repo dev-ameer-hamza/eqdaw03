@@ -8,7 +8,7 @@ public class Jugador extends Persona{
     private String rol;
     private int sueldo;
 
-    //ArrayList<Equipo> listaEquipos = new ArrayList<>();
+
 
 
     /**
