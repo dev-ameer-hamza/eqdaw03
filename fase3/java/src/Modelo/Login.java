@@ -93,6 +93,10 @@ public class Login {
     /**
      * Creamos el metodo para inciar sesion de un usuario
      */
-
     public void inciarSesion(){}
+
+    /**
+     * Creamos el metodo para buscar un usuario si existe o no
+     */
+    public  void buscarUsuario(){}
 }

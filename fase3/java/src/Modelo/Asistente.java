@@ -1,8 +1,5 @@
 package Modelo;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 public class Asistente extends Persona {
 
 
@@ -26,8 +23,7 @@ public class Asistente extends Persona {
     /**
      * Creamos el metodo para sacar los datos del equipo al que pertenece
      * @param id_equipo
-     * @return Equipo
      */
-    public Equipo getEquipo(int id_equipo){ }
+    public void getEquipo(int id_equipo){ }
 
 }

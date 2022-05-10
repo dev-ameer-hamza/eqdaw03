@@ -215,7 +215,9 @@ public class Equipo {
      * @param id_equipo
      * @return Equipo
      */
-    public Equipo buscarEquipo(int id_equipo){}
+    public Equipo buscarEquipo(int id_equipo){
+
+    }
 
     /**
      * Creamos el metodo para dar de alta un equipo
@@ -247,6 +249,6 @@ public class Equipo {
      * Creamos el metodo para obtener las clasificacion de un equipo
      * @return Equipo
      */
-    public Equipo datosClasificacion(){}
+
 
 }
