@@ -1,3 +1,3 @@
 # eqdaw03
 
-todos los cambio estan en la rama "staging"
+todos los cambios estan en la rama "staging"
