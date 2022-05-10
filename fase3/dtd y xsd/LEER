@@ -1,0 +1,4 @@
+Usamos el mismo XSD y DTD para el XML de la ULTIMA JORNADA
+y el XML de TODAS LAS JORNADAS debido a que la unica diferencia
+entre estos dos XML que genera la base de datos, es que uno guarda 
+todas las jornadas y el otro solo la ultima pero el contenido de cada jornada es el mismo.
