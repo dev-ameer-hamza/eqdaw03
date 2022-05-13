@@ -7,6 +7,7 @@ import Modelo.Dueño;
 import Modelo.Entrenador;
 import Modelo.Equipo;
 import Vistas.Administrador.VentanaPrincipalAdmin;
+import Vistas.Login.VentanaLogin;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -23,16 +24,12 @@ public class Main {
     ArrayList<Entrenador>Entrenadores = new ArrayList<>();
     ArrayList<Dueño>Duenyos = new ArrayList<>();
     private static JFrame panelAdminCrear;
-    private static JFrame panelAdminBorrar;
+    private static JFrame panelAdmin;
+    private static JFrame panelLogin;
 
     public static void main(String[] args) {
 	// write your code here
-        panelAdminBorrar = new JFrame("default");
-        panelAdminBorrar.setContentPane(new VentanaPrincipalAdmin().getPruebaPanel());
-        panelAdminBorrar.setSize(400,400);
-        panelAdminBorrar.setLocationRelativeTo(null);
-        panelAdminBorrar.setVisible(true);
-
+        mostrarVentanaLogin();
         /**
          * Conexion a la base de datos
          */
@@ -43,11 +40,23 @@ public class Main {
             JOptionPane.showMessageDialog(null,"hola " + e.getMessage());
         }
     }
-    public static void mostrarAdminCrearPanel(){}
 
-    public static void mostrarAdminBorrarPanel(){
-
+    public static void mostrarVentanaLogin() {
+        panelLogin = new JFrame("default");
+        panelLogin.setContentPane(new VentanaLogin().getPanelLogin());
+        panelLogin.setSize(300, 300);
+        panelLogin.setLocationRelativeTo(null);
+        panelLogin.setVisible(true);
     }
+
+    public static void mostrarVentanaAdmin() {
+        panelAdmin = new JFrame("default");
+        panelAdmin.setContentPane(new VentanaPrincipalAdmin().getPruebaPanel());
+        panelAdmin.setSize(600,600);
+        panelAdmin.setLocationRelativeTo(null);
+        panelAdmin.setVisible(true);
+    }
+    public static void mostrarVentanaUsuario() {}
 
     public static ArrayList<Equipo> consultarEquipos() throws SQLException {
         equipoDAO = new EquipoDAO(bd.getConnection());
