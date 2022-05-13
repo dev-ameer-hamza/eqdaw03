@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Vistas.Administrador.VentanaPrincipalAdmin">
-  <grid id="27dc6" binding="pruebaPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="pruebaPanel" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="403"/>
+      <xy x="20" y="20" width="801" height="748"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -23,51 +23,33 @@
             <properties/>
             <border type="none"/>
             <children>
-              <grid id="60e49" class="javax.swing.JMenu" binding="menuCrear" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+              <grid id="60e49" class="javax.swing.JMenu" binding="jmCrear" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                 <constraints/>
                 <properties>
                   <text value="Crear"/>
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="1d1" class="javax.swing.JMenuItem" binding="itemDueño">
-                    <constraints/>
-                    <properties>
-                      <text value="Dueño"/>
-                    </properties>
-                  </component>
-                  <component id="d2b4e" class="javax.swing.JMenuItem" binding="itemEquipo">
+                  <component id="d2b4e" class="javax.swing.JMenuItem" binding="jmiCrearEquipo">
                     <constraints/>
                     <properties>
                       <text value="Equipo"/>
                     </properties>
                   </component>
-                  <component id="4561a" class="javax.swing.JMenuItem" binding="itemJugador">
+                  <component id="4561a" class="javax.swing.JMenuItem" binding="jmiCrearJugador">
                     <constraints/>
                     <properties>
                       <text value="Jugador"/>
                     </properties>
                   </component>
-                  <component id="b3758" class="javax.swing.JMenuItem" binding="itemEntrenador">
-                    <constraints/>
-                    <properties>
-                      <text value="Entrenador"/>
-                    </properties>
-                  </component>
-                  <component id="bfed0" class="javax.swing.JMenuItem">
-                    <constraints/>
-                    <properties>
-                      <text value="Asistente"/>
-                    </properties>
-                  </component>
-                  <component id="1a2a9" class="javax.swing.JMenuItem">
+                  <component id="1a2a9" class="javax.swing.JMenuItem" binding="jmiCrearEmparejamiento">
                     <constraints/>
                     <properties>
                       <selected value="true"/>
                       <text value="Emparejamiento"/>
                     </properties>
                   </component>
-                  <component id="e2834" class="javax.swing.JMenuItem">
+                  <component id="e2834" class="javax.swing.JMenuItem" binding="jmiCrearUsuario">
                     <constraints/>
                     <properties>
                       <text value="Usuario"/>
@@ -75,44 +57,26 @@
                   </component>
                 </children>
               </grid>
-              <grid id="c5c83" class="javax.swing.JMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+              <grid id="c5c83" class="javax.swing.JMenu" binding="jmBorrar" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                 <constraints/>
                 <properties>
                   <text value="Borrar"/>
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="ee904" class="javax.swing.JMenuItem">
-                    <constraints/>
-                    <properties>
-                      <text value="Dueño"/>
-                    </properties>
-                  </component>
-                  <component id="e7364" class="javax.swing.JMenuItem">
+                  <component id="e7364" class="javax.swing.JMenuItem" binding="jmiBorrarEquipo">
                     <constraints/>
                     <properties>
                       <text value="Equipo"/>
                     </properties>
                   </component>
-                  <component id="a9e08" class="javax.swing.JMenuItem">
+                  <component id="a9e08" class="javax.swing.JMenuItem" binding="jmiBorrarJugador">
                     <constraints/>
                     <properties>
                       <text value="Jugador"/>
                     </properties>
                   </component>
-                  <component id="b7036" class="javax.swing.JMenuItem">
-                    <constraints/>
-                    <properties>
-                      <text value="Entrenador"/>
-                    </properties>
-                  </component>
-                  <component id="d9bc1" class="javax.swing.JMenuItem">
-                    <constraints/>
-                    <properties>
-                      <text value="Asistente"/>
-                    </properties>
-                  </component>
-                  <component id="155" class="javax.swing.JMenuItem">
+                  <component id="155" class="javax.swing.JMenuItem" binding="jmiBorrarUsuario">
                     <constraints/>
                     <properties>
                       <text value="Usuario"/>
@@ -120,7 +84,7 @@
                   </component>
                 </children>
               </grid>
-              <grid id="7dd5" class="javax.swing.JMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+              <grid id="7dd5" class="javax.swing.JMenu" binding="jmModificar" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                 <constraints/>
                 <properties>
                   <text value="Modificar"/>
@@ -165,7 +129,7 @@
                   </component>
                 </children>
               </grid>
-              <grid id="3366f" class="javax.swing.JMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+              <grid id="3366f" class="javax.swing.JMenu" binding="jmConsultar" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                 <constraints/>
                 <properties>
                   <text value="Consultar"/>
@@ -227,18 +191,177 @@
       </grid>
       <vspacer id="e5b4f">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
       <grid id="6d9d8" binding="PanelPrincipal" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="48ff1" binding="crearDueño" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="48ff1" binding="crearDueño" layout-manager="GridLayoutManager" row-count="4" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <enabled value="true"/>
+              <visible value="true"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="4bbe" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Dueño"/>
+                </properties>
+              </component>
+              <component id="310ff" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Nombre"/>
+                </properties>
+              </component>
+              <component id="9bb9c" class="javax.swing.JTextField" binding="tfNombreCrearDueño">
+                <constraints>
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="a403a" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Apellido"/>
+                </properties>
+              </component>
+              <component id="c115d" class="javax.swing.JTextField" binding="tfApellidoCrearDueño">
+                <constraints>
+                  <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <hspacer id="ef864">
+                <constraints>
+                  <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <hspacer id="b92c1">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <component id="2f4d2" class="javax.swing.JButton" binding="btSiguienteCrearDueño">
+                <constraints>
+                  <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Siguiente"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="133b9" binding="crearEntrenador" layout-manager="GridLayoutManager" row-count="4" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="a6e9c" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Nombre"/>
+                </properties>
+              </component>
+              <component id="f329" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Apellido"/>
+                </properties>
+              </component>
+              <hspacer id="24082">
+                <constraints>
+                  <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <hspacer id="7b9d">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <component id="38870" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Este equipo tiene asistente?"/>
+                </properties>
+              </component>
+              <component id="4331a" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Entrenador"/>
+                </properties>
+              </component>
+              <component id="76aa0" class="javax.swing.JTextField" binding="tfNombreCrearEntrenador">
+                <constraints>
+                  <grid row="1" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="eba06" class="javax.swing.JTextField" binding="tfApellidoCrearEntrenador">
+                <constraints>
+                  <grid row="2" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="12927" class="javax.swing.JButton" binding="btSiCrearEntrenador">
+                <constraints>
+                  <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="SI"/>
+                </properties>
+              </component>
+              <component id="85fca" class="javax.swing.JButton" binding="btNoCrearEntrenador">
+                <constraints>
+                  <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="NO"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="5f0d2" binding="crearEquipo" layout-manager="GridLayoutManager" row-count="3" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -248,17 +371,77 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="b579" class="javax.swing.JLabel" binding="nombre">
+              <component id="2d8f" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Equipo"/>
+                </properties>
+              </component>
+              <component id="97468" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Nombre"/>
                 </properties>
               </component>
-              <component id="f9c74" class="javax.swing.JTextField" binding="tfNombreCrearDueño">
+              <component id="9cce7" class="javax.swing.JTextField" binding="tfNombreCrearEquipo">
                 <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="76ddf" class="javax.swing.JButton" binding="btSiguienteCrearEquipo">
+                <constraints>
+                  <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Siguiente"/>
+                </properties>
+              </component>
+              <hspacer id="27529">
+                <constraints>
+                  <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <hspacer id="56788">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+            </children>
+          </grid>
+          <grid id="3eb76" binding="crearAsistente" layout-manager="GridLayoutManager" row-count="4" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="65de4" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Asistente"/>
+                </properties>
+              </component>
+              <component id="63f2f" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Nombre"/>
+                </properties>
+              </component>
+              <component id="79c58" class="javax.swing.JTextField" binding="tfNombreCrearAsistente">
+                <constraints>
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
@@ -266,97 +449,72 @@
                   <text value=""/>
                 </properties>
               </component>
-              <component id="729c1" class="javax.swing.JLabel">
+              <component id="4a9ae" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Apellido"/>
                 </properties>
               </component>
-              <component id="e562c" class="javax.swing.JTextField" binding="tfApellidoCrearDueño">
+              <component id="15b21" class="javax.swing.JTextField" binding="tfApellidoCrearAsistente">
                 <constraints>
-                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
-              </component>
-              <component id="e631b" class="javax.swing.JLabel">
-                <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
                 <properties>
-                  <text value="Equipo"/>
+                  <text value=""/>
                 </properties>
               </component>
-              <component id="a59e1" class="javax.swing.JComboBox" binding="cbEquipoCrearDueño">
+              <hspacer id="5d2a1">
                 <constraints>
-                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
-              </component>
-              <component id="f191a" class="javax.swing.JButton" binding="guardarButton" default-binding="true">
+              </hspacer>
+              <hspacer id="a1c99">
                 <constraints>
-                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <component id="7ba9c" class="javax.swing.JButton" binding="btGuardarCrearAsistente">
+                <constraints>
+                  <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <alignmentX value="0.0"/>
-                  <margin top="0" left="0" bottom="0" right="0"/>
                   <text value="Guardar"/>
                 </properties>
               </component>
             </children>
           </grid>
-          <grid id="5f0d2" binding="crearEquipo" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <visible value="true"/>
-            </properties>
-            <border type="none"/>
-            <children>
-              <component id="42166" class="javax.swing.JLabel">
-                <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <text value="ameeeer"/>
-                </properties>
-              </component>
-            </children>
-          </grid>
-          <grid id="133b9" binding="CrearJugador" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties/>
-            <border type="none"/>
-            <children/>
-          </grid>
-          <grid id="62128" binding="CrearEntrenador" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
-            <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties/>
-            <border type="none"/>
-            <children/>
-          </grid>
-          <grid id="61fbb" binding="CrearAsistente" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="30566" binding="foto" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
             <border type="none"/>
-            <children/>
+            <children>
+              <component id="5193f" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="22"/>
+                  <text value="A M E E R"/>
+                </properties>
+              </component>
+            </children>
           </grid>
         </children>
       </grid>
+      <vspacer id="75108">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+            <preferred-size width="11" height="99"/>
+          </grid>
+        </constraints>
+      </vspacer>
     </children>
   </grid>
 </form>

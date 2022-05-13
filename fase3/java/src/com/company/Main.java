@@ -55,6 +55,7 @@ public class Main {
         panelAdmin.setSize(600,600);
         panelAdmin.setLocationRelativeTo(null);
         panelAdmin.setVisible(true);
+        panelLogin.setVisible(false);
     }
     public static void mostrarVentanaUsuario() {}
 
