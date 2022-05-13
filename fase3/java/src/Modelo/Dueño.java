@@ -2,7 +2,7 @@ package Modelo;
 
 import java.util.ArrayList;
 
-public class Duenyo extends Persona{
+public class Dueño extends Persona{
 
 
 
@@ -12,7 +12,7 @@ public class Duenyo extends Persona{
      * @param nombre
      * @param apellido
      */
-    public Duenyo(int id_personas, String nombre, String apellido) {
+    public Dueño(int id_personas, String nombre, String apellido) {
         super(id_personas, nombre, apellido);
     }
 
@@ -27,5 +27,5 @@ public class Duenyo extends Persona{
      * @param id_equipo
      * @return Equipo
      */
-    public Equipo getEquipo(int id_equipo){}
+    //public Equipo getEquipo(int id_equipo){return new Duenyo();}
 }

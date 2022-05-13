@@ -105,5 +105,5 @@ public class Jugador extends Persona{
      * @param id_equipo
      * "return Equipo
      */
-    public Equipo getEquipo(int id_equipo){}
+    //public Equipo getEquipo(int id_equipo){}
 }

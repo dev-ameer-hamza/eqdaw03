@@ -16,7 +16,7 @@ public class Equipo {
     private ArrayList<Jugador> listaJugadores = new ArrayList<Jugador>();
 
     private Entrenador entrenador;
-    private Duenyo duenyo;
+    private Dueño duenyo;
     private Asistente asistente;
 
 
@@ -192,7 +192,7 @@ public class Equipo {
      * Creamos una funcion para añadir el dueño al equipo
      * @param duenyo
      */
-    public void addDuenyo (Duenyo duenyo) {this.duenyo = duenyo;}
+    public void addDuenyo (Dueño duenyo) {this.duenyo = duenyo;}
 
     /**
      * Creamos el metodo para sacar todos los jugadores de un equipo
@@ -215,9 +215,9 @@ public class Equipo {
      * @param id_equipo
      * @return Equipo
      */
-    public Equipo buscarEquipo(int id_equipo){
-
-    }
+//    public Equipo buscarEquipo(int id_equipo){
+//
+//    }
 
     /**
      * Creamos el metodo para dar de alta un equipo

@@ -27,7 +27,7 @@ public class Entrenador extends Persona{
      * @param id_equipo
      * @return Equipo
      */
-    public Equipo get_equipo(int id_equipo){}
+    public Equipo get_equipo(int id_equipo){return new Equipo();}
 
 
 }

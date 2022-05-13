@@ -1,16 +1,60 @@
 package com.company;
 
-import Modelo.Duenyo;
+import BD.BaseDatos;
+import BD.UML.DueñoDAO;
+import BD.UML.EquipoDAO;
+import Modelo.Dueño;
 import Modelo.Entrenador;
+import Modelo.Equipo;
+import Vistas.Administrador.VentanaPrincipalAdmin;
 
+import javax.swing.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Main {
 
+    public static BaseDatos bd;
+    public static DueñoDAO dueñoDAO;
+    public static EquipoDAO equipoDAO;
+    public static Connection conn;
+
     ArrayList<Entrenador>Entrenadores = new ArrayList<>();
-    ArrayList<Duenyo>Duenyos = new ArrayList<>();
+    ArrayList<Dueño>Duenyos = new ArrayList<>();
+    private static JFrame panelAdminCrear;
+    private static JFrame panelAdminBorrar;
 
     public static void main(String[] args) {
 	// write your code here
+        panelAdminBorrar = new JFrame("default");
+        panelAdminBorrar.setContentPane(new VentanaPrincipalAdmin().getPruebaPanel());
+        panelAdminBorrar.setSize(400,400);
+        panelAdminBorrar.setLocationRelativeTo(null);
+        panelAdminBorrar.setVisible(true);
+
+        /**
+         * Conexion a la base de datos
+         */
+        try{
+            bd = new BaseDatos();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,"hola " + e.getMessage());
+        }
+    }
+    public static void mostrarAdminCrearPanel(){}
+
+    public static void mostrarAdminBorrarPanel(){
+
+    }
+
+    public static ArrayList<Equipo> consultarEquipos() throws SQLException {
+        equipoDAO = new EquipoDAO(bd.getConnection());
+        return equipoDAO.consultarEquipos();
+    }
+
+    public static void guardarDueño() {
+
     }
 }

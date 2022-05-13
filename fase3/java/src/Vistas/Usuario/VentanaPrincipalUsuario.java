@@ -1,4 +1,4 @@
-package Vistas;
+package Vistas.Usuario;
 
 public class VentanaPrincipalUsuario {
 }
