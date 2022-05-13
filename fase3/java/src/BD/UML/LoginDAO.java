@@ -19,7 +19,7 @@ public class LoginDAO {
      * Creamos un metodo para iniciar la sesion de usuario o admin
      * @param usuario
      * @param pass
-     * @return
+     * @return Login
      * @throws SQLException
      */
     public Login inciarSesion(String usuario, String pass) throws SQLException {
@@ -55,7 +55,7 @@ public class LoginDAO {
     /**
      * Creamos un metodo para buscar un usuario con su nombre y nos devuelve un objeto tipo Login
      * @param usuario
-     * @return login
+     * @return Login
      * @throws SQLException
      */
     public Login buscarUsuario(String usuario) throws SQLException {
@@ -101,7 +101,6 @@ public class LoginDAO {
      */
     public boolean modificarUsuario(Login login,String usuarioAntiguo) throws Exception {
         Login usuarioExistente = buscarUsuario(usuarioAntiguo);
-        Login usuarioModificado = new Login();
         if (usuarioExistente.getUsuario().isEmpty()){
             throw new Exception("No puedes modificar el usuario " + usuarioAntiguo + " por que no existe");
         }
