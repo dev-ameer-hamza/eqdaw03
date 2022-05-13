@@ -14,6 +14,9 @@ public class Login {
         this.tipo_persona = tipo_persona;
     }
 
+    public Login() {
+    }
+
     /**
      * Creamos el getter de id_login
      * @return id_login
