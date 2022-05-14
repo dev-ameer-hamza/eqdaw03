@@ -38,6 +38,13 @@ public class JornadasDAO {
         }
     }
 
+    /**
+     * Creamos el metodo para crear cada jornada
+     * este metodo siendo llamdo en metodo crearJornadas
+     * @param dia
+     * @return void
+     * @throws SQLException
+     */
     public boolean crearCadaJornada(int dia) throws SQLException {
         PreparedStatement pstj = conn.prepareStatement("insert into jornada values(?)");
         pstj.setDate(1, Date.valueOf(LocalDate.now().plusDays(dia)));
@@ -45,6 +52,13 @@ public class JornadasDAO {
         return resultado == 1;
     }
 
+    /**
+     * Creamos el metodo para consultar las jornadas
+     * Este metodo nos devuelve todas las filas que hay en la tabla jornada
+     * en base de datos
+     * @return
+     * @throws SQLException
+     */
     public ArrayList<Jornada> listaJornadas() throws SQLException {
         ArrayList<Jornada> listaJornada = new ArrayList<>();
         PreparedStatement pstjl = conn.prepareStatement("select * from jornadas");
