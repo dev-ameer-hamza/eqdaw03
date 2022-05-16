@@ -30,6 +30,10 @@ public class JornadasDAO {
         {
             throw new Exception("No hay equipos para crear jornadas");
         }
+        if(listEquipos.size() % 2!= 0)
+        {
+            throw new Exception("El numero de equipos no es par");
+        }
 
         for(int i = 0; i < listEquipos.size() - 1; i++)
         {
