@@ -16,7 +16,7 @@ public class VentanaPrincipalAdmin {
     private JMenuItem jmiCrearEquipo;
     private JMenuItem jmiCrearJugador;
     private JComboBox cbEquipoCrearDueño;
-    private JButton guardarButton;
+    private JButton btGuardarCrearUsuario;
     private JTextField tfNombreCrearAsistente;
     private JTextField tfApellidoCrearAsistente;
     private JTextField tfNombreCrearEntrenador;
@@ -39,6 +39,28 @@ public class VentanaPrincipalAdmin {
     private JMenuItem jmiBorrarEquipo;
     private JMenuItem jmiBorrarJugador;
     private JMenuItem jmiBorrarUsuario;
+    private JPanel crearJugador;
+    private JTextField tfNombreCrearJugador;
+    private JTextField tfApellidoCrearJugador;
+    private JTextField tfApodoCrearJugador;
+    private JTextField tfRolCrearJugador;
+    private JTextField tfSueldoCrearJugador;
+    private JComboBox cbEquipoCrearJugador;
+    private JPanel crearUsuario;
+    private JPanel crearEmparejamiento;
+    private JTextField tfUsuarioCrearUsuario;
+    private JPasswordField pfContraseñaCrearUsuario;
+    private JPasswordField pfConfirmacionCrearUsuario;
+    private JButton btGuardarCrearJugador;
+    private JButton btCancelarCrearEquipo;
+    private JButton btCancelarCrearDueño;
+    private JButton btAtrasCrearDueño;
+    private JButton btAtrasCrearEntrenador;
+    private JButton btAtrasCrearAsistente;
+    private JButton btCancelarCrearEntrenador;
+    private JButton btCancelarCrearAsistente;
+    private JButton btCancelarCrearJugador;
+    private JButton btCancelarCrearUsuario;
 
     public JPanel getPruebaPanel() {
         return pruebaPanel;
@@ -46,17 +68,21 @@ public class VentanaPrincipalAdmin {
 
     public void cerrarPaneles() {
         crearDueño.setVisible(false);
+        crearEntrenador.setVisible(false);
         crearEquipo.setVisible(false);
         crearAsistente.setVisible(false);
-        crearEntrenador.setVisible(false);
         foto.setVisible(false);
+        crearJugador.setVisible(false);
+        crearUsuario.setVisible(false);
+        crearEmparejamiento.setVisible(false);
     }
 
     public VentanaPrincipalAdmin() {
         cerrarPaneles();
         foto.setVisible(true);
-
-        // crear -> equipo
+        /**
+         * Botones del menu crear
+         */
         jmiCrearEquipo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -64,7 +90,30 @@ public class VentanaPrincipalAdmin {
                 crearEquipo.setVisible(true);
             }
         });
-
+        jmiCrearJugador.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                crearJugador.setVisible(true);
+            }
+        });
+        jmiCrearUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                crearUsuario.setVisible(true);
+            }
+        });
+        jmiCrearEmparejamiento.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                crearEmparejamiento.setVisible(true);
+            }
+        });
+        /**
+         * botones siguiente en crear
+         */
         btSiguienteCrearEquipo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -80,7 +129,9 @@ public class VentanaPrincipalAdmin {
                 crearEntrenador.setVisible(true);
             }
         });
-
+        /**
+         * boton Si y No en la ventana de crear entrenador
+         */
         btSiCrearEntrenador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -88,8 +139,7 @@ public class VentanaPrincipalAdmin {
                 crearAsistente.setVisible(true);
             }
         });
-
-        btGuardarCrearAsistente.addActionListener(new ActionListener() {
+        btNoCrearEntrenador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
@@ -97,11 +147,97 @@ public class VentanaPrincipalAdmin {
             }
         });
 
-        btNoCrearEntrenador.addActionListener(new ActionListener() {
+        /**
+         * botones para cancelar en crear
+         */
+        btCancelarCrearEquipo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
-                foto.setVisible(true );
+                foto.setVisible(true);
+            }
+        });
+        btCancelarCrearDueño.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                foto.setVisible(true);
+            }
+        });
+        btCancelarCrearEntrenador.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                foto.setVisible(true);
+            }
+        });
+        btCancelarCrearAsistente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                foto.setVisible(true);
+            }
+        });
+        btCancelarCrearJugador.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                foto.setVisible(true);
+            }
+        });
+        btCancelarCrearUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                foto.setVisible(true);
+            }
+        });
+        /**
+         * botones para ir atras en crear
+         */
+        btAtrasCrearDueño.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                crearEquipo.setVisible(true);
+            }
+        });
+        btAtrasCrearEntrenador.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                crearDueño.setVisible(true);
+            }
+        });
+        btAtrasCrearAsistente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                crearEntrenador.setVisible(true);
+            }
+        });
+        /**
+         * boton guardar en crear
+         */
+        btGuardarCrearAsistente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                foto.setVisible(true);
+            }
+        });
+        btGuardarCrearJugador.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                foto.setVisible(true);
+            }
+        });
+        btGuardarCrearUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                foto.setVisible(true);
             }
         });
     }
