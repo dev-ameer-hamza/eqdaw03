@@ -1,8 +1,12 @@
 package Vistas.Administrador;
 
+import com.company.Main;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class VentanaPrincipalAdmin {
     private JMenuItem jmCrear;
@@ -146,6 +150,7 @@ public class VentanaPrincipalAdmin {
     private JLabel lbEquipoLocalConsultarJornada;
     private JLabel lbEquipoVisitanteConsultarJornada;
     private JLabel lbEquipoGanadorConsultarJornada;
+    private final float SALARIOMINIMO = 950.0f;
 
     public JPanel getPruebaPanel() {
         return pruebaPanel;
@@ -430,6 +435,59 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 foto.setVisible(true);
+
+                try {
+                    Pattern patternNombre = Pattern.compile("^[A-Za-z]+$");
+                    Matcher matcherNombre = patternNombre.matcher(tfNombreCrearJugador.getText().trim());
+
+                    if (!matcherNombre.matches()){
+                        throw new Exception("Nombre no valido");
+                    }
+
+                    Pattern patternApellido = Pattern.compile("^[A-Za-z]+$");
+                    Matcher matcherApellido = patternApellido.matcher(tfApellidoCrearJugador.getText().trim());
+
+                    if(!matcherApellido.matches()) {
+                        throw new Exception("Apellido no valido");
+                    }
+
+                    Pattern patternApodo = Pattern.compile("^[A-Za-z]+$");
+                    Matcher matcherApodo = patternApodo.matcher(tfApodoCrearJugador.getText().trim());
+
+                    if (!matcherApodo.matches()){
+                        throw new Exception("Apodo no valido");
+                    }
+
+                    Pattern patternRol = Pattern.compile("^[A-Za-z]+$");
+                    Matcher matcherRol = patternRol.matcher(tfRolCrearJugador.getText().trim());
+
+                    if (!matcherRol.matches()){
+                        throw new Exception("Rol no valido");
+                    }
+
+
+                    Pattern patternSueldo = Pattern.compile("^[0-9]+$");
+                    Matcher matcherSueldo = patternSueldo.matcher(tfSueldoCrearJugador.getText().trim());
+
+                    if(!matcherSueldo.matches()){
+                        throw new Exception("El sueldo tiene que ser en numeros");
+                    }else{
+                        if (Integer.parseInt(tfSueldoCrearJugador.getText()) < SALARIOMINIMO){
+                            throw new Exception("El salario tiene que ser mayor que el salario minimo interprofesional que es de " + SALARIOMINIMO + " euros");
+                        }
+                    }
+
+
+                }catch (Exception ex){
+                    cerrarPaneles();
+                    tfNombreCrearJugador.setText("");
+                    tfApellidoCrearJugador.setText("");
+                    tfApodoCrearJugador.setText("");
+                    tfRolCrearJugador.setText("");
+                    tfSueldoCrearJugador.setText("");
+                    crearJugador.setVisible(true);
+                    mostrarError(ex.getMessage());
+                }
             }
         });
         btGuardarCrearUsuario.addActionListener(new ActionListener() {
@@ -437,6 +495,24 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 foto.setVisible(true);
+                try {
+                    if(validarCrearUsuario(tfUsuarioCrearUsuario.getText(),pfContraseñaCrearUsuario.getText(),pfConfirmacionCrearUsuario.getText()))
+                    {
+                        if(Main.crearUsuario(tfUsuarioCrearUsuario.getText(),pfContraseñaCrearUsuario.getText()))
+                        {
+                            tfUsuarioCrearUsuario.setText("");
+                            pfConfirmacionCrearUsuario.setText("");
+                            pfContraseñaCrearUsuario.setText("");
+                            JOptionPane.showMessageDialog(null,"Usuario " + tfUsuarioCrearUsuario.getText() +" se ha creado correctamente");
+                        }
+                    }
+                } catch (Exception ex) {
+                    cerrarPaneles();
+                    pfConfirmacionCrearUsuario.setText("");
+                    pfContraseñaCrearUsuario.setText("");
+                     crearUsuario.setVisible(true);
+                    mostrarError(ex.getMessage());
+                }
             }
         });
         /**
@@ -579,5 +655,36 @@ public class VentanaPrincipalAdmin {
                 foto.setVisible(true);
             }
         });
+    }
+
+
+    public boolean validarCrearUsuario(String usuario,String contra,String contraConfirm) throws Exception {
+        if (usuario.isEmpty() || contra.isEmpty() || contraConfirm.isEmpty())
+        {
+            throw new Exception("Ningun campo puede estar vacio");
+        }
+
+        if (!contra.equals(contraConfirm))
+        {
+            throw new Exception("La contraseña no coincide con contraseña de confirmacion");
+        }
+        if (contra.length() < 6){
+            throw new Exception("La contraseña no puede tener menos de 6 caracteres");
+        }
+
+        Pattern patternUsuario = Pattern.compile("^[a-z]+$");
+        Matcher matcher = patternUsuario.matcher(usuario);
+
+        if (!matcher.matches())
+        {
+            throw new Exception("El formato del campo usuario no es valido");
+        }
+
+
+        return true;
+    }
+    public void mostrarError(String msj)
+    {
+        JOptionPane.showMessageDialog(null,msj);
     }
 }
