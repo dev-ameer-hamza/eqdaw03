@@ -23,7 +23,7 @@ public class VentanaLogin {
                 try {
                     if(verificarDatos(tfUsuarioLogin.getText(), tfContrasenyaLogin.getText())){
                         Login login = Main.inciarSesion(tfUsuarioLogin.getText(), tfContrasenyaLogin.getText());
-                        System.out.println(" error " + login.getUsuario() + login.getId_login() + login.getTipo_persona());
+                        System.out.println(" usuario " + login.getUsuario() + " id " + login.getId_login() + " tipo: " + login.getTipo_persona());
                         if (login.getUsuario() == null){
                             throw new Exception("el usuario o contraseña esta mal");
                         }
@@ -54,7 +54,7 @@ public class VentanaLogin {
 
         }
 
-        Pattern pattern = Pattern.compile("^[A-Z]*[a-z]+$");
+        Pattern pattern = Pattern.compile("^[a-z]+$");
         Matcher matcher = pattern.matcher(usuario);
 
         if(!matcher.matches()){
