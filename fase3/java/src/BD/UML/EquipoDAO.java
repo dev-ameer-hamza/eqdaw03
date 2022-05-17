@@ -55,9 +55,19 @@ public class EquipoDAO {
     }
 
     public Equipo buscarEquipo(int id) throws SQLException {
-        Equipo eq = new Equipo();
         PreparedStatement pst = conn.prepareStatement("select * from equipo where id_equipo= ?");
         pst.setInt(1,id);
+       return datosConsultaEquipo(pst);
+    }
+
+    public Equipo buscarEquipoPorNombre(String nombreEquipo) throws SQLException {
+        PreparedStatement pst = conn.prepareStatement("select * from equipo where nombre_equipo= ?");
+        pst.setString(1,nombreEquipo);
+        return datosConsultaEquipo(pst);
+    }
+
+    public Equipo datosConsultaEquipo(PreparedStatement pst) throws SQLException {
+        Equipo eq = new Equipo();
         ResultSet datoEquipo = pst.executeQuery();
         while(datoEquipo.first()){
             eq.setIdEquipo(datoEquipo.getInt("id_equipo"));
@@ -70,5 +80,9 @@ public class EquipoDAO {
         }
         return eq;
     }
+
+    public boolean crearEquipoSinAsistente(){return false;}
+
+    public boolean crearEquipoConAsistente(){return false;}
 
 }

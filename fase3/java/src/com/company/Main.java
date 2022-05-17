@@ -2,10 +2,7 @@ package com.company;
 
 import BD.BaseDatos;
 import BD.UML.*;
-import Modelo.Dueño;
-import Modelo.Entrenador;
-import Modelo.Equipo;
-import Modelo.Login;
+import Modelo.*;
 import Vistas.Administrador.VentanaPrincipalAdmin;
 import Vistas.Login.VentanaLogin;
 
@@ -19,6 +16,21 @@ public class Main {
     public static BaseDatos bd;
     public static DueñoDAO dueñoDAO;
     public static EquipoDAO equipoDAO;
+    public static JornadasDAO jornadasDAO;
+    public static JugadorDAO jugadorDAO;
+    public static LigaDAO ligaDAO;
+    public static LoginDAO loginDAO;
+    public static PartidoDAO partidoDAO;
+    public static PersonaDAO personaDAO;
+
+    public static Dueño dueño;
+    public static Equipo equipo;
+    public static Jornada jornada;
+    public static Jugador jugador;
+    public static Liga liga;
+    public static Login login;
+    public static Partido partido;
+    public static Persona persona;
     public static Connection conn;
 
     ArrayList<Entrenador>Entrenadores = new ArrayList<>();
@@ -36,6 +48,7 @@ public class Main {
 	// write your code here
         //mostrarVentanaLogin();
         mostrarVentanaAdmin();
+        incializarObjetosDAOS();
         /**
          * Conexion a la base de datos
          */
@@ -47,6 +60,17 @@ public class Main {
             JOptionPane.showMessageDialog(null,e.getMessage());
         }
 
+    }
+
+    public static void incializarObjetosDAOS(){
+        dueñoDAO = new DueñoDAO(bd.getConnection());
+        equipoDAO = new EquipoDAO(bd.getConnection());
+        jornadasDAO = new JornadasDAO(bd.getConnection());
+        jugadorDAO = new JugadorDAO(bd.getConnection());
+        ligaDAO = new LigaDAO(bd.getConnection());
+        loginDAO = new LoginDAO(bd.getConnection());
+        partidoDAO = new PartidoDAO(bd.getConnection());
+        personaDAO = new PersonaDAO(bd.getConnection());
     }
 
     // ****************************************//
@@ -90,7 +114,6 @@ public class Main {
      * @throws SQLException
      */
     public static String comprobarEstadoLiga() throws SQLException {
-        LigaDAO ligaDAO = new LigaDAO(bd.getConnection());
         return ligaDAO.consultarEstado();
     }
 
@@ -100,7 +123,6 @@ public class Main {
      * @throws SQLException
      */
     public static ArrayList<Equipo> consultarEquipos() throws SQLException {
-        equipoDAO = new EquipoDAO(bd.getConnection());
         return equipoDAO.consultarEquipos();
     }
 
@@ -112,7 +134,6 @@ public class Main {
      * @throws Exception
      */
     public static Login inciarSesion(String usuario, String contraseña) throws Exception {
-        LoginDAO loginDAO = new LoginDAO(bd.getConnection());
         return loginDAO.inciarSesion(usuario,contraseña);
     }
 
@@ -129,7 +150,7 @@ public class Main {
      * @throws SQLException
      */
     public static boolean crearUsuario(String usuario,String contra) throws SQLException {
-        Login login = new Login();
+        login = new Login();
         login.setUsuario(usuario);
         login.setContrasenya(contra);
         login.setTipo_persona("USER");
@@ -143,17 +164,46 @@ public class Main {
      * @throws Exception
      */
     public static void crearEmparejamientos() throws Exception {
-        PartidoDAO partidoDAO = new PartidoDAO(bd.getConnection());
         partidoDAO.crearEnfrentamientos();
     }
 
-    public static void guardarDueño() {
+
+    public static boolean  crearJugador(String nombre,String apellido,String apodo,String rol,Float sueldo,String equipo) throws SQLException {
+        jugador = new Jugador(nombre,apellido,apodo,rol,sueldo);
+        return jugadorDAO.crearJugador(jugador,equipo);
     }
 
-
+    public static boolean crearEquipoSinAsistente(){
+        return equipoDAO.crearEquipoSinAsistente();
+    }
+    public static boolean crearEquipoConAsistente(){
+        return equipoDAO.crearEquipoConAsistente();
+    }
 
     // ****************************************//
     //     OPERACIONES DE BORRAR LOS DATOS     //
     // ****************************************//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ****************************************//
+    //     OPERACIONES DE BUSCAR LOS DATOS     //
+    // ****************************************//
+
+    public static Equipo buscarEquipoPorNombre(String nombreEquipo) throws SQLException {
+        return equipoDAO.buscarEquipoPorNombre(nombreEquipo);
+    }
 
 }

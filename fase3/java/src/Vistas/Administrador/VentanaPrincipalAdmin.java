@@ -483,10 +483,19 @@ public class VentanaPrincipalAdmin {
                     if(!matcherSueldo.matches()){
                         throw new Exception("El sueldo tiene que ser en numeros");
                     }
-                    if (Integer.parseInt(tfSueldoCrearJugador.getText()) < SALARIOMINIMO){
+                    if (Float.parseFloat(tfSueldoCrearJugador.getText()) < SALARIOMINIMO){
                          throw new Exception("El salario tiene que ser mayor que el salario minimo interprofesional que es de " + SALARIOMINIMO + " euros");
                     }
-                }catch (Exception ex){
+                    Main.crearJugador(
+                            tfNombreCrearJugador.getText()
+                            ,tfApellidoCrearJugador.getText()
+                            ,tfApodoCrearJugador.getText()
+                            ,tfRolCrearJugador.getText()
+                            ,Float.parseFloat(tfSueldoCrearJugador.getText())
+                            ,cbEquipoCrearJugador.getSelectedItem().toString()
+                    );
+                }
+                catch (Exception ex){
                     cerrarPaneles();
                     tfNombreCrearJugador.setText("");
                     tfApellidoCrearJugador.setText("");
