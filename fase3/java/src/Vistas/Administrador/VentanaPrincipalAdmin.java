@@ -1,10 +1,12 @@
 package Vistas.Administrador;
 
+import Modelo.Equipo;
 import com.company.Main;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.sql.SQLException;
@@ -237,7 +239,7 @@ public class VentanaPrincipalAdmin {
 
     public VentanaPrincipalAdmin() throws SQLException {
         cerrarPaneles();
-        deshabilitarBotones();
+        //deshabilitarBotones();
         foto.setVisible(true);
         /**
          * Botones del menu crear
@@ -254,6 +256,14 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 crearJugador.setVisible(true);
+                try {
+                    ArrayList<Equipo> listaEquipos = Main.consultarEquipos();
+                    for (int i=0;i < listaEquipos.size();i++){
+                        cbEquipoCrearJugador.addItem(listaEquipos.get(i).getNombreEquipo());
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
         jmiCrearUsuario.addActionListener(new ActionListener() {
@@ -268,6 +278,11 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 crearEmparejamiento.setVisible(true);
+                try {
+                    Main.crearEmparejamientos();
+                } catch (Exception ex) {
+                    mostrarError(ex.getMessage());
+                }
             }
         });
 
@@ -453,49 +468,24 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 foto.setVisible(true);
-
                 try {
-                    Pattern patternNombre = Pattern.compile("^[A-Za-z]+$");
-                    Matcher matcherNombre = patternNombre.matcher(tfNombreCrearJugador.getText().trim());
+                    validarLosCamposDeTexto(tfNombreCrearJugador.getText(),"Nombre");
 
-                    if (!matcherNombre.matches()){
-                        throw new Exception("Nombre no valido");
-                    }
+                    validarLosCamposDeTexto(tfApellidoCrearJugador.getText(),"Apellido");
 
-                    Pattern patternApellido = Pattern.compile("^[A-Za-z]+$");
-                    Matcher matcherApellido = patternApellido.matcher(tfApellidoCrearJugador.getText().trim());
+                    validarLosCamposDeTexto(tfApodoCrearJugador.getText(),"Apodo");
 
-                    if(!matcherApellido.matches()) {
-                        throw new Exception("Apellido no valido");
-                    }
-
-                    Pattern patternApodo = Pattern.compile("^[A-Za-z]+$");
-                    Matcher matcherApodo = patternApodo.matcher(tfApodoCrearJugador.getText().trim());
-
-                    if (!matcherApodo.matches()){
-                        throw new Exception("Apodo no valido");
-                    }
-
-                    Pattern patternRol = Pattern.compile("^[A-Za-z]+$");
-                    Matcher matcherRol = patternRol.matcher(tfRolCrearJugador.getText().trim());
-
-                    if (!matcherRol.matches()){
-                        throw new Exception("Rol no valido");
-                    }
-
+                    validarLosCamposDeTexto(tfRolCrearJugador.getText(),"Rol");
 
                     Pattern patternSueldo = Pattern.compile("^[0-9]+$");
                     Matcher matcherSueldo = patternSueldo.matcher(tfSueldoCrearJugador.getText().trim());
 
                     if(!matcherSueldo.matches()){
                         throw new Exception("El sueldo tiene que ser en numeros");
-                    }else{
-                        if (Integer.parseInt(tfSueldoCrearJugador.getText()) < SALARIOMINIMO){
-                            throw new Exception("El salario tiene que ser mayor que el salario minimo interprofesional que es de " + SALARIOMINIMO + " euros");
-                        }
                     }
-
-
+                    if (Integer.parseInt(tfSueldoCrearJugador.getText()) < SALARIOMINIMO){
+                         throw new Exception("El salario tiene que ser mayor que el salario minimo interprofesional que es de " + SALARIOMINIMO + " euros");
+                    }
                 }catch (Exception ex){
                     cerrarPaneles();
                     tfNombreCrearJugador.setText("");
@@ -645,5 +635,13 @@ public class VentanaPrincipalAdmin {
     public void mostrarError(String msj)
     {
         JOptionPane.showMessageDialog(null,msj);
+    }
+    public void validarLosCamposDeTexto(String textField,String nombreCampo) throws Exception {
+        Pattern patternTexto = Pattern.compile("^[A-Za-z]+$");
+        Matcher matcherTexto = patternTexto.matcher(textField);
+
+        if(!matcherTexto.matches()) {
+            throw new Exception(nombreCampo + " Invalido!, solo puede tener letras");
+        }
     }
 }

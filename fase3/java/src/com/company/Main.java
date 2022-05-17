@@ -1,10 +1,7 @@
 package com.company;
 
 import BD.BaseDatos;
-import BD.UML.DueñoDAO;
-import BD.UML.EquipoDAO;
-import BD.UML.LigaDAO;
-import BD.UML.LoginDAO;
+import BD.UML.*;
 import Modelo.Dueño;
 import Modelo.Entrenador;
 import Modelo.Equipo;
@@ -30,9 +27,15 @@ public class Main {
     private static JFrame panelAdmin;
     private static JFrame panelLogin;
 
+    /**
+     * metodo main y punto de incio de nuestra aplicacion
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
 	// write your code here
-        mostrarVentanaLogin();
+        //mostrarVentanaLogin();
+        mostrarVentanaAdmin();
         /**
          * Conexion a la base de datos
          */
@@ -46,6 +49,14 @@ public class Main {
 
     }
 
+    // ****************************************//
+    //          MOSTRAR LAS VENTANAS           //
+    // ****************************************//
+
+    /**
+     * un metodo para mostrar la ventana login para inciar la sesion
+     * sin inciar la sesion no te va a dejar entrar en la aplicacion
+     */
     public static void mostrarVentanaLogin() {
         panelLogin = new JFrame("default");
         panelLogin.setContentPane(new VentanaLogin().getPanelLogin());
@@ -54,6 +65,10 @@ public class Main {
         panelLogin.setVisible(true);
     }
 
+    /**
+     * un metodo para mostrar la ventana principal del admin
+     * @throws SQLException
+     */
     public static void mostrarVentanaAdmin() throws SQLException {
         panelAdmin = new JFrame("default");
         panelAdmin.setContentPane(new VentanaPrincipalAdmin().getPruebaPanel());
@@ -64,34 +79,55 @@ public class Main {
     }
     public static void mostrarVentanaUsuario() {}
 
-    public static ArrayList<Equipo> consultarEquipos() throws SQLException {
-        equipoDAO = new EquipoDAO(bd.getConnection());
-        return equipoDAO.consultarEquipos();
-    }
+    // ****************************************//
+    //   CONSULTAS Y COMPRABACION DE DATOS     //
+    // ****************************************//
 
-    public static void guardarDueño() {
 
-    }
-
+    /**
+     * un metodo para comprobar el estado de liga si esta abierto o cerrado
+     * @return String
+     * @throws SQLException
+     */
     public static String comprobarEstadoLiga() throws SQLException {
         LigaDAO ligaDAO = new LigaDAO(bd.getConnection());
         return ligaDAO.consultarEstado();
     }
 
+    /**
+     * un metodo para consultar todos equipos que existen en base de datos
+     * @return
+     * @throws SQLException
+     */
+    public static ArrayList<Equipo> consultarEquipos() throws SQLException {
+        equipoDAO = new EquipoDAO(bd.getConnection());
+        return equipoDAO.consultarEquipos();
+    }
 
-
-    //////////////////////////////////////////////
-    // ****************************************//
-    //codigo para consultas a la base de datos /
-    ////////////////////////////////////////////
-
-
+    /**
+     * un metodo para inciar le sesion de usuario
+     * @param usuario
+     * @param contraseña
+     * @return Login nos devuelve un objeto de clase Login
+     * @throws Exception
+     */
     public static Login inciarSesion(String usuario, String contraseña) throws Exception {
         LoginDAO loginDAO = new LoginDAO(bd.getConnection());
         return loginDAO.inciarSesion(usuario,contraseña);
     }
 
+    // ****************************************//
+    //     OPERACIONES DE CREAR LOS DATOS      //
+    // ****************************************//
 
+
+    /**
+     * un metodo para crear el usuario (un usuario tipo "USER")
+     * @param usuario
+     * @param contra
+     * @return boolean
+     * @throws SQLException
+     */
     public static boolean crearUsuario(String usuario,String contra) throws SQLException {
         Login login = new Login();
         login.setUsuario(usuario);
@@ -101,4 +137,23 @@ public class Main {
         return loginDAO.registrarse(login);
 
     }
+
+    /**
+     * un metodo para crear las jornadas y enfrentaminetos de cada jornada
+     * @throws Exception
+     */
+    public static void crearEmparejamientos() throws Exception {
+        PartidoDAO partidoDAO = new PartidoDAO(bd.getConnection());
+        partidoDAO.crearEnfrentamientos();
+    }
+
+    public static void guardarDueño() {
+    }
+
+
+
+    // ****************************************//
+    //     OPERACIONES DE BORRAR LOS DATOS     //
+    // ****************************************//
+
 }

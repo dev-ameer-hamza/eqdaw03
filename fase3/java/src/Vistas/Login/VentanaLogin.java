@@ -22,26 +22,6 @@ public class VentanaLogin {
         siguienteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                try {
-//                    if(verificarDatos(tfUsuarioLogin.getText(), tfContrasenyaLogin.getText())){
-//                        Login login = Main.inciarSesion(tfUsuarioLogin.getText(), tfContrasenyaLogin.getText());
-//                        System.out.println(" error " + login.getUsuario() + login.getId_login() + login.getTipo_persona());
-//                        if (login.getUsuario() == null){
-//                            throw new Exception("el usuario o contraseña esta mal");
-//                        }
-//                        if ("admin".equalsIgnoreCase(login.getTipo_persona())){
-//                            /* TODO hay que ocultar la ventana login primero*/
-//                            Main.mostrarVentanaAdmin();
-//                        }
-//                        else
-//                        {
-//                            Main.mostrarVentanaUsuario();
-//                        }
-//                    }
-//                } catch (Exception ex) {
-//                    Main.mostrarVentanaLogin();
-//                    mostrarError(ex.getMessage());
-//                }
                 try {
                     if(verificarDatos(tfUsuarioLogin.getText(), tfContrasenyaLogin.getText())){
                         Login login = Main.inciarSesion(tfUsuarioLogin.getText(), tfContrasenyaLogin.getText());
