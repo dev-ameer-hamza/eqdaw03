@@ -6,7 +6,7 @@ public class Jugador extends Persona{
 
     private String apodo;
     private String rol;
-    private int sueldo;
+    private float sueldo;
 
 
 
@@ -21,8 +21,15 @@ public class Jugador extends Persona{
      * @param sueldo
      */
 
-    public Jugador(int id_personas, String nombre, String apellido, String apodo, String rol, int sueldo) {
+    public Jugador(int id_personas, String nombre, String apellido, String apodo, String rol, float sueldo) {
         super(id_personas, nombre, apellido);
+        this.apodo = apodo;
+        this.rol = rol;
+        this.sueldo = sueldo;
+    }
+
+    public Jugador(String nombre, String apellido,String apodo, String rol, float sueldo) {
+        super(nombre, apellido);
         this.apodo = apodo;
         this.rol = rol;
         this.sueldo = sueldo;
@@ -69,7 +76,7 @@ public class Jugador extends Persona{
      * @return sueldo
      */
 
-    public int getSueldo() {
+    public float getSueldo() {
         return sueldo;
     }
 
@@ -78,7 +85,7 @@ public class Jugador extends Persona{
      * @param sueldo
      */
 
-    public void setSueldo(int sueldo) {
+    public void setSueldo(float sueldo) {
         this.sueldo = sueldo;
     }
 
