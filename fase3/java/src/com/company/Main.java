@@ -3,6 +3,7 @@ package com.company;
 import BD.BaseDatos;
 import BD.UML.DueñoDAO;
 import BD.UML.EquipoDAO;
+import BD.UML.LigaDAO;
 import Modelo.Dueño;
 import Modelo.Entrenador;
 import Modelo.Equipo;
@@ -37,7 +38,7 @@ public class Main {
             bd = new BaseDatos();
         }
         catch(Exception e){
-            JOptionPane.showMessageDialog(null,"hola " + e.getMessage());
+            JOptionPane.showMessageDialog(null,e.getMessage());
         }
     }
 
