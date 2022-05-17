@@ -25,13 +25,21 @@ public class PersonaDAO {
      * @return ResultSet
      * @throws SQLException
      */
-    public ResultSet crearPersona(Persona p) throws SQLException {
+    public Persona crearPersona(Persona p) throws SQLException {
+        Persona persona = null;
         PreparedStatement pst = conn.prepareStatement("insert into persona values(?,?)");
         pst.setString(1,p.getNombre());
         pst.setString(2,p.getApellido());
 
         ResultSet datosPersona = pst.executeQuery();
-        return datosPersona;
+        while(datosPersona.next())
+        {
+            persona = new Persona();
+            persona.setId_personas(datosPersona.getInt("id_persona"));
+            persona.setNombre(datosPersona.getString("nombre"));
+            persona.setApellido(datosPersona.getString("apellido"));
+        }
+        return persona;
     }
 
     /**
