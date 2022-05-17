@@ -43,10 +43,24 @@ public class VentanaLogin {
 //                    mostrarError(ex.getMessage());
 //                }
                 try {
-                    Main.mostrarVentanaAdmin();
-
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null,ex.getMessage());
+                    if(verificarDatos(tfUsuarioLogin.getText(), tfContrasenyaLogin.getText())){
+                        Login login = Main.inciarSesion(tfUsuarioLogin.getText(), tfContrasenyaLogin.getText());
+                        System.out.println(" usuario " + login.getUsuario() + " id " + login.getId_login() + " tipo: " + login.getTipo_persona());
+                        if (login.getUsuario() == null){
+                            throw new Exception("el usuario o contraseña esta mal");
+                        }
+                        if ("admin".equalsIgnoreCase(login.getTipo_persona())){
+                            /* TODO hay que ocultar la ventana login primero*/
+                            Main.mostrarVentanaAdmin();
+                        }
+                        else
+                        {
+                            Main.mostrarVentanaUsuario();
+                        }
+                    }
+                } catch (Exception ex) {
+                    Main.mostrarVentanaLogin();
+                    mostrarError(ex.getMessage());
                 }
             }
         });
@@ -54,23 +68,24 @@ public class VentanaLogin {
 
     public JPanel getPanelLogin() {return panelLogin;}
 
-//    public boolean verificarDatos(String usuario, String contrasenya) throws Exception {
-//
-//        if (usuario.isEmpty() || contrasenya.toString().isEmpty()) {
-//
-//            throw new Exception("Usuario o contraseña estan vacios");
-//
-//        }
-//
-//        Pattern pattern = Pattern.compile("^[A-Z]*[a-z]+$");
-//        Matcher matcher = pattern.matcher(usuario);
-//
-//        if(!matcher.matches()){
-//            throw  new Exception("El formato de usuario no es valido");
-//        }
-//        return true;
-//
-//    }
+
+    public boolean verificarDatos(String usuario, String contrasenya) throws Exception {
+
+        if (usuario.isEmpty() || contrasenya.toString().isEmpty()) {
+
+            throw new Exception("Usuario o contraseña estan vacios");
+
+        }
+
+        Pattern pattern = Pattern.compile("^[a-z]+$");
+        Matcher matcher = pattern.matcher(usuario);
+
+        if(!matcher.matches()){
+            throw  new Exception("El formato de usuario no es valido");
+        }
+        return true;
+
+    }
 
     public void mostrarError(String mensaje){
 

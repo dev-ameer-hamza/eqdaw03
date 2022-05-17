@@ -91,7 +91,14 @@ public class Main {
         return loginDAO.inciarSesion(usuario,contraseña);
     }
 
-    public static Connection conexionDesdeBD(){
-        return bd.getConnection();
+
+    public static boolean crearUsuario(String usuario,String contra) throws SQLException {
+        Login login = new Login();
+        login.setUsuario(usuario);
+        login.setContrasenya(contra);
+        login.setTipo_persona("USER");
+        LoginDAO loginDAO = new LoginDAO(bd.getConnection());
+        return loginDAO.registrarse(login);
+
     }
 }

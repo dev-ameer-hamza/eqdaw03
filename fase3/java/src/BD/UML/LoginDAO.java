@@ -26,7 +26,7 @@ public class LoginDAO {
         Login login = new Login();
         try{
             PreparedStatement pst = conn.prepareStatement("select * from login where usuario=? and contrasenya=?");
-        pst.setString(1,usuario);
+        pst.setString(1,usuario.trim());
         pst.setString(2,pass);
             ResultSet loginDAO = pst.executeQuery();
 
@@ -51,10 +51,11 @@ public class LoginDAO {
      * @return boolean
      */
     public boolean registrarse(Login login) throws SQLException {
-        PreparedStatement pst = conn.prepareStatement("insert into login values(?,?,?)");
-        pst.setString(1,login.getUsuario());
-        pst.setString(2,login.getContrasenya());
-        pst.setString(3, login.getTipo_persona());
+        System.out.println(login.getTipo_persona());
+        PreparedStatement pst = conn.prepareStatement("insert into login(usuario,contrasenya,tipo) values(?,?,'USER')");
+        pst.setString(1,login.getUsuario().trim());
+        pst.setString(2,login.getContrasenya().trim());
+        //pst.setString(3, login.getTipo_persona());
         int resultado = pst.executeUpdate();
         return resultado == 1;
     }
