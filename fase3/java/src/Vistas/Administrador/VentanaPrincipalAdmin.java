@@ -1,8 +1,11 @@
 package Vistas.Administrador;
 
+import com.company.Main;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class VentanaPrincipalAdmin {
     private JMenuItem jmCrear;
@@ -34,7 +37,6 @@ public class VentanaPrincipalAdmin {
     private JMenuItem jmiCrearEmparejamiento;
     private JMenuItem jmiCrearUsuario;
     private JMenu jmBorrar;
-    private JMenu jmModificar;
     private JMenu jmConsultar;
     private JMenuItem jmiBorrarEquipo;
     private JMenuItem jmiBorrarJugador;
@@ -136,21 +138,44 @@ public class VentanaPrincipalAdmin {
     private JLabel lbRolConsultarJugador;
     private JLabel lbSueldoConsultarJugador;
     private JLabel lbEquipoConsultarJugador;
-    private JPanel consultarJornada;
+    private JPanel consultarPartido;
     private JPanel consultarClasificacion;
     private JButton btAtrasConsultarJugador;
     private JButton btAtrasConsultarJornadas;
     private JButton btSiguienteConsultarJornadas;
     private JButton btSiguienteConsultarJugador;
-    private JLabel lbJornadaConsultarJornada;
     private JLabel lbEquipoLocalConsultarJornada;
     private JLabel lbEquipoVisitanteConsultarJornada;
     private JLabel lbEquipoGanadorConsultarJornada;
+    private JLabel lbPartidosGanadosConsultarClasificacion;
+    private JLabel lbPartidosPerdidosConsultarClasificacion;
+    private JLabel lbPuntosConsultarClasificacion;
+    private JButton btSiguienteConsultarClasificacion;
+    private JButton btAtrasConsultarClasificacion;
+    private JMenu jmModificar;
+    private JButton btInicio;
+    private JPanel consultarJornada;
+    private JLabel lbPartidoConsultarJornada;
+    private JComboBox cbJornadaConsultarJornada;
+    private JPanel modificarJornada;
+    private JComboBox cbJornadaModificarJornada;
+    private JButton btAtrasModificarJornada;
+    private JButton btSiguienteModificarJornada;
+    private JLabel lbEquipoLocalModificarJornada;
+    private JLabel lbEquipoVisitanteModificarJornada;
+    private JLabel lbPartidoModificarJornada;
+    private JComboBox cbEquipoGanadorModificarJornada;
+    private JMenuItem jmiModificarJornada;
+    private JPanel modificarPartido;
+    private JMenu jmInicio;
 
     public JPanel getPruebaPanel() {
         return pruebaPanel;
     }
 
+    /**
+     * metodo para cerrar paneles
+     */
     public void cerrarPaneles() {
         crearDueño.setVisible(false);
         crearEntrenador.setVisible(false);
@@ -169,14 +194,43 @@ public class VentanaPrincipalAdmin {
         modificarEntrenador.setVisible(false);
         modificarAsistente.setVisible(false);
         modificarUsuario.setVisible(false);
+        modificarJornada.setVisible(false);
         consultarEquipo.setVisible(false);
         consultarJugador.setVisible(false);
         consultarJornada.setVisible(false);
         consultarClasificacion.setVisible(false);
+
     }
 
-    public VentanaPrincipalAdmin() {
+    /**
+     * metodo para deshabilitar botones una vez la clasificacion este hecha
+     */
+    public void deshabilitarBotones() throws SQLException {
+        if (Main.comprobarEstadoLiga().equals("ABIERTO")){
+            System.out.println(Main.comprobarEstadoLiga());
+            jmiConsultarJornadas.setVisible(false);
+            jmiConsultarClasificacion.setVisible(false);
+            jmiModificarJornada.setVisible(false);
+        } else {
+            //dentro de crear
+            jmiCrearEquipo.setVisible(false);
+            jmiCrearJugador.setVisible(false);
+            jmiCrearEmparejamiento.setVisible(false);
+            //dentro de borrar
+            jmiBorrarEquipo.setVisible(false);
+            jmiBorrarJugador.setVisible(false);
+            //dentro de modificar
+            jmiModificarAsistente.setVisible(false);
+            jmiModificarDueño.setVisible(false);
+            jmiModificarEquipo.setVisible(false);
+            jmiModificarJugador.setVisible(false);
+            jmiModificarEntrenador.setVisible(false);
+        }
+    }
+
+    public VentanaPrincipalAdmin() throws SQLException {
         cerrarPaneles();
+        deshabilitarBotones();
         foto.setVisible(true);
         /**
          * Botones del menu crear
@@ -279,6 +333,13 @@ public class VentanaPrincipalAdmin {
                 modificarUsuario.setVisible(true);
             }
         });
+        jmiModificarJornada.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                modificarJornada.setVisible(true);
+            }
+        });
         /**
          * Botones del moenu consultar
          */
@@ -347,51 +408,6 @@ public class VentanaPrincipalAdmin {
         });
 
         /**
-         * botones para cancelar en crear
-         */
-        btCancelarCrearEquipo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarCrearDueño.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarCrearEntrenador.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarCrearAsistente.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarCrearJugador.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarCrearUsuario.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        /**
          * botones para ir atras en crear
          */
         btAtrasCrearDueño.addActionListener(new ActionListener() {
@@ -439,30 +455,7 @@ public class VentanaPrincipalAdmin {
                 foto.setVisible(true);
             }
         });
-        /**
-         * boton cancelar en borrar
-         */
-        btCancelarBorrarEquipo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarBorrarJugador.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarBorrarUsuario.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
+
         /**
          * boton borrar en borrar
          */
@@ -481,52 +474,6 @@ public class VentanaPrincipalAdmin {
             }
         });
         btBorrarBorrarUsuario.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-
-        /**
-         * boton cancelar en modificar
-         */
-        btCancelarModificarEquipo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarModificarJugador.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarModificarDueño.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarModificarEntrenador.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarModificarAsistente.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarModificarUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
@@ -573,6 +520,16 @@ public class VentanaPrincipalAdmin {
             }
         });
         btModificarModificarUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                foto.setVisible(true);
+            }
+        });
+        /**
+         * boton de inicio
+         */
+        btInicio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
