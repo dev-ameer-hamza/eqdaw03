@@ -54,7 +54,7 @@ public class Main {
         panelLogin.setVisible(true);
     }
 
-    public static void mostrarVentanaAdmin() {
+    public static void mostrarVentanaAdmin() throws SQLException {
         panelAdmin = new JFrame("default");
         panelAdmin.setContentPane(new VentanaPrincipalAdmin().getPruebaPanel());
         panelAdmin.setSize(600,600);
@@ -73,6 +73,11 @@ public class Main {
 
     }
 
+    public static String comprobarEstadoLiga() throws SQLException {
+        LigaDAO ligaDAO = new LigaDAO(bd.getConnection());
+        return ligaDAO.consultarEstado();
+    }
+
 
 
     //////////////////////////////////////////////
@@ -86,6 +91,7 @@ public class Main {
         return loginDAO.inciarSesion(usuario,contraseña);
     }
 
+
     public static boolean crearUsuario(String usuario,String contra) throws SQLException {
         Login login = new Login();
         login.setUsuario(usuario);
@@ -93,5 +99,6 @@ public class Main {
         login.setTipo_persona("USER");
         LoginDAO loginDAO = new LoginDAO(bd.getConnection());
         return loginDAO.registrarse(login);
+
     }
 }
