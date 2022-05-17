@@ -22,18 +22,25 @@ public class LoginDAO {
      * @return Login
      * @throws SQLException
      */
-    public Login inciarSesion(String usuario, String pass) throws SQLException {
+    public Login inciarSesion(String usuario, String pass)  {
         Login login = new Login();
-        PreparedStatement pst = conn.prepareStatement("select * from login where usuario=? and contrasenta=?");
+        try{
+            PreparedStatement pst = conn.prepareStatement("select * from login where usuario=? and contrasenya=?");
         pst.setString(1,usuario);
         pst.setString(2,pass);
-        ResultSet loginDAO = pst.executeQuery();
-        while(loginDAO.next()){
-            login.setId_login(loginDAO.getInt("id_login"));
-            login.setUsuario(loginDAO.getString("usuario"));
-            login.setTipo_persona(loginDAO.getString("tipo_persona"));
+            ResultSet loginDAO = pst.executeQuery();
 
+            if(loginDAO.next()){
+                login.setId_login(loginDAO.getInt("id_login"));
+                login.setUsuario(loginDAO.getString("usuario"));
+                login.setTipo_persona(loginDAO.getString("tipo"));
+            }
         }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+
+        //loginDAO.close();
         return login;
     }
 

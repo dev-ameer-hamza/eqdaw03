@@ -4,9 +4,11 @@ import BD.BaseDatos;
 import BD.UML.DueñoDAO;
 import BD.UML.EquipoDAO;
 import BD.UML.LigaDAO;
+import BD.UML.LoginDAO;
 import Modelo.Dueño;
 import Modelo.Entrenador;
 import Modelo.Equipo;
+import Modelo.Login;
 import Vistas.Administrador.VentanaPrincipalAdmin;
 import Vistas.Login.VentanaLogin;
 
@@ -67,5 +69,18 @@ public class Main {
 
     public static void guardarDueño() {
 
+    }
+
+
+
+    //////////////////////////////////////////////
+    // ****************************************//
+    //codigo para consultas a la base de datos /
+    ////////////////////////////////////////////
+
+
+    public static Login inciarSesion(String usuario, String contraseña) throws Exception {
+        LoginDAO loginDAO = new LoginDAO(bd.getConnection());
+        return loginDAO.inciarSesion(usuario,contraseña);
     }
 }
