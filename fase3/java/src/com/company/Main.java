@@ -46,15 +46,15 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
 	// write your code here
-        //mostrarVentanaLogin();
-        mostrarVentanaAdmin();
-        incializarObjetosDAOS();
+        mostrarVentanaLogin();
+        //mostrarVentanaAdmin();
         /**
          * Conexion a la base de datos
          */
 
         try{
             bd = new BaseDatos();
+            incializarObjetosDAOS();
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null,e.getMessage());

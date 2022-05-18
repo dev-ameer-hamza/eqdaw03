@@ -50,7 +50,7 @@ public class JornadasDAO {
      * @throws SQLException
      */
     public boolean crearCadaJornada(int dia) throws SQLException {
-        PreparedStatement pstj = conn.prepareStatement("insert into jornada values(?)");
+        PreparedStatement pstj = conn.prepareStatement("insert into jornada(fecha) values(?)");
         pstj.setDate(1, Date.valueOf(LocalDate.now().plusDays(dia)));
         int resultado = pstj.executeUpdate();
         return resultado == 1;
@@ -65,7 +65,7 @@ public class JornadasDAO {
      */
     public ArrayList<Jornada> listaJornadas() throws SQLException {
         ArrayList<Jornada> listaJornada = new ArrayList<>();
-        PreparedStatement pstjl = conn.prepareStatement("select * from jornadas");
+        PreparedStatement pstjl = conn.prepareStatement("select * from jornada");
         ResultSet datosJornadas = pstjl.executeQuery();
         while(datosJornadas.next())
         {
