@@ -97,6 +97,7 @@ public class PartidoDAO {
      * @throws SQLException
      */
     public void crearPartido(int idJornada,int equipoLocal,int equipoVisitante) throws Exception,SQLException {
+        System.out.println("equipo local - " + equipoLocal + " equipo visitante - " + equipoVisitante + " jornada - " + idJornada);
         PreparedStatement pst = conn.prepareStatement("insert into partido(id_jornada,id_equipo1,id_equipo2) values(?,?,?)");
         pst.setInt(1,idJornada);
         pst.setInt(2,equipoLocal);

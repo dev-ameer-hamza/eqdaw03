@@ -1,5 +1,6 @@
 package BD.UML;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,5 +21,13 @@ public class LigaDAO {
             estado = set.getString("estado");
         }
         return estado;
+    }
+    public void cambiarEstado() throws SQLException{
+        Statement st = conn.createStatement();
+        if (consultarEstado().equals("ABIERTO")){
+            st.executeUpdate("update liga set estado = 'CERRADO'");
+        } else{
+            st.executeUpdate("update liga set estado = 'ABIERTO'");
+        }
     }
 }

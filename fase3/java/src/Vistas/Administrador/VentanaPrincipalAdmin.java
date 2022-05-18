@@ -1,5 +1,6 @@
 package Vistas.Administrador;
 
+import BD.UML.LigaDAO;
 import Modelo.Equipo;
 import com.company.Main;
 
@@ -239,7 +240,7 @@ public class VentanaPrincipalAdmin {
 
     public VentanaPrincipalAdmin() throws SQLException {
         cerrarPaneles();
-        //deshabilitarBotones();
+        deshabilitarBotones();
         foto.setVisible(true);
         /**
          * Botones del menu crear
@@ -276,12 +277,15 @@ public class VentanaPrincipalAdmin {
         jmiCrearEmparejamiento.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                crearEmparejamiento.setVisible(true);
                 try {
                     Main.crearEmparejamientos();
+                    Main.cambiarEstadoLiga();
+                    cerrarPaneles();
+                    crearEmparejamiento.setVisible(true);
                 } catch (Exception ex) {
                     mostrarError(ex.getMessage());
+                    cerrarPaneles();
+                    foto.setVisible(true);
                 }
             }
         });
