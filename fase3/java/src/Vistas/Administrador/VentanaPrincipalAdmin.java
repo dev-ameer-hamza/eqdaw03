@@ -239,7 +239,7 @@ public class VentanaPrincipalAdmin {
 
     public VentanaPrincipalAdmin() throws SQLException {
         cerrarPaneles();
-        //deshabilitarBotones();
+        deshabilitarBotones();
         foto.setVisible(true);
         /**
          * Botones del menu crear
