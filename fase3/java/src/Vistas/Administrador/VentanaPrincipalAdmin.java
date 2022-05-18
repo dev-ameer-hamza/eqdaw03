@@ -1,12 +1,16 @@
 package Vistas.Administrador;
 
+import Modelo.Equipo;
 import com.company.Main;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.sql.SQLException;
+
 
 public class VentanaPrincipalAdmin {
     private JMenuItem jmCrear;
@@ -38,7 +42,6 @@ public class VentanaPrincipalAdmin {
     private JMenuItem jmiCrearEmparejamiento;
     private JMenuItem jmiCrearUsuario;
     private JMenu jmBorrar;
-    private JMenu jmModificar;
     private JMenu jmConsultar;
     private JMenuItem jmiBorrarEquipo;
     private JMenuItem jmiBorrarJugador;
@@ -140,22 +143,48 @@ public class VentanaPrincipalAdmin {
     private JLabel lbRolConsultarJugador;
     private JLabel lbSueldoConsultarJugador;
     private JLabel lbEquipoConsultarJugador;
-    private JPanel consultarJornada;
+    private JPanel consultarPartido;
     private JPanel consultarClasificacion;
     private JButton btAtrasConsultarJugador;
     private JButton btAtrasConsultarJornadas;
     private JButton btSiguienteConsultarJornadas;
     private JButton btSiguienteConsultarJugador;
-    private JLabel lbJornadaConsultarJornada;
     private JLabel lbEquipoLocalConsultarJornada;
     private JLabel lbEquipoVisitanteConsultarJornada;
     private JLabel lbEquipoGanadorConsultarJornada;
+
     private final float SALARIOMINIMO = 950.0f;
+
+    private JLabel lbPartidosGanadosConsultarClasificacion;
+    private JLabel lbPartidosPerdidosConsultarClasificacion;
+    private JLabel lbPuntosConsultarClasificacion;
+    private JButton btSiguienteConsultarClasificacion;
+    private JButton btAtrasConsultarClasificacion;
+    private JMenu jmModificar;
+    private JButton btInicio;
+    private JPanel consultarJornada;
+    private JLabel lbPartidoConsultarJornada;
+    private JComboBox cbJornadaConsultarJornada;
+    private JPanel modificarJornada;
+    private JComboBox cbJornadaModificarJornada;
+    private JButton btAtrasModificarJornada;
+    private JButton btSiguienteModificarJornada;
+    private JLabel lbEquipoLocalModificarJornada;
+    private JLabel lbEquipoVisitanteModificarJornada;
+    private JLabel lbPartidoModificarJornada;
+    private JComboBox cbEquipoGanadorModificarJornada;
+    private JMenuItem jmiModificarJornada;
+    private JPanel modificarPartido;
+    private JMenu jmInicio;
+
 
     public JPanel getPruebaPanel() {
         return pruebaPanel;
     }
 
+    /**
+     * metodo para cerrar paneles
+     */
     public void cerrarPaneles() {
         crearDueño.setVisible(false);
         crearEntrenador.setVisible(false);
@@ -174,14 +203,43 @@ public class VentanaPrincipalAdmin {
         modificarEntrenador.setVisible(false);
         modificarAsistente.setVisible(false);
         modificarUsuario.setVisible(false);
+        modificarJornada.setVisible(false);
         consultarEquipo.setVisible(false);
         consultarJugador.setVisible(false);
         consultarJornada.setVisible(false);
         consultarClasificacion.setVisible(false);
+
     }
 
-    public VentanaPrincipalAdmin() {
+    /**
+     * metodo para deshabilitar botones una vez la clasificacion este hecha
+     */
+    public void deshabilitarBotones() throws SQLException {
+        if (Main.comprobarEstadoLiga().equals("ABIERTO")){
+            System.out.println(Main.comprobarEstadoLiga());
+            jmiConsultarJornadas.setVisible(false);
+            jmiConsultarClasificacion.setVisible(false);
+            jmiModificarJornada.setVisible(false);
+        } else {
+            //dentro de crear
+            jmiCrearEquipo.setVisible(false);
+            jmiCrearJugador.setVisible(false);
+            jmiCrearEmparejamiento.setVisible(false);
+            //dentro de borrar
+            jmiBorrarEquipo.setVisible(false);
+            jmiBorrarJugador.setVisible(false);
+            //dentro de modificar
+            jmiModificarAsistente.setVisible(false);
+            jmiModificarDueño.setVisible(false);
+            jmiModificarEquipo.setVisible(false);
+            jmiModificarJugador.setVisible(false);
+            jmiModificarEntrenador.setVisible(false);
+        }
+    }
+
+    public VentanaPrincipalAdmin() throws SQLException {
         cerrarPaneles();
+        //deshabilitarBotones();
         foto.setVisible(true);
         /**
          * Botones del menu crear
@@ -198,6 +256,14 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 crearJugador.setVisible(true);
+                try {
+                    ArrayList<Equipo> listaEquipos = Main.consultarEquipos();
+                    for (int i=0;i < listaEquipos.size();i++){
+                        cbEquipoCrearJugador.addItem(listaEquipos.get(i).getNombreEquipo());
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
         jmiCrearUsuario.addActionListener(new ActionListener() {
@@ -212,6 +278,11 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 crearEmparejamiento.setVisible(true);
+                try {
+                    Main.crearEmparejamientos();
+                } catch (Exception ex) {
+                    mostrarError(ex.getMessage());
+                }
             }
         });
 
@@ -284,6 +355,13 @@ public class VentanaPrincipalAdmin {
                 modificarUsuario.setVisible(true);
             }
         });
+        jmiModificarJornada.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                modificarJornada.setVisible(true);
+            }
+        });
         /**
          * Botones del moenu consultar
          */
@@ -352,51 +430,6 @@ public class VentanaPrincipalAdmin {
         });
 
         /**
-         * botones para cancelar en crear
-         */
-        btCancelarCrearEquipo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarCrearDueño.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarCrearEntrenador.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarCrearAsistente.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarCrearJugador.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarCrearUsuario.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        /**
          * botones para ir atras en crear
          */
         btAtrasCrearDueño.addActionListener(new ActionListener() {
@@ -435,50 +468,34 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 foto.setVisible(true);
-
                 try {
-                    Pattern patternNombre = Pattern.compile("^[A-Za-z]+$");
-                    Matcher matcherNombre = patternNombre.matcher(tfNombreCrearJugador.getText().trim());
+                    validarLosCamposDeTexto(tfNombreCrearJugador.getText(),"Nombre");
 
-                    if (!matcherNombre.matches()){
-                        throw new Exception("Nombre no valido");
-                    }
+                    validarLosCamposDeTexto(tfApellidoCrearJugador.getText(),"Apellido");
 
-                    Pattern patternApellido = Pattern.compile("^[A-Za-z]+$");
-                    Matcher matcherApellido = patternApellido.matcher(tfApellidoCrearJugador.getText().trim());
+                    validarLosCamposDeTexto(tfApodoCrearJugador.getText(),"Apodo");
 
-                    if(!matcherApellido.matches()) {
-                        throw new Exception("Apellido no valido");
-                    }
-
-                    Pattern patternApodo = Pattern.compile("^[A-Za-z]+$");
-                    Matcher matcherApodo = patternApodo.matcher(tfApodoCrearJugador.getText().trim());
-
-                    if (!matcherApodo.matches()){
-                        throw new Exception("Apodo no valido");
-                    }
-
-                    Pattern patternRol = Pattern.compile("^[A-Za-z]+$");
-                    Matcher matcherRol = patternRol.matcher(tfRolCrearJugador.getText().trim());
-
-                    if (!matcherRol.matches()){
-                        throw new Exception("Rol no valido");
-                    }
-
+                    validarLosCamposDeTexto(tfRolCrearJugador.getText(),"Rol");
 
                     Pattern patternSueldo = Pattern.compile("^[0-9]+$");
                     Matcher matcherSueldo = patternSueldo.matcher(tfSueldoCrearJugador.getText().trim());
 
                     if(!matcherSueldo.matches()){
                         throw new Exception("El sueldo tiene que ser en numeros");
-                    }else{
-                        if (Integer.parseInt(tfSueldoCrearJugador.getText()) < SALARIOMINIMO){
-                            throw new Exception("El salario tiene que ser mayor que el salario minimo interprofesional que es de " + SALARIOMINIMO + " euros");
-                        }
                     }
-
-
-                }catch (Exception ex){
+                    if (Float.parseFloat(tfSueldoCrearJugador.getText()) < SALARIOMINIMO){
+                         throw new Exception("El salario tiene que ser mayor que el salario minimo interprofesional que es de " + SALARIOMINIMO + " euros");
+                    }
+                    Main.crearJugador(
+                            tfNombreCrearJugador.getText()
+                            ,tfApellidoCrearJugador.getText()
+                            ,tfApodoCrearJugador.getText()
+                            ,tfRolCrearJugador.getText()
+                            ,Float.parseFloat(tfSueldoCrearJugador.getText())
+                            ,cbEquipoCrearJugador.getSelectedItem().toString()
+                    );
+                }
+                catch (Exception ex){
                     cerrarPaneles();
                     tfNombreCrearJugador.setText("");
                     tfApellidoCrearJugador.setText("");
@@ -515,30 +532,7 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
-        /**
-         * boton cancelar en borrar
-         */
-        btCancelarBorrarEquipo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarBorrarJugador.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarBorrarUsuario.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
+
         /**
          * boton borrar en borrar
          */
@@ -557,52 +551,6 @@ public class VentanaPrincipalAdmin {
             }
         });
         btBorrarBorrarUsuario.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-
-        /**
-         * boton cancelar en modificar
-         */
-        btCancelarModificarEquipo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarModificarJugador.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarModificarDueño.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarModificarEntrenador.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarModificarAsistente.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                foto.setVisible(true);
-            }
-        });
-        btCancelarModificarUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
@@ -655,6 +603,16 @@ public class VentanaPrincipalAdmin {
                 foto.setVisible(true);
             }
         });
+        /**
+         * boton de inicio
+         */
+        btInicio.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarPaneles();
+                foto.setVisible(true);
+            }
+        });
     }
 
 
@@ -686,5 +644,13 @@ public class VentanaPrincipalAdmin {
     public void mostrarError(String msj)
     {
         JOptionPane.showMessageDialog(null,msj);
+    }
+    public void validarLosCamposDeTexto(String textField,String nombreCampo) throws Exception {
+        Pattern patternTexto = Pattern.compile("^[A-Za-z]+$");
+        Matcher matcherTexto = patternTexto.matcher(textField);
+
+        if(!matcherTexto.matches()) {
+            throw new Exception(nombreCampo + " Invalido!, solo puede tener letras");
+        }
     }
 }

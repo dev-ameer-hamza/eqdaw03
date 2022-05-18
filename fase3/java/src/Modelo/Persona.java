@@ -19,6 +19,15 @@ public class Persona {
         this.apellido = apellido;
     }
 
+    public Persona(String nombre, String apellido) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+    }
+
+    public Persona() {
+
+    }
+
     /**
      * Creamos el getter para id_personas
      * @return

@@ -1,11 +1,13 @@
 package Vistas.Login;
 
 import Modelo.Login;
+import Vistas.Administrador.VentanaPrincipalAdmin;
 import com.company.Main;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,6 +47,7 @@ public class VentanaLogin {
     }
 
     public JPanel getPanelLogin() {return panelLogin;}
+
 
     public boolean verificarDatos(String usuario, String contrasenya) throws Exception {
 
