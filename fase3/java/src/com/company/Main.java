@@ -48,13 +48,13 @@ public class Main {
 	// write your code here
         //mostrarVentanaLogin();
         mostrarVentanaAdmin();
-        incializarObjetosDAOS();
         /**
          * Conexion a la base de datos
          */
 
         try{
             bd = new BaseDatos();
+            incializarObjetosDAOS();
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null,e.getMessage());
