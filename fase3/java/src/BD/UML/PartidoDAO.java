@@ -34,6 +34,7 @@ public class PartidoDAO {
         this.jornadasDAO.crearJornadas();
         listaEquipos = equipoDAO.consultarEquipos();
         listaJornadas = jornadasDAO.listaJornadas();
+        System.out.println("lista jornadas " + listaJornadas);
         crearCadaEnfrentamiento(listaEquipos,listaJornadas);
     }
 

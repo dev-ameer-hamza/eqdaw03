@@ -48,7 +48,6 @@ public class Main {
 	// write your code here
         mostrarVentanaLogin();
         //mostrarVentanaAdmin();
-
         /**
          * Conexion a la base de datos
          */
