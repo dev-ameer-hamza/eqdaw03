@@ -167,7 +167,12 @@ public class Main {
     public static void crearEmparejamientos() throws Exception {
         partidoDAO.crearEnfrentamientos();
     }
-
+    /**
+     * un metodo para cambiar el estado de la liga
+     * */
+    public static void cambiarEstadoLiga() throws Exception {
+        ligaDAO.cambiarEstado();
+    }
 
     public static boolean  crearJugador(String nombre,String apellido,String apodo,String rol,Float sueldo,String equipo) throws SQLException {
         jugador = new Jugador(nombre,apellido,apodo,rol,sueldo);
