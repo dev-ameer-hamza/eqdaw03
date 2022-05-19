@@ -55,6 +55,7 @@ public class Main {
         try{
             bd = new BaseDatos();
             incializarObjetosDAOS();
+            System.out.println(jornadasDAO.listaJornadas().size());
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null,e.getMessage());
