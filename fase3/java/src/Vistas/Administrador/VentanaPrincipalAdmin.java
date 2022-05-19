@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class VentanaPrincipalAdmin {
     private JMenuItem jmCrear;
     private JMenuItem menuBorrar;
-    private JPanel pruebaPanel;
+    private JPanel PanelAdmin;
     private JPanel PanelPrincipal;
     private JPanel PanelMenu;
     private JPanel crearDueño;
@@ -175,11 +175,12 @@ public class VentanaPrincipalAdmin {
     private JComboBox cbEquipoGanadorModificarJornada;
     private JMenuItem jmiModificarJornada;
     private JPanel modificarPartido;
+    private JButton btCerrarSesion;
     private JMenu jmInicio;
 
 
     public JPanel getPruebaPanel() {
-        return pruebaPanel;
+        return PanelAdmin;
     }
 
     /**
@@ -239,7 +240,7 @@ public class VentanaPrincipalAdmin {
 
     public VentanaPrincipalAdmin() throws SQLException {
         cerrarPaneles();
-        //deshabilitarBotones();
+        deshabilitarBotones();
         foto.setVisible(true);
         /**
          * Botones del menu crear
@@ -276,12 +277,16 @@ public class VentanaPrincipalAdmin {
         jmiCrearEmparejamiento.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cerrarPaneles();
-                crearEmparejamiento.setVisible(true);
                 try {
                     Main.crearEmparejamientos();
+                    Main.cambiarEstadoLiga();
+                    mostrarMensaje("Jornadas y enfrentaminetos ya estan creadas");
+                    cerrarPaneles();
+                    crearEmparejamiento.setVisible(true);
                 } catch (Exception ex) {
                     mostrarError(ex.getMessage());
+                    cerrarPaneles();
+                    foto.setVisible(true);
                 }
             }
         });
@@ -486,14 +491,20 @@ public class VentanaPrincipalAdmin {
                     if (Float.parseFloat(tfSueldoCrearJugador.getText()) < SALARIOMINIMO){
                          throw new Exception("El salario tiene que ser mayor que el salario minimo interprofesional que es de " + SALARIOMINIMO + " euros");
                     }
-                    Main.crearJugador(
+                    if(Main.crearJugador(
                             tfNombreCrearJugador.getText()
                             ,tfApellidoCrearJugador.getText()
                             ,tfApodoCrearJugador.getText()
                             ,tfRolCrearJugador.getText()
                             ,Float.parseFloat(tfSueldoCrearJugador.getText())
                             ,cbEquipoCrearJugador.getSelectedItem().toString()
-                    );
+                    )){
+                        mostrarMensaje("Jugador creado");
+                    }
+                    else
+                    {
+                        mostrarError("error jugador no fue creado");
+                    }
                 }
                 catch (Exception ex){
                     cerrarPaneles();
@@ -604,13 +615,24 @@ public class VentanaPrincipalAdmin {
             }
         });
         /**
-         * boton de inicio
+         * botones del menu
          */
         btInicio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 foto.setVisible(true);
+            }
+        });
+        btCerrarSesion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.mostrarVentanaLogin();
+                try {
+                    Main.cerrarSesionAdmin();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }
@@ -643,6 +665,9 @@ public class VentanaPrincipalAdmin {
     }
     public void mostrarError(String msj)
     {
+        JOptionPane.showMessageDialog(null,msj);
+    }
+    public void mostrarMensaje(String msj){
         JOptionPane.showMessageDialog(null,msj);
     }
     public void validarLosCamposDeTexto(String textField,String nombreCampo) throws Exception {

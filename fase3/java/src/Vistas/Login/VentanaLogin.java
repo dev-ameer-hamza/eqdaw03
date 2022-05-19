@@ -30,8 +30,8 @@ public class VentanaLogin {
                             throw new Exception("el usuario o contraseña esta mal");
                         }
                         if ("admin".equalsIgnoreCase(login.getTipo_persona())){
-                            /* TODO hay que ocultar la ventana login primero*/
                             Main.mostrarVentanaAdmin();
+                            Main.cambiarEstadoLiga();
                         }
                         else
                         {
@@ -39,7 +39,7 @@ public class VentanaLogin {
                         }
                     }
                 } catch (Exception ex) {
-                    Main.mostrarVentanaLogin();
+                    //Main.mostrarVentanaLogin();
                     mostrarError(ex.getMessage());
                 }
             }

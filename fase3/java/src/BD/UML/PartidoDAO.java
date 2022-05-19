@@ -34,6 +34,7 @@ public class PartidoDAO {
         this.jornadasDAO.crearJornadas();
         listaEquipos = equipoDAO.consultarEquipos();
         listaJornadas = jornadasDAO.listaJornadas();
+        System.out.println("lista jornadas " + listaJornadas.size());
         crearCadaEnfrentamiento(listaEquipos,listaJornadas);
     }
 
@@ -62,15 +63,16 @@ public class PartidoDAO {
             ciclo[i] = listaEquipos.get(i).getIdEquipo();
             ciclo[equipos - i - 1] = ciclo[i] + medio;
         }
-
+        System.out.println("ids equipos -: " + ciclo.length);
         /**
          * otro for loop para crear enfrentamientos de cada jornada
          * por ejemplo una jornada con 8 equipos en liga tendra 4 partidos
          */
-        for (int jor = 1;jor <= jornadas; jor++)
+        for (int jor = 0;jor < jornadas; jor++)
         {
             for (int par = 0;par < medio;par++)
             {
+                System.out.println("Jornada -: " + listaJornadas.get(jor).getId_jornada() + " Equipo Local -: " + ciclo[par] + " Equipo Visitante -: " +ciclo[equipos - par - 1] );
                 crearPartido(listaJornadas.get(jor).getId_jornada(),ciclo[par],ciclo[equipos - par - 1]);
             }
             int temp = ciclo[1]; // esta variable tiene id_equipo que esta en la posicion 2
@@ -97,6 +99,7 @@ public class PartidoDAO {
      * @throws SQLException
      */
     public void crearPartido(int idJornada,int equipoLocal,int equipoVisitante) throws Exception,SQLException {
+        System.out.println("equipo local - " + equipoLocal + " equipo visitante - " + equipoVisitante + " jornada - " + idJornada);
         PreparedStatement pst = conn.prepareStatement("insert into partido(id_jornada,id_equipo1,id_equipo2) values(?,?,?)");
         pst.setInt(1,idJornada);
         pst.setInt(2,equipoLocal);

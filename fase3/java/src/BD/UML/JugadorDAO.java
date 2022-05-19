@@ -21,14 +21,15 @@ public class JugadorDAO {
 
     public boolean crearJugador(Jugador jugador,String nombreEquipo) throws SQLException {
         Equipo equipo = equipoDAO.buscarEquipoPorNombre(nombreEquipo);
+        System.out.println("Equipo buscado " + equipo.getNombreEquipo());
         Persona p = new Persona(jugador.getNombre(), jugador.getApellido());
         Persona persona = personaDAO.crearPersona(p);
-
-        PreparedStatement pst = conn.prepareStatement("insert into jugador(apodo,rol,sueldo,id_persona,id_equipo) values(?,?,?,?,?)");
-        pst.setString(1,jugador.getApodo());
-        pst.setString(2,jugador.getRol());
-        pst.setFloat(3,jugador.getSueldo());
-        pst.setInt(4,persona.getId_personas());
+        System.out.println("Persona creada " + p.getNombre());
+        PreparedStatement pst = conn.prepareStatement("insert into jugador(id_persona,apodo,rol,sueldo,id_equipo) values(?,?,?,?,?)");
+        pst.setInt(1,jugador.getId_personas());
+        pst.setString(2,jugador.getApodo());
+        pst.setString(3,jugador.getRol());
+        pst.setFloat(4,jugador.getSueldo());
         pst.setInt(5,equipo.getIdEquipo());
 
         int resultado = pst.executeUpdate();

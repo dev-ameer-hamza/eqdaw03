@@ -5,6 +5,7 @@ import BD.UML.*;
 import Modelo.*;
 import Vistas.Administrador.VentanaPrincipalAdmin;
 import Vistas.Login.VentanaLogin;
+import Vistas.Usuario.VentanaPrincipalUsuario;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -37,6 +38,7 @@ public class Main {
     ArrayList<Dueño>Duenyos = new ArrayList<>();
     private static JFrame panelAdminCrear;
     private static JFrame panelAdmin;
+    private static JFrame panelUsuario;
     private static JFrame panelLogin;
 
     /**
@@ -46,15 +48,15 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
 	// write your code here
-        //mostrarVentanaLogin();
-        mostrarVentanaAdmin();
-        incializarObjetosDAOS();
+        mostrarVentanaLogin();
         /**
          * Conexion a la base de datos
          */
 
         try{
             bd = new BaseDatos();
+            incializarObjetosDAOS();
+            System.out.println(jornadasDAO.listaJornadas().size());
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null,e.getMessage());
@@ -86,6 +88,7 @@ public class Main {
         panelLogin.setContentPane(new VentanaLogin().getPanelLogin());
         panelLogin.setSize(300, 300);
         panelLogin.setLocationRelativeTo(null);
+        panelLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panelLogin.setVisible(true);
     }
 
@@ -98,10 +101,33 @@ public class Main {
         panelAdmin.setContentPane(new VentanaPrincipalAdmin().getPruebaPanel());
         panelAdmin.setSize(600,600);
         panelAdmin.setLocationRelativeTo(null);
+        panelAdmin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panelAdmin.setVisible(true);
         panelLogin.setVisible(false);
     }
-    public static void mostrarVentanaUsuario() {}
+    public static void mostrarVentanaUsuario() throws SQLException {
+        panelUsuario = new JFrame("default");
+        panelUsuario.setContentPane(new VentanaPrincipalUsuario().getPanelUsuario());
+        panelUsuario.setSize(600,600);
+        panelUsuario.setLocationRelativeTo(null);
+        panelUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        panelUsuario.setVisible(true);
+        panelLogin.setVisible(false);
+    }
+
+    /**
+     * cerrar sesion
+     */
+    public static void cerrarSesionUsuario() throws SQLException {
+        if (panelUsuario.isVisible()) {
+            panelUsuario.setVisible(false);
+        }
+    }
+    public static void cerrarSesionAdmin() throws SQLException {
+        if (panelAdmin.isVisible()) {
+            panelAdmin.setVisible(false);
+        }
+    }
 
     // ****************************************//
     //   CONSULTAS Y COMPRABACION DE DATOS     //
@@ -166,7 +192,12 @@ public class Main {
     public static void crearEmparejamientos() throws Exception {
         partidoDAO.crearEnfrentamientos();
     }
-
+    /**
+     * un metodo para cambiar el estado de la liga
+     * */
+    public static void cambiarEstadoLiga() throws Exception {
+        ligaDAO.cambiarEstado();
+    }
 
     public static boolean  crearJugador(String nombre,String apellido,String apodo,String rol,Float sueldo,String equipo) throws SQLException {
         jugador = new Jugador(nombre,apellido,apodo,rol,sueldo);
