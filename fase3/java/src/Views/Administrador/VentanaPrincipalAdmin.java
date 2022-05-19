@@ -1,4 +1,4 @@
-package Vistas.Administrador;
+package Views.Administrador;
 
 import Modelo.Equipo;
 import com.company.Main;
@@ -176,6 +176,7 @@ public class VentanaPrincipalAdmin {
     private JMenuItem jmiModificarJornada;
     private JPanel modificarPartido;
     private JButton btCerrarSesion;
+    private JButton button1;
     private JMenu jmInicio;
 
 
@@ -675,7 +676,7 @@ public class VentanaPrincipalAdmin {
         Matcher matcherTexto = patternTexto.matcher(textField);
 
         if(!matcherTexto.matches()) {
-            throw new Exception(nombreCampo + " Invalido!, solo puede tener letras");
+            throw new Exception(nombreCampo + " Invalido, solo puede tener letras");
         }
     }
 }
