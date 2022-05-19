@@ -1,4 +1,4 @@
-package Vistas.Usuario;
+package Views.Usuario;
 
 import com.company.Main;
 

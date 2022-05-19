@@ -1,4 +1,4 @@
-package Vistas.Administrador;
+package Views.Administrador;
 
 import Modelo.Equipo;
 import com.company.Main;
@@ -665,7 +665,7 @@ public class VentanaPrincipalAdmin {
         Matcher matcherTexto = patternTexto.matcher(textField);
 
         if(!matcherTexto.matches()) {
-            throw new Exception(nombreCampo + " Invalido!, solo puede tener letras");
+            throw new Exception(nombreCampo + " Invalido, solo puede tener letras");
         }
     }
 }

@@ -3,9 +3,9 @@ package com.company;
 import BD.BaseDatos;
 import BD.UML.*;
 import Modelo.*;
-import Vistas.Administrador.VentanaPrincipalAdmin;
-import Vistas.Login.VentanaLogin;
-import Vistas.Usuario.VentanaPrincipalUsuario;
+import Views.Administrador.VentanaPrincipalAdmin;
+import Views.Login.VentanaLogin;
+import Views.Usuario.VentanaPrincipalUsuario;
 
 import javax.swing.*;
 import java.sql.Connection;
