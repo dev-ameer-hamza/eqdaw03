@@ -23,6 +23,8 @@ public class Main {
     public static LoginDAO loginDAO;
     public static PartidoDAO partidoDAO;
     public static PersonaDAO personaDAO;
+    public static AsistenteDAO asistenteDAO;
+    public static EntrenadorDAO entrenadorDAO;
 
     public static Dueño dueño;
     public static Equipo equipo;
@@ -73,6 +75,8 @@ public class Main {
         loginDAO = new LoginDAO(bd.getConnection());
         partidoDAO = new PartidoDAO(bd.getConnection());
         personaDAO = new PersonaDAO(bd.getConnection());
+        entrenadorDAO = new EntrenadorDAO(bd.getConnection());
+        asistenteDAO = new AsistenteDAO(bd.getConnection());
     }
 
     // ****************************************//
@@ -152,6 +156,14 @@ public class Main {
         return equipoDAO.consultarEquipos();
     }
 
+    public static ArrayList<Login> listaUsuario() throws SQLException {
+        return loginDAO.listaUsuarios();
+    }
+
+    public static ArrayList<Jugador> todosJugadores() throws SQLException {
+        return jugadorDAO.todoslosJugador();
+    }
+
     /**
      * un metodo para inciar le sesion de usuario
      * @param usuario
@@ -204,18 +216,60 @@ public class Main {
         return jugadorDAO.crearJugador(jugador,equipo);
     }
 
-    public static boolean crearEquipoSinAsistente(){
-        return equipoDAO.crearEquipoSinAsistente();
+    public static boolean crearEquipoSinAsistente(String nombreEquipo,String nombreDueno,String apellidoDueno,String nombreEntrenador,String apellidoEntrenador) throws SQLException {
+        Entrenador entrenedor = new Entrenador(nombreEntrenador,apellidoEntrenador);
+        Dueño dueno = new Dueño(nombreDueno,apellidoDueno);
+        Equipo equipo = new Equipo();
+        equipo.setNombreEquipo(nombreEquipo);
+        return equipoDAO.crearEquipoSinAsistente(equipo,dueno,entrenedor);
     }
-    public static boolean crearEquipoConAsistente(){
-        return equipoDAO.crearEquipoConAsistente();
+    public static boolean crearEquipoConAsistente(String nombreEquipo,String nombreDueno,String apellidoDueno,String nombreEntrenador,String apellidoEntrenador,String nombreAsistente,String apellidoAsistente) throws SQLException {
+        Entrenador entrenedor = new Entrenador(nombreEntrenador,apellidoEntrenador);
+        Dueño dueno = new Dueño(nombreDueno,apellidoDueno);
+        Asistente asistente = new Asistente(nombreAsistente,apellidoAsistente);
+        Equipo equipo = new Equipo();
+        equipo.setNombreEquipo(nombreEquipo);;
+        return equipoDAO.crearEquipoConAsistente(equipo,dueno,entrenedor,asistente);
+    }
+    public static boolean crearDueno(Dueño d, int idEquipo) throws SQLException {
+        return dueñoDAO.registrarDueño(d,idEquipo);
+    }
+    public static boolean crearEntrenador(Entrenador e, int idEquipo) throws SQLException {
+        return  entrenadorDAO.registrarEntrenador(e,idEquipo);
+    }
+    public static boolean crearAsistente(Asistente a,int idEquipo) throws SQLException {
+        return  asistenteDAO.registrarAsistente(a,idEquipo);
+    }
+    public static int crearPersona(Persona p) throws SQLException {
+        return personaDAO.crearPersona(p);
     }
 
     // ****************************************//
     //     OPERACIONES DE BORRAR LOS DATOS     //
     // ****************************************//
 
+    public static void borrarUsuario(String usuario) throws Exception {
+        loginDAO.borrarUsuario(usuario);
+    }
 
+    public static boolean borrarJugador(String jugador) throws Exception {
+        return jugadorDAO.borrarJugador(jugador);
+    }
+    public static void borrarPersona(int id) throws SQLException {
+        personaDAO.borrarPersona(id);
+    }
+    public static boolean borrarEquipo(String equipo) throws SQLException {
+        return equipoDAO.borrarEquipo(equipo);
+    }
+    public static void borrarAsistenteDeEquipo(int id) throws SQLException {
+        asistenteDAO.borrarAsistente(id);
+    }
+    public static void borrarDuenyoDeEquipo(int id) throws SQLException {
+        dueñoDAO.borrarDuenyo(id);
+    }
+    public static void borrarEntrenadorDeEquipo(int id) throws SQLException {
+        entrenadorDAO.borrarEntrenador(id);
+    }
 
 
 

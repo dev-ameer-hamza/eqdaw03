@@ -1,6 +1,8 @@
 package Views.Administrador;
 
 import Modelo.Equipo;
+import Modelo.Jugador;
+import Modelo.Login;
 import com.company.Main;
 
 import javax.swing.*;
@@ -300,6 +302,14 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 borrarEquipo.setVisible(true);
+                try{
+                    ArrayList<Equipo> equipos = Main.consultarEquipos();
+                    for (int i=0;i < equipos.size();i++)
+                    {
+                        cbNombreBorrarEquipo.addItem(equipos.get(i).getNombreEquipo());
+                    }
+                }
+                catch(Exception ex){}
             }
         });
         jmiBorrarJugador.addActionListener(new ActionListener() {
@@ -307,6 +317,16 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 borrarJugador.setVisible(true);
+                try{
+                    ArrayList<Jugador> jugadores = Main.todosJugadores();
+                    for (int i=0;i < jugadores.size();i++)
+                    {
+                        cbNombreBorrarJugador.addItem(jugadores.get(i).getId_personas() + "-" +jugadores.get(i).getNombre());
+                    }
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
             }
         });
         jmiBorrarUsuario.addActionListener(new ActionListener() {
@@ -314,6 +334,16 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 borrarUsuario.setVisible(true);
+                try {
+                    ArrayList<Login> usuarios = Main.listaUsuario();
+                    for (int i = 0; i < usuarios.size(); i++) {
+                        System.out.println(usuarios.get(i).getUsuario());
+                        cbNombreBorrarUsuario.addItem(usuarios.get(i).getUsuario());
+                    }
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
             }
         });
         /**
@@ -406,7 +436,14 @@ public class VentanaPrincipalAdmin {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
-                crearDueño.setVisible(true);
+
+                    try {
+                        validarLosCamposDeTexto(tfNombreCrearEquipo.getText(),"Nombre Equipo");
+                        crearDueño.setVisible(true);
+                    } catch (Exception ex) {
+                        crearEquipo.setVisible(true);
+                        mostrarError(ex.getMessage());
+                    }
             }
         });
 
@@ -414,7 +451,16 @@ public class VentanaPrincipalAdmin {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
-                crearEntrenador.setVisible(true);
+                try
+                {
+                    validarLosCamposDeTexto(tfNombreCrearDueño.getText(),"Nombre Dueno");
+                    validarLosCamposDeTexto(tfApellidoCrearDueño.getText(),"Apellido Dueno");
+                    crearEntrenador.setVisible(true);
+                }
+                catch(Exception ex){
+                    crearDueño.setVisible(true);
+                    mostrarError(ex.getMessage());
+                }
             }
         });
         /**
@@ -424,14 +470,42 @@ public class VentanaPrincipalAdmin {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
-                crearAsistente.setVisible(true);
+
+                try{
+                    validarLosCamposDeTexto(tfNombreCrearEntrenador.getText(),"Nombre Asistente");
+                    validarLosCamposDeTexto(tfNombreCrearEntrenador.getText(),"Apellido Asistente");
+                    crearAsistente.setVisible(true);
+                }
+                catch(Exception ex){
+                    crearEntrenador.setVisible(true);
+                    mostrarError(ex.getMessage());
+                }
             }
         });
         btNoCrearEntrenador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
-                foto.setVisible(true);
+
+                try{
+                    validarLosCamposDeTexto(tfNombreCrearEntrenador.getText(),"Nombre Entrenador");
+                    validarLosCamposDeTexto(tfApellidoCrearEntrenador.getText(),"Apellido Entrenador");
+                    foto.setVisible(true);
+                    if(
+                    Main.crearEquipoSinAsistente(
+                            tfNombreCrearEquipo.getText()
+                            ,tfNombreCrearDueño.getText()
+                            ,tfApellidoCrearDueño.getText()
+                            ,tfNombreCrearEntrenador.getText()
+                            ,tfApellidoCrearEntrenador.getText()
+                    )){
+                        mostrarMensaje("Equipo creado sin asistente");
+                    }
+                }
+                catch(Exception ex){
+                    crearEntrenador.setVisible(true);
+                    mostrarError(ex.getMessage());
+                }
             }
         });
 
@@ -466,7 +540,27 @@ public class VentanaPrincipalAdmin {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
-                foto.setVisible(true);
+                try
+                {
+                    validarLosCamposDeTexto(tfNombreCrearAsistente.getText(),"Nombre Asistente");
+                    validarLosCamposDeTexto(tfApellidoCrearAsistente.getText(),"Apellido Asistente");
+                    foto.setVisible(true);
+                    if(Main.crearEquipoConAsistente(
+                            tfNombreCrearEquipo.getText()
+                            ,tfNombreCrearDueño.getText()
+                            ,tfApellidoCrearDueño.getText()
+                            ,tfNombreCrearEntrenador.getText()
+                            ,tfApellidoCrearEntrenador.getText()
+                            ,tfNombreCrearAsistente.getText()
+                            ,tfApellidoCrearAsistente.getText()
+                    )){
+                        mostrarMensaje("Equipo creado con exito");
+                    }
+                }
+                catch(Exception ex){
+                    crearAsistente.setVisible(true);
+                    mostrarError(ex.getMessage());
+                }
             }
         });
         btGuardarCrearJugador.addActionListener(new ActionListener() {
@@ -553,6 +647,17 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 foto.setVisible(true);
+                try{
+                    if (JOptionPane.showConfirmDialog(null,"Quieres borrar el equipo " + cbNombreBorrarEquipo.getSelectedItem() + " y sus jugadores?") == 0){
+                        if(Main.borrarEquipo(cbNombreBorrarEquipo.getSelectedItem().toString()))
+                        {
+                            mostrarMensaje("Equipo " + cbNombreBorrarEquipo.getSelectedItem().toString()+ " y sus jugadores se han eliminado");
+                        }
+                    }
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
             }
         });
         btBorrarBorrarJugador.addActionListener(new ActionListener() {
@@ -560,6 +665,15 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 foto.setVisible(true);
+                try{
+                    if(JOptionPane.showConfirmDialog(null,"Quieres borrar el jugador " + cbNombreBorrarJugador.getSelectedItem().toString() + "?") == 0){
+                        if(Main.borrarJugador(cbNombreBorrarJugador.getSelectedItem().toString()))
+                        {
+                            mostrarMensaje(cbNombreBorrarJugador.getSelectedItem().toString() + " se ha borrado");
+                        }
+                    }
+                }
+                catch(Exception ex){}
             }
         });
         btBorrarBorrarUsuario.addActionListener(new ActionListener() {
@@ -567,6 +681,19 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 foto.setVisible(true);
+                try {
+                    int confirm = JOptionPane.showConfirmDialog(null,"Quieres borrar el usuario " + cbNombreBorrarUsuario.getSelectedItem().toString() + "?");
+                    if (confirm == 0) {
+                        Main.borrarUsuario(cbNombreBorrarUsuario.getSelectedItem().toString());
+                        cbNombreBorrarUsuario.removeAllItems();
+                    }
+                else
+                    {
+                        System.out.println("saliendo");
+                    }
+                } catch (Exception ex) {
+                    mostrarError(ex.getMessage());
+                }
             }
         });
 
@@ -672,6 +799,9 @@ public class VentanaPrincipalAdmin {
         JOptionPane.showMessageDialog(null,msj);
     }
     public void validarLosCamposDeTexto(String textField,String nombreCampo) throws Exception {
+        if (textField.isEmpty()){
+            throw new Exception(nombreCampo + " no puede ser vacio");
+        }
         Pattern patternTexto = Pattern.compile("^[A-Za-z]+$");
         Matcher matcherTexto = patternTexto.matcher(textField);
 
