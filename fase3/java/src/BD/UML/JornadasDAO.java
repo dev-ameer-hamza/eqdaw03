@@ -65,7 +65,7 @@ public class JornadasDAO {
      */
     public ArrayList<Jornada> listaJornadas() throws SQLException {
         ArrayList<Jornada> listaJornada = new ArrayList<>();
-        PreparedStatement pstjl = conn.prepareStatement("select * from jornada");
+        PreparedStatement pstjl = conn.prepareStatement("select * from jornada order by id_jornada");
         ResultSet datosJornadas = pstjl.executeQuery();
         while(datosJornadas.next())
         {
