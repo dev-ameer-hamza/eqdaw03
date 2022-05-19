@@ -281,6 +281,7 @@ public class VentanaPrincipalAdmin {
                 try {
                     Main.crearEmparejamientos();
                     Main.cambiarEstadoLiga();
+                    mostrarMensaje("Jornadas y enfrentaminetos ya estan creadas");
                     cerrarPaneles();
                     crearEmparejamiento.setVisible(true);
                 } catch (Exception ex) {
@@ -491,14 +492,20 @@ public class VentanaPrincipalAdmin {
                     if (Float.parseFloat(tfSueldoCrearJugador.getText()) < SALARIOMINIMO){
                          throw new Exception("El salario tiene que ser mayor que el salario minimo interprofesional que es de " + SALARIOMINIMO + " euros");
                     }
-                    Main.crearJugador(
+                    if(Main.crearJugador(
                             tfNombreCrearJugador.getText()
                             ,tfApellidoCrearJugador.getText()
                             ,tfApodoCrearJugador.getText()
                             ,tfRolCrearJugador.getText()
                             ,Float.parseFloat(tfSueldoCrearJugador.getText())
                             ,cbEquipoCrearJugador.getSelectedItem().toString()
-                    );
+                    )){
+                        mostrarMensaje("Jugador creado");
+                    }
+                    else
+                    {
+                        mostrarError("error jugador no fue creado");
+                    }
                 }
                 catch (Exception ex){
                     cerrarPaneles();
@@ -659,6 +666,9 @@ public class VentanaPrincipalAdmin {
     }
     public void mostrarError(String msj)
     {
+        JOptionPane.showMessageDialog(null,msj);
+    }
+    public void mostrarMensaje(String msj){
         JOptionPane.showMessageDialog(null,msj);
     }
     public void validarLosCamposDeTexto(String textField,String nombreCampo) throws Exception {
