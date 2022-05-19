@@ -176,6 +176,7 @@ public class VentanaPrincipalAdmin {
     private JMenuItem jmiModificarJornada;
     private JPanel modificarPartido;
     private JButton btCerrarSesion;
+    private JButton button1;
     private JMenu jmInicio;
 
 
@@ -216,7 +217,7 @@ public class VentanaPrincipalAdmin {
      * metodo para deshabilitar botones una vez la clasificacion este hecha
      */
     public void deshabilitarBotones() throws SQLException {
-        if (Main.comprobarEstadoLiga().equals("ABIERT0")){
+        if (Main.comprobarEstadoLiga().equals("ABIERTO")){
             System.out.println(Main.comprobarEstadoLiga());
             jmiConsultarJornadas.setVisible(false);
             jmiConsultarClasificacion.setVisible(false);

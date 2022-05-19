@@ -31,7 +31,7 @@ public class VentanaLogin {
                         }
                         else
                         {
-                            Main.mostrarVentanaAdmin();
+                            Main.mostrarVentanaUsuario();
                         }
                     }
                 } catch (Exception ex) {
