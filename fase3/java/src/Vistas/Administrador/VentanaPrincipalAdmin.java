@@ -1,6 +1,5 @@
 package Vistas.Administrador;
 
-import BD.UML.LigaDAO;
 import Modelo.Equipo;
 import com.company.Main;
 
@@ -16,7 +15,7 @@ import java.sql.SQLException;
 public class VentanaPrincipalAdmin {
     private JMenuItem jmCrear;
     private JMenuItem menuBorrar;
-    private JPanel pruebaPanel;
+    private JPanel PanelAdmin;
     private JPanel PanelPrincipal;
     private JPanel PanelMenu;
     private JPanel crearDueño;
@@ -176,11 +175,12 @@ public class VentanaPrincipalAdmin {
     private JComboBox cbEquipoGanadorModificarJornada;
     private JMenuItem jmiModificarJornada;
     private JPanel modificarPartido;
+    private JButton btCerrarSesion;
     private JMenu jmInicio;
 
 
     public JPanel getPruebaPanel() {
-        return pruebaPanel;
+        return PanelAdmin;
     }
 
     /**
@@ -608,13 +608,24 @@ public class VentanaPrincipalAdmin {
             }
         });
         /**
-         * boton de inicio
+         * botones del menu
          */
         btInicio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 foto.setVisible(true);
+            }
+        });
+        btCerrarSesion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.mostrarVentanaLogin();
+                try {
+                    Main.cerrarSesionAdmin();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }
