@@ -1,4 +1,4 @@
-package Vistas.Usuario;
+package Views.Usuario;
 
 import com.company.Main;
 
@@ -8,19 +8,23 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class VentanaPrincipalUsuario {
+
+
+    private JPanel Panel;
     private JPanel PanelMenu;
+    private JButton btInicio;
     private JMenu jmConsultar;
     private JMenuItem jmiConsultarUltimaJornada;
     private JMenuItem jmiConsultarClasificacion;
-    private JButton btInicio;
+    private JButton btCerrarSesion;
+    private JPanel PanelPrincipal;
+    private JPanel inicio;
     private JPanel consultarClasificacion;
     private JButton btAtrasConsultarClasificacion;
     private JButton btSiguienteConsultarClasificacion;
     private JLabel lbPartidosGanadosConsultarClasificacion;
     private JLabel lbPartidosPerdidosConsultarClasificacion;
     private JLabel lbPuntosConsultarClasificacion;
-    private JPanel PanelPrincipal;
-    private JPanel Panel;
     private JPanel consultarUltimaJornada;
     private JPanel consultarPartido;
     private JButton btAtrasConsultarJornadas;
@@ -29,8 +33,7 @@ public class VentanaPrincipalUsuario {
     private JLabel lbEquipoVisitanteConsultarJornada;
     private JLabel lbEquipoGanadorConsultarJornada;
     private JLabel lbPartidoConsultarJornada;
-    private JPanel panelInicio;
-    private JButton btCerrarSesion;
+    private JComboBox cbJornadaConsultarJornada;
 
     public JPanel getPanelUsuario() {
         return Panel;
@@ -42,7 +45,7 @@ public class VentanaPrincipalUsuario {
     public void cerrarPanelesUsuario() {
         consultarClasificacion.setVisible(false);
         consultarUltimaJornada.setVisible(false);
-        panelInicio.setVisible(false);
+        inicio.setVisible(false);
     }
 
     public void deshabilitarBotonesUsuario() throws SQLException {
@@ -58,7 +61,7 @@ public class VentanaPrincipalUsuario {
     public VentanaPrincipalUsuario() throws SQLException {
         deshabilitarBotonesUsuario();
         cerrarPanelesUsuario();
-        panelInicio.setVisible(true);
+        inicio.setVisible(true);
         /**
          * botones panel usuario
          */
@@ -85,7 +88,7 @@ public class VentanaPrincipalUsuario {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cerrarPanelesUsuario();
-                panelInicio.setVisible(true);
+                inicio.setVisible(true);
             }
         });
 
@@ -100,5 +103,7 @@ public class VentanaPrincipalUsuario {
                 }
             }
         });
+
+
     }
 }
