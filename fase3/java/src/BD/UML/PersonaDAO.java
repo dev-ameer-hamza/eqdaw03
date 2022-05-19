@@ -26,12 +26,13 @@ public class PersonaDAO {
      * @throws SQLException
      */
     public Persona crearPersona(Persona p) throws SQLException {
+        System.out.println("aqui estoy");
         Persona persona = null;
-        PreparedStatement pst = conn.prepareStatement("insert into persona values(?,?)");
+        PreparedStatement pst = conn.prepareStatement("insert into persona(nombre,apellido) values(?,?)");
         pst.setString(1,p.getNombre());
         pst.setString(2,p.getApellido());
-
         ResultSet datosPersona = pst.executeQuery();
+        System.out.println("aqui estoy otra vex");
         while(datosPersona.next())
         {
             persona = new Persona();
@@ -42,8 +43,7 @@ public class PersonaDAO {
         return persona;
     }
 
-    /**
-     * Creamos el metodo para borrar una persona
+    /**l
      * @param id
      * @return boolean
      * @throws SQLException

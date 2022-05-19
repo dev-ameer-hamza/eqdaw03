@@ -69,14 +69,13 @@ public class EquipoDAO {
     public Equipo datosConsultaEquipo(PreparedStatement pst) throws SQLException {
         Equipo eq = new Equipo();
         ResultSet datoEquipo = pst.executeQuery();
-        while(datoEquipo.first()){
+        while(datoEquipo.next()){
             eq.setIdEquipo(datoEquipo.getInt("id_equipo"));
             eq.setNombreEquipo(datoEquipo.getString("nombre_equipo"));
             eq.setPuntos(datoEquipo.getInt("puntos"));
             eq.setPartidosJugados(datoEquipo.getInt("partidos_jugados"));
             eq.setPartidosGanados(datoEquipo.getInt("partidos_ganados"));
             eq.setPartidosPerdidos(datoEquipo.getInt("partidos_perdidos"));
-            eq.setEstado(datoEquipo.getString("estado"));
         }
         return eq;
     }
