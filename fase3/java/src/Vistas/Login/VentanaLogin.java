@@ -31,10 +31,11 @@ public class VentanaLogin {
                         }
                         if ("admin".equalsIgnoreCase(login.getTipo_persona())){
                             Main.mostrarVentanaAdmin();
+                            Main.cambiarEstadoLiga();
                         }
                         else
                         {
-                            Main.mostrarVentanaAdmin();
+                            Main.mostrarVentanaUsuario();
                         }
                     }
                 } catch (Exception ex) {
