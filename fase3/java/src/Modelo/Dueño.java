@@ -19,6 +19,10 @@ public class Dueño extends Persona{
         super(nombre, apellido);
     }
 
+    public Dueño() {
+
+    }
+
     /**
      * Creamos el metodo par dar de alta el Duenyo
      * @param equipo
