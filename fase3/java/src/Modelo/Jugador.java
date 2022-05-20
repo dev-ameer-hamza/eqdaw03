@@ -7,8 +7,7 @@ public class Jugador extends Persona{
     private String apodo;
     private String rol;
     private float sueldo;
-
-
+    private String nombreEquipo;
 
 
     /**
@@ -21,11 +20,12 @@ public class Jugador extends Persona{
      * @param sueldo
      */
 
-    public Jugador(int id_personas, String nombre, String apellido, String apodo, String rol, float sueldo) {
+    public Jugador(int id_personas, String nombre, String apellido, String apodo, String rol, float sueldo, String nombreEquipo) {
         super(id_personas, nombre, apellido);
         this.apodo = apodo;
         this.rol = rol;
         this.sueldo = sueldo;
+        this.nombreEquipo = nombreEquipo;
     }
 
     public Jugador(String nombre, String apellido,String apodo, String rol, float sueldo) {
@@ -33,6 +33,10 @@ public class Jugador extends Persona{
         this.apodo = apodo;
         this.rol = rol;
         this.sueldo = sueldo;
+    }
+
+    public Jugador() {
+
     }
 
     /**
@@ -88,6 +92,18 @@ public class Jugador extends Persona{
     public void setSueldo(float sueldo) {
         this.sueldo = sueldo;
     }
+
+    /**
+     * creamos el getter de id equipo
+     */
+
+    public String getNombreEquipo() { return nombreEquipo;}
+
+    /**
+     * creamos el setter de id_equipo
+     */
+
+    public void setNombreEquipo(String nombreEquipo) {this.nombreEquipo = nombreEquipo;}
 
     /**
      * Creamos el metodo para dar del alta un Jugador

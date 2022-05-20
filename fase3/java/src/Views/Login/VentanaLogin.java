@@ -1,14 +1,11 @@
-package Vistas.Login;
+package Views.Login;
 
 import Modelo.Login;
-import Vistas.Administrador.VentanaPrincipalAdmin;
 import com.company.Main;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,8 +27,8 @@ public class VentanaLogin {
                             throw new Exception("el usuario o contraseña esta mal");
                         }
                         if ("admin".equalsIgnoreCase(login.getTipo_persona())){
-                            /* TODO hay que ocultar la ventana login primero*/
                             Main.mostrarVentanaAdmin();
+                            Main.cambiarEstadoLiga();
                         }
                         else
                         {
@@ -39,7 +36,7 @@ public class VentanaLogin {
                         }
                     }
                 } catch (Exception ex) {
-                    Main.mostrarVentanaLogin();
+                    //Main.mostrarVentanaLogin();
                     mostrarError(ex.getMessage());
                 }
             }
