@@ -167,6 +167,18 @@ public class Main {
 
     public static ArrayList<Partido> consultarPartido() throws SQLException {
         return partidoDAO.consultarPartidos();
+
+    public static ArrayList<Dueño> todosDueños() throws SQLException {
+        return dueñoDAO.todosDueños();
+    }
+
+    public static ArrayList<Entrenador> todosEntrenadores() throws SQLException {
+        return entrenadorDAO.todosEntrenadores();
+    }
+
+    public static ArrayList<Asistente> todosAsistentes() throws SQLException {
+        return asistenteDAO.todosAsistentes();
+
     }
 
     /**
@@ -294,6 +306,65 @@ public class Main {
 
     public static Equipo buscarEquipoPorNombre(String nombreEquipo) throws SQLException {
         return equipoDAO.buscarEquipoPorNombre(nombreEquipo);
+    }
+
+    public static Jugador buscarJugadorPorNombre(String ju) throws Exception {
+        return jugadorDAO.buscarJugadorPorNombre(ju);
+    }
+    public static Dueño buscarDueñoConString(String str) throws SQLException {
+        return dueñoDAO.buscarDueñoConString(str);
+    }
+
+    public static Entrenador buscarEntrenadorConString(String str) throws SQLException {
+        return entrenadorDAO.buscarEntrenadorConString(str);
+    }
+
+    public static Asistente buscarAsistenteConString(String str) throws SQLException {
+        return asistenteDAO.buscarAsistenteConString(str);
+    }
+
+    public static Login buscarUsuario(String u) throws SQLException {
+        return loginDAO.buscarUsuario(u);
+    }
+
+
+
+    // ****************************************//
+    //    OPERACIONES DE MODIFICAR LOS DATOS   //
+    // ****************************************//
+
+    public static boolean modificarEquipo(String nombreAnti,String nombreNue) throws SQLException {
+        return equipoDAO.modificarEquipo(nombreAnti,nombreNue);
+    }
+
+    public static boolean modificarJugador(String jugador,String nNombre,String nApellido,String nApodo,String nRol,Float sueldo) throws Exception {
+        System.out.println(nNombre + nApellido + nApodo + nRol + sueldo);
+
+        Jugador j = new Jugador(nNombre,nApellido,nApodo,nRol,sueldo);
+        return jugadorDAO.modificarJugador(jugador,j);
+    }
+    public static void actualizarPersona(String nom,String ape,int id) throws SQLException {
+        personaDAO.actualizaPersona(nom,ape,id);
+    }
+
+    public static void modificarDueño(String str,String nNombre,String nApel) throws SQLException {
+        Dueño d = new Dueño(nNombre,nApel);
+         dueñoDAO.modificarDueño(str,d);
+    }
+
+    public static void modificarEntrenador(String str,String nNombre,String nApel) throws SQLException {
+        Entrenador e = new Entrenador(nNombre,nApel);
+        entrenadorDAO.modificarEntrenador(str,e);
+    }
+
+    public static void modificarAsistente(String str,String nom,String apel) throws SQLException {
+        Asistente a = new Asistente(nom,apel);
+         asistenteDAO.modificarAsistente(str,a);
+    }
+
+    public  static boolean modificarUsuario(String oldNom,String nNom,String nCont) throws Exception {
+        Login l = new Login(nNom,nCont);
+        return loginDAO.modificarUsuario(l,oldNom);
     }
 
 }

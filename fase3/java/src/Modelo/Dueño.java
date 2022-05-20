@@ -18,6 +18,11 @@ public class Dueño extends Persona{
     }
 
 
+    public Dueño() {
+
+    }
+
+
     /**
      * Creamos el metodo par dar de alta el Duenyo
      * @param equipo

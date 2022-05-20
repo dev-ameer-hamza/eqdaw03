@@ -154,4 +154,32 @@ public class EquipoDAO {
     }
 
 
+    public ResultSet detalleEquipos() throws SQLException {
+        PreparedStatement pst = conn.prepareStatement("select distinct e.nombre_equipo,pa.nombre \"nombre asistente\",pd.nombre \"nombre dueno\",pe.nombre \"nombre entrenador\" from \n" +
+                "equipo e,duenyo d,entrenador en,asistente a,persona pa,persona pe,persona pd\n" +
+                "where (\n" +
+                "e.id_equipo = d.id_equipo\n" +
+                "and\n" +
+                "e.id_equipo = en.id_equipo\n" +
+                "and \n" +
+                "e.id_equipo = a.id_equipo(+)\n" +
+                ")\n" +
+                "and (\n" +
+                "en.id_persona = pe.id_persona\n" +
+                "and \n" +
+                "a.id_persona = pa.id_persona(+)\n" +
+                "and\n" +
+                "d.id_persona = pd.id_persona\n" +
+                ")");
+        return pst.executeQuery();
+    }
+
+    public boolean modificarEquipo(String nA,String nN) throws SQLException {
+        Equipo eq = buscarEquipoPorNombre(nA);
+        PreparedStatement pst = conn.prepareStatement("update equipo set nombre_equipo=? where id_equipo=?");
+        pst.setString(1,nN);
+        pst.setInt(2,eq.getIdEquipo());
+        return pst.executeUpdate() == 1;
+    }
+
 }

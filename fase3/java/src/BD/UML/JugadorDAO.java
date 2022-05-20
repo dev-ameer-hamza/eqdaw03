@@ -24,7 +24,6 @@ public class JugadorDAO {
 
     public boolean crearJugador(Jugador jugador,String nombreEquipo) throws SQLException {
         Equipo equipo = equipoDAO.buscarEquipoPorNombre(nombreEquipo);
-        System.out.println("Equipo buscado " + equipo.getNombreEquipo());
         Persona p = new Persona(jugador.getNombre(), jugador.getApellido());
         int idPersona = personaDAO.crearPersona(p);
         PreparedStatement pst = conn.prepareStatement("insert into jugador(id_persona,apodo,rol,sueldo,id_equipo) values(?,?,?,?,?)");
@@ -79,17 +78,71 @@ public class JugadorDAO {
         ResultSet resultado = pst.executeQuery();
 
         Jugador jugador=new Jugador();
-        System.out.println(resultado.getFetchSize());
         while (resultado.next()){
-            System.out.println("persona " + resultado.getInt("id_persona") );
             jugador.setId_personas(resultado.getInt("id_persona"));
             jugador.setApodo(resultado.getString("apodo"));
             jugador.setRol(resultado.getString("rol"));
             jugador.setSueldo(resultado.getInt("sueldo"));
         }
 
-        System.out.println(jugador.getNombre() + jugador.getApodo());
         return jugador;
 
+    }
+
+    public Jugador buscarJugadorPorNombre(String juga) throws Exception,SQLException {
+        String[] jug = juga.split("-");
+        Jugador j = buscarJugador(Integer.parseInt(jug[0]));
+        PreparedStatement pst = conn.prepareStatement("select p.nombre,p.apellido,j.apodo,j.rol,j.sueldo from jugador j,persona p where j.id_persona= ? and j.id_persona=p.id_persona");
+        pst.setInt(1, j.getId_personas());
+
+        ResultSet resultado = pst.executeQuery();
+
+        Jugador jugador=new Jugador();
+        while (resultado.next()){
+            jugador.setNombre(resultado.getString("nombre"));
+            jugador.setApellido(resultado.getString("apellido"));
+            jugador.setApodo(resultado.getString("apodo"));
+            jugador.setRol(resultado.getString("rol"));
+            jugador.setSueldo(resultado.getInt("sueldo"));
+        }
+        return jugador;
+
+    }
+
+    public Jugador buscarJugadorPorId(int id) throws Exception,SQLException {
+
+        PreparedStatement pst = conn.prepareStatement("select j.id_persona,p.nombre,p.apellido,j.apodo,j.rol,j.sueldo from jugador j,persona p where j.id_persona= ? and j.id_persona=p.id_persona");
+        pst.setInt(1, id);
+
+        ResultSet resultado = pst.executeQuery();
+
+        Jugador jugador=new Jugador();
+        while (resultado.next()){
+            jugador.setId_personas(resultado.getInt("id_persona"));
+            jugador.setNombre(resultado.getString("nombre"));
+            jugador.setApellido(resultado.getString("apellido"));
+            jugador.setApodo(resultado.getString("apodo"));
+            jugador.setRol(resultado.getString("rol"));
+            jugador.setSueldo(resultado.getInt("sueldo"));
+        }
+        return jugador;
+
+    }
+
+    public boolean modificarJugador(String j,Jugador ju) throws Exception {
+        String[] jug = j.split("-");
+        Jugador jugador = buscarJugadorPorId(Integer.parseInt(jug[0]));
+        return actualizarDatosJugador(jugador.getId_personas(),ju);
+    }
+
+    public boolean actualizarDatosJugador(int id,Jugador jugador) throws SQLException {
+        Main.actualizarPersona(jugador.getNombre(),jugador.getApellido(), id);
+        PreparedStatement pst = conn.prepareStatement("update jugador set apodo=?,rol=?,sueldo=? where id_persona=?" );
+        pst.setString(1,jugador.getApodo());
+        pst.setString(2,jugador.getRol());
+        System.out.println((int) jugador.getSueldo());
+        pst.setFloat(3, (jugador.getSueldo()));
+        pst.setInt(4,id);
+        return pst.executeUpdate() == 1;
     }
 }
