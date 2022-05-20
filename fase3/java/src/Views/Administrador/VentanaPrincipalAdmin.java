@@ -375,6 +375,7 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 consultarEquipo.setVisible(true);
+                lbNombreConsultarEquipo.setText();
             }
         });
         jmiConsultarJugador.addActionListener(new ActionListener() {
