@@ -15,6 +15,9 @@ public class Dueño extends Persona{
     public Dueño(int id_personas, String nombre, String apellido) {
         super(id_personas, nombre, apellido);
     }
+    public Dueño( String nombre, String apellido) {
+        super(nombre, apellido);
+    }
 
     /**
      * Creamos el metodo par dar de alta el Duenyo

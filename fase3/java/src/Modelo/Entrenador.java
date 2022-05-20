@@ -15,6 +15,10 @@ public class Entrenador extends Persona{
     public Entrenador(int id_personas, String nombre, String apellido) {
         super(id_personas, nombre, apellido);
     }
+    public Entrenador( String nombre, String apellido) {
+        super(nombre, apellido);
+    }
+
 
     /**
      * Creamos el metodo para da de alta el entrenador
