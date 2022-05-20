@@ -42,7 +42,7 @@ public class JugadorDAO {
 
         ArrayList<Jugador>listaJugadores= new ArrayList<>();
 
-        PreparedStatement pst = conn.prepareStatement("select p.nombre, p.apellido, j.apodo, j.sueldo, j.rol,j.id_persona from jugador j, persona p where j.id_persona = p.id_persona");
+        PreparedStatement pst = conn.prepareStatement("select p.nombre, p.apellido, j.apodo, j.sueldo, j.rol,j.id_persona, e.nombre_equipo from jugador j, persona p, equipo e where j.id_persona = p.id_persona and j.id_equipo = e.id_equipo");
         ResultSet resultSet = pst.executeQuery();
 
         while (resultSet.next()){
@@ -54,6 +54,7 @@ public class JugadorDAO {
             jugador.setApodo(resultSet.getString("apodo"));
             jugador.setRol(resultSet.getString("rol"));
             jugador.setSueldo(resultSet.getInt("sueldo"));
+            jugador.setNombreEquipo(resultSet.getString("nombre_equipo"));
             listaJugadores.add(jugador);
         }
 

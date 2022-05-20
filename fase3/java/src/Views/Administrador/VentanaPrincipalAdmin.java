@@ -1,6 +1,7 @@
 package Views.Administrador;
 
 import Modelo.Equipo;
+import Modelo.Jornada;
 import Modelo.Jugador;
 import Modelo.Login;
 import com.company.Main;
@@ -179,8 +180,13 @@ public class VentanaPrincipalAdmin {
     private JPanel modificarPartido;
     private JButton btCerrarSesion;
     private JButton button1;
+    private JLabel lbPosicionConsultarClasificacion;
+    private JLabel lbNombreConsultarClasificacion;
+    private JLabel lbPartidosJugadosConsultarClasificacion;
     private JMenu jmInicio;
-
+    private int posJugador;
+    private int posClasificacion;
+    private int posEquipo;
 
     public JPanel getPruebaPanel() {
         return PanelAdmin;
@@ -240,6 +246,148 @@ public class VentanaPrincipalAdmin {
             jmiModificarEntrenador.setVisible(false);
         }
     }
+
+    /**
+     * metodo para conseguir siguiente y anterior equipp
+     */
+    public void getSiguienteEquipo() throws Exception
+    {
+        try {
+            if (posEquipo != Main.consultarEquipos().size() - 1) {
+                posEquipo++;
+                Equipo equipo = Main.consultarEquipos().get(posEquipo);
+                lbNombreConsultarEquipo.setText(equipo.getNombreEquipo());
+                lbDueñoConsultarDueño.setText(equipo.getNombreDuenyo());
+                lbEntrenadorConsultarDueño.setText(equipo.getNombreEntrenador());
+                lbAsistenteConsultarDueño.setText(equipo.getNombreAsistente());
+            }
+            else {
+                // hay que avisar al usuario
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No hay más equipos");
+        }
+
+    }
+
+    public void getAnteriorEquipo() throws Exception
+    {
+        if (posEquipo != 0) {
+            posEquipo--;
+            Equipo equipo = Main.consultarEquipos().get(posEquipo);
+            lbNombreConsultarEquipo.setText(equipo.getNombreEquipo());
+            lbDueñoConsultarDueño.setText(equipo.getNombreDuenyo());
+            lbEntrenadorConsultarDueño.setText(equipo.getNombreEntrenador());
+            lbAsistenteConsultarDueño.setText(equipo.getNombreAsistente());
+
+        }
+        else
+            throw new Exception("No hay anterior");
+    }
+
+    /**
+     * metodo para conseguir siguiente y anterior jugador
+     */
+    public void getSiguienteJugador() throws Exception
+    {
+        try {
+            if (posJugador != Main.todosJugadores().size() - 1) {
+                posJugador++;
+                Jugador jugador = Main.todosJugadores().get(posJugador);
+                lbNombreConsultarJugador.setText(jugador.getNombre());
+                lbApellidoConsultarJugador.setText(jugador.getApellido());
+                lbApodoConsultarJugador.setText(jugador.getApodo());
+                lbRolConsultarJugador.setText(jugador.getRol());
+                float sueldo = jugador.getSueldo();
+                String s = String.valueOf(sueldo);
+                lbSueldoConsultarJugador.setText(s);
+                lbEquipoConsultarJugador.setText(jugador.getNombreEquipo());
+            }
+            else {
+                // hay que avisar al usuario
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No hay más jugadores");
+        }
+
+    }
+
+    public void getAnteriorJugador() throws Exception
+    {
+        if (posJugador != 0) {
+            posJugador--;
+            Jugador jugador = Main.todosJugadores().get(posJugador);
+            lbNombreConsultarJugador.setText(jugador.getNombre());
+            lbApellidoConsultarJugador.setText(jugador.getApellido());
+            lbApodoConsultarJugador.setText(jugador.getApodo());
+            lbRolConsultarJugador.setText(jugador.getRol());
+            float sueldo = jugador.getSueldo();
+            String sueldoS = String.valueOf(sueldo);
+            lbSueldoConsultarJugador.setText(sueldoS);
+            lbEquipoConsultarJugador.setText(jugador.getNombreEquipo());
+        }
+        else
+            throw new Exception("No hay anterior");
+    }
+
+    /**
+     * metodo para conseguir siguiente y anterior clasificacion
+     */
+    public void getSiguienteClasificacion() throws Exception
+    {
+        if (posClasificacion != Main.consultarEquipos().size() - 1) {
+            //lbPosicionConsultarClasificacion.setText();
+            posClasificacion++;
+            Equipo equipo = Main.consultarEquipos().get(posClasificacion);
+            lbNombreConsultarClasificacion.setText(equipo.getNombreEquipo());
+            int partidosJugados = equipo.getPartidosJugados();
+            String partidosJugadosS = String.valueOf(partidosJugados);
+            lbPartidosJugadosConsultarClasificacion.setText(partidosJugadosS);
+            int partidosGanados = equipo.getPartidosGanados();
+            String partidosGanadosS = String.valueOf(partidosGanados);
+            lbPartidosGanadosConsultarClasificacion.setText(partidosGanadosS);
+            int partidosPerdidos = equipo.getPartidosPerdidos();
+            String partidosPerdidosS = String.valueOf(partidosPerdidos);
+            lbPartidosPerdidosConsultarClasificacion.setText(partidosPerdidosS);
+            int puntos = equipo.getPuntos();
+            String puntosS = String.valueOf(puntos);
+            lbPuntosConsultarClasificacion.setText(puntosS);
+        }
+        else {
+            // hay que avisar al usuario
+            throw new Exception("No hay siguiente");
+        }
+    }
+
+    public void getAnteriorClasificacion() throws Exception
+    {
+        if (posClasificacion != 0) {
+            //lbPosicionConsultarClasificacion.setText();
+            posClasificacion--;
+            Equipo equipo = Main.consultarEquipos().get(posClasificacion);
+            lbNombreConsultarClasificacion.setText(equipo.getNombreEquipo());
+            int partidosJugados = equipo.getPartidosJugados();
+            String partidosJugadosS = String.valueOf(partidosJugados);
+            lbPartidosJugadosConsultarClasificacion.setText(partidosJugadosS);
+            int partidosGanados = equipo.getPartidosGanados();
+            String partidosGanadosS = String.valueOf(partidosGanados);
+            lbPartidosGanadosConsultarClasificacion.setText(partidosGanadosS);
+            int partidosPerdidos = equipo.getPartidosPerdidos();
+            String partidosPerdidosS = String.valueOf(partidosPerdidos);
+            lbPartidosPerdidosConsultarClasificacion.setText(partidosPerdidosS);
+            int puntos = equipo.getPuntos();
+            String puntosS = String.valueOf(puntos);
+            lbPuntosConsultarClasificacion.setText(puntosS);
+        }
+        else
+            throw new Exception("No hay anterior");
+    }
+
+    /**
+     * ventana admin
+     */
 
     public VentanaPrincipalAdmin() throws SQLException {
         cerrarPaneles();
@@ -406,7 +554,16 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 consultarEquipo.setVisible(true);
-                lbNombreConsultarEquipo.setText();
+                try {
+                    Equipo equipo = Main.consultarEquipos().get(0);
+                    lbNombreConsultarEquipo.setText(equipo.getNombreEquipo());
+                    lbDueñoConsultarDueño.setText(equipo.getNombreDuenyo());
+                    lbEntrenadorConsultarDueño.setText(equipo.getNombreEntrenador());
+                    lbAsistenteConsultarDueño.setText(equipo.getNombreAsistente());
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+
             }
         });
         jmiConsultarJugador.addActionListener(new ActionListener() {
@@ -414,6 +571,20 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 consultarJugador.setVisible(true);
+                try {
+                    Jugador jugador = Main.todosJugadores().get(0);
+                    lbNombreConsultarJugador.setText(jugador.getNombre());
+                    lbApellidoConsultarJugador.setText(jugador.getApellido());
+                    lbApodoConsultarJugador.setText(jugador.getApodo());
+                    lbRolConsultarJugador.setText(jugador.getRol());
+                    float sueldo = jugador.getSueldo();
+                    String s = String.valueOf(sueldo);
+                    lbSueldoConsultarJugador.setText(s);
+                    //no se como sacar el jugador del equipo
+                    lbEquipoConsultarJugador.setText(jugador.getNombreEquipo());
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
         jmiConsultarJornadas.addActionListener(new ActionListener() {
@@ -428,6 +599,26 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 consultarClasificacion.setVisible(true);
+
+                Equipo equipo = null;
+                try {
+                    equipo = Main.consultarEquipos().get(0);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                lbNombreConsultarClasificacion.setText(equipo.getNombreEquipo());
+                int partidosJugados = equipo.getPartidosJugados();
+                String partidosJugadosS = String.valueOf(partidosJugados);
+                lbPartidosJugadosConsultarClasificacion.setText(partidosJugadosS);
+                int partidosGanados = equipo.getPartidosGanados();
+                String partidosGanadosS = String.valueOf(partidosGanados);
+                lbPartidosGanadosConsultarClasificacion.setText(partidosGanadosS);
+                int partidosPerdidos = equipo.getPartidosPerdidos();
+                String partidosPerdidosS = String.valueOf(partidosPerdidos);
+                lbPartidosPerdidosConsultarClasificacion.setText(partidosPerdidosS);
+                int puntos = equipo.getPuntos();
+                String puntosS = String.valueOf(puntos);
+                lbPuntosConsultarClasificacion.setText(puntosS);
             }
         });
         /**
@@ -764,7 +955,83 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * botones siguiente y anterior de consultar jugador
+         */
+        btSiguienteConsultarJugador.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    getSiguienteJugador();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        btAtrasConsultarJugador.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    getAnteriorJugador();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        /**
+         * botones siguiente y anterior de consultar clasificacion
+         */
+        btSiguienteConsultarClasificacion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    getSiguienteClasificacion();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        btAtrasConsultarClasificacion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    getAnteriorClasificacion();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        /**
+         * botones siguiente y atras de consultar equipo
+         */
+        btSiguienteConsultarEquipo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    getSiguienteEquipo();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        btAtrasConsultarEquipo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    getAnteriorEquipo();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
     }
+
+
 
 
     public boolean validarCrearUsuario(String usuario,String contra,String contraConfirm) throws Exception {
@@ -810,4 +1077,6 @@ public class VentanaPrincipalAdmin {
             throw new Exception(nombreCampo + " Invalido, solo puede tener letras");
         }
     }
+
+
 }

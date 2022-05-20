@@ -9,6 +9,7 @@ import Views.Usuario.VentanaPrincipalUsuario;
 
 import javax.swing.*;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -164,6 +165,10 @@ public class Main {
         return jugadorDAO.todoslosJugador();
     }
 
+    public static ArrayList<Partido> consultarPartido() throws SQLException {
+        return partidoDAO.consultarPartidos();
+    }
+
     /**
      * un metodo para inciar le sesion de usuario
      * @param usuario
@@ -290,7 +295,5 @@ public class Main {
     public static Equipo buscarEquipoPorNombre(String nombreEquipo) throws SQLException {
         return equipoDAO.buscarEquipoPorNombre(nombreEquipo);
     }
-
-    public
 
 }

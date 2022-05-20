@@ -2,10 +2,9 @@ package BD.UML;
 
 import Modelo.Equipo;
 import Modelo.Jornada;
+import Modelo.Partido;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class PartidoDAO {
@@ -107,6 +106,23 @@ public class PartidoDAO {
         int resultado = pst.executeUpdate();
         if (resultado != 1){ throw new Exception("Error, no se puede crear el partido");}
     }
+
+    public ArrayList<Partido> consultarPartidos() throws SQLException {
+        ArrayList<Partido> listaPartidos = new ArrayList<>();
+        Statement consulta = this.conn.createStatement();
+        ResultSet set = consulta.executeQuery("select p.id_partido, e1.nombre_equipo equipo1, e2.nombre_equipo equipo2, eg.nombre_equipo equipoGanador from partido p, equipo e1, equipo e2, equipo eg where ( p.id_equipo1 = e1.id_equipo and p.id_equipo2 = e2.id_equipo and p.equipo_ganador = eg.id_equipo(+) ) and (id_jornada = (select max(id_jornada) from jornada))");
+        while(set.next()){
+            Partido eq = new Partido();
+            eq.setId_partido(set.getInt("id_partido"));
+            eq.setEquipo1(set.getString("equipo1"));
+            eq.setEquipo2(set.getString("equipo2"));
+            eq.setEquipo_ganador(set.getString("equipoGanador"));
+
+            listaPartidos.add(eq);
+        }
+        return listaPartidos;
+    }
+
 }
 
 
