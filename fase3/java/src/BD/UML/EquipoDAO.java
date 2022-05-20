@@ -37,15 +37,25 @@ public class EquipoDAO {
     public ArrayList<Equipo> consultarEquipos() throws SQLException {
         ArrayList<Equipo> listaEquipos = new ArrayList<>();
         Statement consulta = this.conn.createStatement();
-        ResultSet set = consulta.executeQuery("select * from equipo");
+        ResultSet set = consulta.executeQuery("select distinct e.*,pa.nombre asistente,pd.nombre dueño,pe.nombre entrenador from  equipo e,duenyo d,entrenador en,asistente a,persona pa,persona pe,persona pd where (e.id_equipo = d.id_equipo and + e.id_equipo = en.id_equipo and e.id_equipo = a.id_equipo(+)) and (en.id_persona = pe.id_persona and a.id_persona = pa.id_persona(+) and d.id_persona = pd.id_persona) order by e.id_equipo");
         while(set.next()){
             Equipo eq = new Equipo();
             eq.setIdEquipo(set.getInt("id_equipo"));
             eq.setNombreEquipo(set.getString("nombre_equipo"));
+            eq.setPartidosJugados(set.getInt("partidos_jugados"));
+            eq.setPartidosGanados(set.getInt("partidos_ganados"));
+            eq.setPartidosPerdidos(set.getInt("partidos_perdidos"));
+            eq.setPuntos(set.getInt("puntos"));
+            eq.setNombreAsistente(set.getString("asistente"));
+            eq.setNombreDuenyo(set.getString("dueño"));
+            eq.setNombreEntrenador(set.getString("entrenador"));
             listaEquipos.add(eq);
         }
         return listaEquipos;
     }
+
+
+
 
     /**
      * Creamos el metodo para actualizar los datos en un equipo
@@ -143,6 +153,7 @@ public class EquipoDAO {
         Main.borrarDuenyoDeEquipo(id);
     }
 
+
     public ResultSet detalleEquipos() throws SQLException {
         PreparedStatement pst = conn.prepareStatement("select distinct e.nombre_equipo,pa.nombre \"nombre asistente\",pd.nombre \"nombre dueno\",pe.nombre \"nombre entrenador\" from \n" +
                 "equipo e,duenyo d,entrenador en,asistente a,persona pa,persona pe,persona pd\n" +
@@ -170,4 +181,5 @@ public class EquipoDAO {
         pst.setInt(2,eq.getIdEquipo());
         return pst.executeUpdate() == 1;
     }
+
 }

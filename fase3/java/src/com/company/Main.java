@@ -9,6 +9,7 @@ import Views.Usuario.VentanaPrincipalUsuario;
 
 import javax.swing.*;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -164,6 +165,9 @@ public class Main {
         return jugadorDAO.todoslosJugador();
     }
 
+    public static ArrayList<Partido> consultarPartido() throws SQLException {
+        return partidoDAO.consultarPartidos();
+
     public static ArrayList<Dueño> todosDueños() throws SQLException {
         return dueñoDAO.todosDueños();
     }
@@ -174,6 +178,7 @@ public class Main {
 
     public static ArrayList<Asistente> todosAsistentes() throws SQLException {
         return asistenteDAO.todosAsistentes();
+
     }
 
     /**

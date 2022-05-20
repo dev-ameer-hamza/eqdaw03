@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class Dueño extends Persona{
 
-
-
     /**
      * Creamos el constructor de Duenyo que extiende de Persona
      * @param id_personas
@@ -19,9 +17,11 @@ public class Dueño extends Persona{
         super(nombre, apellido);
     }
 
+
     public Dueño() {
 
     }
+
 
     /**
      * Creamos el metodo par dar de alta el Duenyo
@@ -34,5 +34,5 @@ public class Dueño extends Persona{
      * @param id_equipo
      * @return Equipo
      */
-    //public Equipo getEquipo(int id_equipo){return new Duenyo();}
+    //public Equipo getEquipo(int id_equipo){return new Dueño();}
 }

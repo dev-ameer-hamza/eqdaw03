@@ -8,9 +8,9 @@ public class Partido {
     private int id_partido;
     private LocalDateTime hora;
 
-    private Equipo equipo1;
-    private Equipo equipo2;
-    private Equipo equipo_ganador;
+    private String equipo1;
+    private String equipo2;
+    private String equipo_ganador;
 
 
     /**
@@ -22,7 +22,7 @@ public class Partido {
      * @param equipo_ganador
      */
 
-    public Partido(int id_partido, LocalDateTime hora, Equipo equipo1, Equipo equipo2, Equipo equipo_ganador) {
+    public Partido(int id_partido, LocalDateTime hora, String equipo1, String equipo2, String equipo_ganador) {
         this.id_partido = id_partido;
         this.hora = hora;
         this.equipo1 = equipo1;
@@ -30,7 +30,8 @@ public class Partido {
         this.equipo_ganador = equipo_ganador;
     }
 
-
+    public Partido() {
+    }
 
     /**
      * Creamos el getter de id_partido
@@ -72,7 +73,7 @@ public class Partido {
      * creamos el getter para el equipo1
      * @return equipo1
      */
-    public Equipo getEquipo1() {
+    public String getEquipo1() {
         return equipo1;
     }
 
@@ -80,7 +81,7 @@ public class Partido {
      * creamos el setter para el equipo1
      * @param equipo1
      */
-    public void setEquipo1(Equipo equipo1) {
+    public void setEquipo1(String equipo1) {
         this.equipo1 = equipo1;
     }
 
@@ -88,7 +89,7 @@ public class Partido {
      * creamos el getter para el equipo2
      * @return equipo2
      */
-    public Equipo getEquipo2() {
+    public String getEquipo2() {
         return equipo2;
     }
 
@@ -96,7 +97,7 @@ public class Partido {
      * creamos el setter para el equipo2
      * @param equipo2
      */
-    public void setEquipo2(Equipo equipo2) {
+    public void setEquipo2(String equipo2) {
         this.equipo2 = equipo2;
     }
 
@@ -104,7 +105,7 @@ public class Partido {
      * creamos el getter para el equipo_ganador
      * @return equipo_ganador
      */
-    public Equipo getEquipo_ganador() {
+    public String getEquipo_ganador() {
         return equipo_ganador;
     }
 
@@ -112,7 +113,7 @@ public class Partido {
      * creamos el setter para el equipo_ganador
      * @param equipo_ganador
      */
-    public void setEquipo_ganador(Equipo equipo_ganador) {
+    public void setEquipo_ganador(String equipo_ganador) {
         this.equipo_ganador = equipo_ganador;
     }
 }
