@@ -19,6 +19,10 @@ public class Entrenador extends Persona{
         super(nombre, apellido);
     }
 
+    public Entrenador() {
+
+    }
+
 
     /**
      * Creamos el metodo para da de alta el entrenador

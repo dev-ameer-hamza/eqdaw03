@@ -85,5 +85,20 @@ public class PersonaDAO {
         return pid;
     }
 
+    public void actualizaPersona(String nom,String apell,int id) throws SQLException {
+        System.out.println(id + nom + apell);
+        PreparedStatement pst = conn.prepareStatement("update persona set nombre=?,apellido=? where id_persona=?");
+        pst.setString(1,nom);
+        pst.setString(2,apell);
+        pst.setInt(3,id);
+        if(pst.executeUpdate() == 1){
+            System.out.println("persona actualizada");
+        }
+        else
+        {
+            System.out.println("error con persona");
+        }
+    }
+
     // para consultar personas debemos crear una vista
 }

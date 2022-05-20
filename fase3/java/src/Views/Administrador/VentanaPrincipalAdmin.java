@@ -1,14 +1,19 @@
 package Views.Administrador;
 
+
 import Modelo.Equipo;
 import Modelo.Jornada;
 import Modelo.Jugador;
 import Modelo.Login;
+
+import Modelo.*;
 import com.company.Main;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -502,6 +507,17 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 modificarEquipo.setVisible(true);
+
+                try{
+                    ArrayList<Equipo> equipos = Main.consultarEquipos();
+                    for (int i=0;i< equipos.size();i++)
+                    {
+                        cbNombreModificarEquipo.addItem(equipos.get(i).getNombreEquipo());
+                    }
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
             }
         });
         jmiModificarJugador.addActionListener(new ActionListener() {
@@ -509,6 +525,13 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 modificarJugador.setVisible(true);
+                try{
+                    ArrayList<Jugador> jugadores= Main.todosJugadores();
+                    for(int i=0;i<jugadores.size();i++){
+                        cbNombreModificarJugador.addItem(jugadores.get(i).getId_personas()+"-"+jugadores.get(i).getNombre());
+                    }
+                }
+                catch(Exception ex){}
             }
         });
         jmiModificarDueño.addActionListener(new ActionListener() {
@@ -516,6 +539,14 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 modificarDueño.setVisible(true);
+                try{
+                    ArrayList<Dueño> duenos = Main.todosDueños();
+                    for (int i=0;i < duenos.size();i++)
+                    {
+                        cbNombreModificarDueño.addItem(duenos.get(i).getId_personas() + "-" + duenos.get(i).getNombre());
+                    }
+                }
+                catch(Exception ex){}
             }
         });
         jmiModificarEntrenador.addActionListener(new ActionListener() {
@@ -523,6 +554,16 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 modificarEntrenador.setVisible(true);
+                try{
+                    ArrayList<Entrenador> entrenadores = Main.todosEntrenadores();
+                    for (int i=0;i < entrenadores.size();i++)
+                    {
+                        cbNombreModificarEntrenador.addItem(entrenadores.get(i).getId_personas() + "-" + entrenadores.get(i).getNombre());
+                    }
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
             }
         });
         jmiModificarAsistente.addActionListener(new ActionListener() {
@@ -530,6 +571,17 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 modificarAsistente.setVisible(true);
+                try{
+                    ArrayList<Asistente> asistentes = Main.todosAsistentes();
+                    for (int i=0;i < asistentes.size();i++)
+                    {
+                        cbNombreModificarAsistente.addItem(asistentes.get(i).getId_personas() + "-" + asistentes.get(i).getNombre());
+                    }
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
+
             }
         });
         jmiModificarUsuario.addActionListener(new ActionListener() {
@@ -537,6 +589,16 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 modificarUsuario.setVisible(true);
+                try{
+                    ArrayList<Login> usuarios = Main.listaUsuario();
+                    for (int i=0;i < usuarios.size();i++)
+                    {
+                        cbNombreModificarUsuario.addItem(usuarios.get(i).getUsuario());
+                    }
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
             }
         });
         jmiModificarJornada.addActionListener(new ActionListener() {
@@ -897,6 +959,18 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 foto.setVisible(true);
+                try{
+                    validarLosCamposDeTexto(tfNuevoNombreModificarEquipo.getText().toString(),"Nombre Equipo");
+                    if(Main.modificarEquipo(cbNombreModificarEquipo.getSelectedItem().toString(),tfNuevoNombreModificarEquipo.getText().toString()))
+                    {
+                        mostrarMensaje(cbNombreModificarEquipo.getSelectedItem() + " actualizado con nuevo nombre " + tfNuevoNombreModificarEquipo.getText());
+                        cbNombreModificarEquipo.removeAllItems();
+                        tfNuevoNombreModificarEquipo.setText("");
+                    }
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
             }
         });
         btModificarModificarJugador.addActionListener(new ActionListener() {
@@ -904,6 +978,38 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 foto.setVisible(true);
+                try{
+                    validarLosCamposDeTexto(tfNuevoNombreModificarJugador.getText(),"Nombre Jugador");
+                    validarLosCamposDeTexto(tfNuevoApellidoModificarJugador.getText(),"Apellido Jugador");
+                    validarLosCamposDeTexto(tfNuevoApodoModificarJugador.getText(),"Apodo Jugador");
+                    validarLosCamposDeTexto(tfNuevoRolModificarJugador.getText(),"Rol Jugador");
+//                    Pattern patternSueldo = Pattern.compile("^[0-9]+$");
+//                    Matcher matcherSueldo = patternSueldo.matcher(tfSueldoCrearJugador.getText().trim());
+//
+//                    if(!matcherSueldo.matches()){
+//                        throw new Exception("El sueldo tiene que ser en numeros");
+//                    }
+//                    if (Float.parseFloat(tfSueldoCrearJugador.getText()) < SALARIOMINIMO){
+//                        throw new Exception("El salario tiene que ser mayor que el salario minimo interprofesional que es de " + SALARIOMINIMO + " euros");
+//                    };
+                    if(Main.modificarJugador(
+                            (String) cbNombreModificarJugador.getSelectedItem()
+                            ,tfNuevoNombreModificarJugador.getText()
+                            ,tfNuevoApellidoModificarJugador.getText()
+                            ,tfNuevoApodoModificarJugador.getText()
+                            ,tfNuevoRolModificarJugador.getText()
+                            ,Float.parseFloat(tfNuevoSueldoModificarJugador.getText())
+                    )){
+                        mostrarMensaje("Jugador actualizado");
+
+                        cbNombreModificarJugador.removeAllItems();
+                    }
+                }
+                catch(Exception ex){
+                    cerrarPaneles();
+                    modificarJugador.setVisible(true);
+                    mostrarError(ex.getMessage());
+                }
             }
         });
         btModificarModificarDueño.addActionListener(new ActionListener() {
@@ -911,6 +1017,19 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 foto.setVisible(true);
+                try{
+                    validarLosCamposDeTexto(tfNuevoNombreModificarDueño.getText(),"Nombre Dueño");
+                    validarLosCamposDeTexto(tfNuevoApellidoModificarDueño.getText(),"Apellido Dueño");
+                    if (JOptionPane.showConfirmDialog(null,"Quieres actualizar dueño " + (String)cbNombreModificarDueño.getSelectedItem() + "?") == 0)
+                    {
+                        Main.modificarDueño((String)cbNombreModificarDueño.getSelectedItem(),tfNuevoNombreModificarDueño.getText(),tfNuevoApellidoModificarDueño.getText());
+                        JOptionPane.showMessageDialog(null,(String)cbNombreModificarDueño.getSelectedItem() + " actualizada");
+                    }
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
+
             }
         });
         btModificarModificarEntrenador.addActionListener(new ActionListener() {
@@ -918,6 +1037,19 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 foto.setVisible(true);
+                try{
+                    validarLosCamposDeTexto(tfNuevoNombreModificarEntrenador.getText(),"Nombre Entrenador");
+                    validarLosCamposDeTexto(tfNuevoApellidoModificarEntrenador.getText(),"Apellido Entrenador");
+                    if (JOptionPane.showConfirmDialog(null,"Quieres actualizar " + (String)cbNombreModificarEntrenador.getSelectedItem() + "?") == 0)
+                    {
+                        Main.modificarEntrenador((String)cbNombreModificarEntrenador.getSelectedItem(),tfNuevoNombreModificarEntrenador.getText(),tfNuevoApellidoModificarEntrenador.getText());
+                        JOptionPane.showMessageDialog(null,(String)cbNombreModificarEntrenador.getSelectedItem() + " actualizada");
+
+                    }
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
             }
         });
         btModificarModificarAsistente.addActionListener(new ActionListener() {
@@ -925,6 +1057,20 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 foto.setVisible(true);
+
+                try{
+                    validarLosCamposDeTexto(tfNuevoNombreModificarAsistente.getText(),"Nombre Asistente");
+                    validarLosCamposDeTexto(tfNuevoApellidoModificarAsistente.getText(),"Apellido Asistente");
+                    if (JOptionPane.showConfirmDialog(null,"Quieres actualizar " + (String)cbNombreModificarAsistente.getSelectedItem() + "?") == 0)
+                    {
+                        Main.modificarAsistente((String)cbNombreModificarAsistente.getSelectedItem(),tfNuevoNombreModificarAsistente.getText(),tfNuevoApellidoModificarAsistente.getText());
+                        JOptionPane.showMessageDialog(null,(String)cbNombreModificarAsistente.getSelectedItem() + " actualizada");
+                        cbNombreModificarAsistente.removeAllItems();
+                    }
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
             }
         });
         btModificarModificarUsuario.addActionListener(new ActionListener() {
@@ -932,6 +1078,30 @@ public class VentanaPrincipalAdmin {
             public void actionPerformed(ActionEvent e) {
                 cerrarPaneles();
                 foto.setVisible(true);
+                try
+                {
+                    validarLosCamposDeTexto(tfNuevoUsuarioModificarUsuario.getText(),"Usuario");
+//                    if (tfnuevaContraseñaModificarUsuario.getText().isEmpty() || tfConfirmacionModificarUsuario.getText().isEmpty()){
+//                        throw new Exception("la contrasñao contraseña confirmacion no pueden estar vacios");
+//                    }
+                    if (!tfnuevaContraseñaModificarUsuario.getText().equals(tfConfirmacionModificarUsuario.getText()))
+                    {
+                        throw new Exception("la contrasña no coincide con contraseña confirmacion");
+                    }
+                    if(JOptionPane.showConfirmDialog(null,"Quieres actualizar usuario " + (String)cbNombreModificarUsuario.getSelectedItem()) == 0)
+                    {
+                        if(Main.modificarUsuario((String)cbNombreModificarUsuario.getSelectedItem(),tfNuevoUsuarioModificarUsuario.getText(),tfnuevaContraseñaModificarUsuario.getText()))
+                        {
+                            cbNombreModificarUsuario.removeAllItems();
+                            mostrarMensaje((String)cbNombreModificarUsuario.getSelectedItem() + " actualizada");
+                        }
+                    }
+                }
+                catch(Exception ex){
+                    cerrarPaneles();
+                    modificarUsuario.setVisible(true);
+                    mostrarError(ex.getMessage());
+                }
             }
         });
         /**
@@ -990,9 +1160,36 @@ public class VentanaPrincipalAdmin {
                     getSiguienteClasificacion();
                 } catch (Exception ex) {
                     ex.printStackTrace();
+        cbNombreModificarJugador.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                try{
+                    Jugador jugador = Main.buscarJugadorPorNombre(cbNombreModificarJugador.getSelectedItem().toString());
+                    System.out.println("jugador mine " + jugador.getNombre());
+                    tfNuevoNombreModificarJugador.setText(jugador.getNombre());
+                    tfNuevoApellidoModificarJugador.setText(jugador.getApellido());
+                    tfNuevoApodoModificarJugador.setText(jugador.getApodo());
+                    tfNuevoRolModificarJugador.setText(jugador.getRol());
+                    tfNuevoSueldoModificarJugador.setText(Float.toString(jugador.getSueldo()));
+                }
+                catch(Exception ex){}
+            }
+        });
+        cbNombreModificarDueño.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                try{
+                    Dueño d = Main.buscarDueñoConString((String)cbNombreModificarDueño.getSelectedItem());
+                    tfNuevoApellidoModificarDueño.setText(d.getNombre());
+                    tfNuevoNombreModificarDueño.setText(d.getApellido());
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+
                 }
             }
         });
+
 
         btAtrasConsultarClasificacion.addActionListener(new ActionListener() {
             @Override
@@ -1026,6 +1223,43 @@ public class VentanaPrincipalAdmin {
                     getAnteriorEquipo();
                 } catch (Exception ex) {
                     ex.printStackTrace();
+
+        cbNombreModificarEntrenador.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                try{
+                    Entrenador en = Main.buscarEntrenadorConString((String)cbNombreModificarEntrenador.getSelectedItem());
+                    tfNuevoNombreModificarEntrenador.setText(en.getNombre());
+                    tfNuevoApellidoModificarEntrenador.setText(en.getApellido());
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
+            }
+        });
+        cbNombreModificarAsistente.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                try{
+                    Asistente en = Main.buscarAsistenteConString((String)cbNombreModificarAsistente.getSelectedItem());
+                    tfNuevoNombreModificarAsistente.setText(en.getNombre());
+                    tfNuevoApellidoModificarAsistente.setText(en.getApellido());
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
+            }
+        });
+        cbNombreModificarUsuario.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                try{
+                    Login u = Main.buscarUsuario((String)cbNombreModificarUsuario.getSelectedItem());
+                    tfNuevoUsuarioModificarUsuario.setText(u.getUsuario());
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+
                 }
             }
         });

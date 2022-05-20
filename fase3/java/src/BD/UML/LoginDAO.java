@@ -2,6 +2,7 @@ package BD.UML;
 
 import Modelo.Login;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -63,17 +64,18 @@ public class LoginDAO {
 
     /**
      * Creamos un metodo para buscar un usuario con su nombre y nos devuelve un objeto tipo Login
-     * @param usuario
+     * @param u
      * @return Login
      * @throws SQLException
      */
-    public Login buscarUsuario(String usuario) throws SQLException {
+    public Login buscarUsuario(String u) throws SQLException {
         Login login = new Login();
         PreparedStatement pst = conn.prepareStatement("select * from login where usuario=?");
-        pst.setString(1,usuario.toLowerCase());
+        pst.setString(1,u);
         ResultSet loginDAO = pst.executeQuery();
 
         while(loginDAO.next()){
+            System.out.println(loginDAO.getString("usuario"));
             login.setId_login(loginDAO.getInt("id_login"));
             login.setUsuario(loginDAO.getString("usuario"));
             login.setTipo_persona(loginDAO.getString("tipo"));
@@ -110,6 +112,7 @@ public class LoginDAO {
      */
     public boolean modificarUsuario(Login login,String usuarioAntiguo) throws Exception {
         Login usuarioExistente = buscarUsuario(usuarioAntiguo);
+        System.out.println("loged " + login.getUsuario());
         if (usuarioExistente.getUsuario().isEmpty()){
             throw new Exception("No puedes modificar el usuario " + usuarioAntiguo + " por que no existe");
         }
@@ -118,8 +121,8 @@ public class LoginDAO {
             PreparedStatement pstm = conn.prepareStatement("update login set usuario=?,contrasenya=?,tipo=? where id_login=?");
             pstm.setString(1,login.getUsuario());
             pstm.setString(2,login.getContrasenya());
-            pstm.setString(3,login.getTipo_persona());
-            pstm.setInt(4,login.getId_login());
+            pstm.setString(3,"USER");
+            pstm.setInt(4,usuarioExistente.getId_login());
             int resultado = pstm.executeUpdate();
             return resultado==1;
         }
