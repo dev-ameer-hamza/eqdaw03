@@ -162,4 +162,12 @@ public class EquipoDAO {
                 ")");
         return pst.executeQuery();
     }
+
+    public boolean modificarEquipo(String nA,String nN) throws SQLException {
+        Equipo eq = buscarEquipoPorNombre(nA);
+        PreparedStatement pst = conn.prepareStatement("update equipo set nombre_equipo=? where id_equipo=?");
+        pst.setString(1,nN);
+        pst.setInt(2,eq.getIdEquipo());
+        return pst.executeUpdate() == 1;
+    }
 }

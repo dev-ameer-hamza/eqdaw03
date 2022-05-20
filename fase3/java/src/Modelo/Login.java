@@ -17,6 +17,9 @@ public class Login {
     public Login() {
     }
 
+    public Login(String nNom, String nCont) {
+    }
+
     /**
      * Creamos el getter de id_login
      * @return id_login

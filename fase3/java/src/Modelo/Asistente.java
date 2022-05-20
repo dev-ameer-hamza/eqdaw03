@@ -17,6 +17,10 @@ public class Asistente extends Persona {
         super(nombre, apellido);
     }
 
+    public Asistente() {
+
+    }
+
     /**
      * Creamos el metodo para dar de alta los asistentes
      * @param asistente
