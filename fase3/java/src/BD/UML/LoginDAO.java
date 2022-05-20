@@ -3,6 +3,7 @@ package BD.UML;
 import Modelo.Login;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class LoginDAO {
     private Connection conn;
@@ -75,7 +76,7 @@ public class LoginDAO {
         while(loginDAO.next()){
             login.setId_login(loginDAO.getInt("id_login"));
             login.setUsuario(loginDAO.getString("usuario"));
-            login.setTipo_persona(loginDAO.getString("tipo_persona"));
+            login.setTipo_persona(loginDAO.getString("tipo"));
         }
         return login;
     }
@@ -93,7 +94,7 @@ public class LoginDAO {
         }
         else
         {
-            PreparedStatement pstb = conn.prepareStatement("delete from login where id_usuario=?");
+            PreparedStatement pstb = conn.prepareStatement("delete from login where id_login=?");
             pstb.setInt(1,user.getId_login());
             int resultado = pstb.executeUpdate();
             return resultado == 1;
@@ -114,7 +115,7 @@ public class LoginDAO {
         }
         else
         {
-            PreparedStatement pstm = conn.prepareStatement("update login set usuario=?,contrasenya=?,tipo,tipo_persona=? where id_usuario=?");
+            PreparedStatement pstm = conn.prepareStatement("update login set usuario=?,contrasenya=?,tipo=? where id_login=?");
             pstm.setString(1,login.getUsuario());
             pstm.setString(2,login.getContrasenya());
             pstm.setString(3,login.getTipo_persona());
@@ -122,5 +123,19 @@ public class LoginDAO {
             int resultado = pstm.executeUpdate();
             return resultado==1;
         }
+    }
+
+    public ArrayList<Login> listaUsuarios() throws SQLException {
+        ArrayList<Login> usuarios = new ArrayList<>();
+        PreparedStatement pst = conn.prepareStatement("select * from login where tipo<>?");
+        pst.setString(1,"ADMIN");
+        ResultSet set = pst.executeQuery();
+        while(set.next())
+        {
+            Login login = new Login();
+            login.setUsuario(set.getString("usuario"));
+            usuarios.add(login);
+        }
+        return usuarios;
     }
 }

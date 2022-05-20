@@ -13,6 +13,9 @@ public class Asistente extends Persona {
     public Asistente(int id_personas, String nombre, String apellido) {
         super(id_personas, nombre, apellido);
     }
+    public Asistente( String nombre, String apellido) {
+        super(nombre, apellido);
+    }
 
     /**
      * Creamos el metodo para dar de alta los asistentes

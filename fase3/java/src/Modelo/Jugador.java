@@ -35,6 +35,10 @@ public class Jugador extends Persona{
         this.sueldo = sueldo;
     }
 
+    public Jugador() {
+
+    }
+
     /**
      * Creamos el getter de apodo
      * @return apodo
