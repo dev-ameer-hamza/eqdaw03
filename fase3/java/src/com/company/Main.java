@@ -161,13 +161,17 @@ public class Main {
         return loginDAO.listaUsuarios();
     }
 
+    public static ArrayList<Jornada> listaJornadas() throws SQLException {
+        return jornadasDAO.listaJornadas();
+    }
+
     public static ArrayList<Jugador> todosJugadores() throws SQLException {
         return jugadorDAO.todoslosJugador();
     }
 
     public static ArrayList<Partido> consultarPartido() throws SQLException {
         return partidoDAO.consultarPartidos();
-
+    }
     public static ArrayList<Dueño> todosDueños() throws SQLException {
         return dueñoDAO.todosDueños();
     }
