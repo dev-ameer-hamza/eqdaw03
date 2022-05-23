@@ -5,13 +5,17 @@ import java.sql.DriverManager;
 
 public class BaseDatos {
     //Parametros de conexion
-    private String user = "system";
-    private String password = "orcl";
-    //private String url = "jdbc:oracle:thin:@172.20.225.114:1521:orcl";
-    private String url = "jdbc:oracle:thin:@localhost:1521:orcldb";
+    private String user = "eqdaw03";
+    private String password = "eqdaw03";
+    private String url = "jdbc:oracle:thin:@172.20.225.114:1521:orcl";
+    //private String url = "jdbc:oracle:thin:@localhost:1521:orcldb";
 
     private Connection connection;
 
+    /**
+     * Constructor para crear la conexion
+     * @throws Exception
+     */
     public BaseDatos() throws Exception{
         //obtenemos el driver para mysql
         Class.forName("oracle.jdbc.OracleDriver");
@@ -24,11 +28,18 @@ public class BaseDatos {
         }
     }
 
-
+    /**
+     * Getter de Connection
+     * @return
+     */
     public Connection getConnection(){
         return connection;
     }
 
+    /**
+     * Metodo para cerrar la conexion
+     * @throws Exception
+     */
     public void desconectar() throws Exception{
         connection.close();
     }

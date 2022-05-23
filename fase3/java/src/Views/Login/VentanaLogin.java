@@ -15,7 +15,13 @@ public class VentanaLogin {
     private JPasswordField tfContrasenyaLogin;
     private JButton siguienteButton;
 
+    /**
+     * ventana login
+     */
     public VentanaLogin() {
+        /**
+         * listener del boton siguiente
+         */
         siguienteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,9 +49,16 @@ public class VentanaLogin {
         });
     }
 
+    /**
+     * metodo para que aparezca el panel de login
+     * @return panelLogin
+     */
     public JPanel getPanelLogin() {return panelLogin;}
 
 
+    /**
+     * metodo para verificar los datos insertados
+     */
     public boolean verificarDatos(String usuario, String contrasenya) throws Exception {
 
         if (usuario.isEmpty() || contrasenya.toString().isEmpty()) {
@@ -64,6 +77,10 @@ public class VentanaLogin {
 
     }
 
+    /**
+     * metodo para mostrar el error
+     * @param mensaje
+     */
     public void mostrarError(String mensaje){
 
         JOptionPane.showMessageDialog(null,mensaje);

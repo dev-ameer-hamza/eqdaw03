@@ -26,6 +26,7 @@ public class Liga {
         return estado;
     }
 
+
     /**
      * setter de estado para cerrar o abrir la liga
      * @param estado

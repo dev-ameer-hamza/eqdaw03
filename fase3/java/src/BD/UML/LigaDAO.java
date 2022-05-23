@@ -13,6 +13,12 @@ public class LigaDAO {
         this.conn = conn;
     }
 
+    /**
+     * Metodo con la sentencia para consultar el estado de la liga
+     * @return estado
+     * @throws SQLException
+     */
+
     public String consultarEstado() throws SQLException {
         Statement st = conn.createStatement();
         ResultSet set = st.executeQuery("select * from liga");
@@ -22,6 +28,13 @@ public class LigaDAO {
         }
         return estado;
     }
+
+    /**
+     * Metodo con la consulta que te permite cambiar el estado de la liga
+     * @throws SQLException
+     */
+
+
     public void cambiarEstado() throws SQLException{
         Statement st = conn.createStatement();
         if (consultarEstado().equals("ABIERTO")){
