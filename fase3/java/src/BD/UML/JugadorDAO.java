@@ -22,6 +22,15 @@ public class JugadorDAO {
         this.personaDAO = new PersonaDAO(conn);
     }
 
+
+    /**
+     * Metodo con la sentencia para crear los jugadores
+     * @param jugador
+     * @param nombreEquipo
+     * @return boolean
+     * @throws SQLException
+     */
+
     public boolean crearJugador(Jugador jugador,String nombreEquipo) throws SQLException {
         Equipo equipo = equipoDAO.buscarEquipoPorNombre(nombreEquipo);
         Persona p = new Persona(jugador.getNombre(), jugador.getApellido());
@@ -36,6 +45,12 @@ public class JugadorDAO {
         int resultado = pst.executeUpdate();
         return resultado == 1;
     }
+
+    /**
+     * Metodo para sacar los datos de todos los jugadores
+     * @return ArrayList<Jugador>
+     * @throws SQLException
+     */
 
     public ArrayList<Jugador> todoslosJugador() throws SQLException {
 
@@ -60,6 +75,13 @@ public class JugadorDAO {
         return listaJugadores;
     }
 
+    /**
+     * Metodo con la sentencia para borrar todas los jugadores
+     * @param nombreJugador
+     * @return boolean
+     * @throws Exception
+     */
+
     public boolean borrarJugador(String nombreJugador) throws Exception {
         String[] jug = nombreJugador.split("-");
         Jugador jugador = buscarJugador(Integer.parseInt(jug[0]));
@@ -70,6 +92,13 @@ public class JugadorDAO {
         return res == 1;
     }
 
+    /**
+     * Metodo con la sentencia para buscar un jugador
+     * @param id
+     * @return jugador
+     * @throws Exception
+     * @throws SQLException
+     */
     public Jugador buscarJugador(int id) throws Exception,SQLException {
 
         PreparedStatement pst = conn.prepareStatement("select * from jugador where id_persona= ?");
@@ -89,6 +118,13 @@ public class JugadorDAO {
 
     }
 
+    /**
+     * Metodo para buscar un jugador por atraves del nombre
+     * @param juga
+     * @return jugador
+     * @throws Exception
+     * @throws SQLException
+     */
     public Jugador buscarJugadorPorNombre(String juga) throws Exception,SQLException {
         String[] jug = juga.split("-");
         Jugador j = buscarJugador(Integer.parseInt(jug[0]));
@@ -109,6 +145,13 @@ public class JugadorDAO {
 
     }
 
+    /**
+     * Metodo para buscar los jugadores por el Id
+     * @param id
+     * @return Jugador
+     * @throws Exception
+     * @throws SQLException
+     */
     public Jugador buscarJugadorPorId(int id) throws Exception,SQLException {
 
         PreparedStatement pst = conn.prepareStatement("select j.id_persona,p.nombre,p.apellido,j.apodo,j.rol,j.sueldo from jugador j,persona p where j.id_persona= ? and j.id_persona=p.id_persona");
@@ -129,11 +172,26 @@ public class JugadorDAO {
 
     }
 
+    /**
+     * Metodo con la sentencia para poder modificar los jugadores
+     * @param j
+     * @param ju
+     * @return boolean
+     * @throws Exception
+     */
     public boolean modificarJugador(String j,Jugador ju) throws Exception {
         String[] jug = j.split("-");
         Jugador jugador = buscarJugadorPorId(Integer.parseInt(jug[0]));
         return actualizarDatosJugador(jugador.getId_personas(),ju);
     }
+
+    /**
+     * Metodo para poder actualizar los datos de los jugadores
+     * @param id
+     * @param jugador
+     * @return boolean
+     * @throws SQLException
+     */
 
     public boolean actualizarDatosJugador(int id,Jugador jugador) throws SQLException {
         Main.actualizarPersona(jugador.getNombre(),jugador.getApellido(), id);
