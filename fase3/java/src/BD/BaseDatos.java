@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 
 public class BaseDatos {
     //Parametros de conexion
-    private String user = "system";
-    private String password = "orcl";
-    //private String url = "jdbc:oracle:thin:@172.20.225.114:1521:orcl";
-    private String url = "jdbc:oracle:thin:@localhost:1521:orcldb";
+    private String user = "eqdaw03";
+    private String password = "eqdaw03";
+    private String url = "jdbc:oracle:thin:@172.20.225.114:1521:orcl";
+    //private String url = "jdbc:oracle:thin:@localhost:1521:orcldb";
 
     private Connection connection;
 

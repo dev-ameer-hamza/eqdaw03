@@ -3,6 +3,7 @@ package BD.UML;
 import Modelo.Equipo;
 import Modelo.Jornada;
 import Modelo.Partido;
+import com.company.Main;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class PartidoDAO {
         listaJornadas = jornadasDAO.listaJornadas();
         System.out.println("lista jornadas " + listaJornadas.size());
         crearCadaEnfrentamiento(listaEquipos,listaJornadas);
+        Main.cambiarEstadoLiga();
     }
 
     /**

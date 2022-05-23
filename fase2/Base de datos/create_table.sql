@@ -16,9 +16,7 @@ create table equipo(
     partidos_jugados number(3) default 0,
     partidos_ganados number(3) default 0,
     partidos_perdidos number(3) default 0,
-    estado varchar2(1) default 'A',
-    constraint pk_id_equipo primary key(id_equipo),
-    constraint ck_estado check(upper(estado) in('A','C'))
+    constraint pk_id_equipo primary key(id_equipo)
 );
 
 /* creacion de la tabla partido  */
@@ -117,3 +115,9 @@ create table xml(
     constraint pk_id_xml primary key(id_xml)
 );
 
+/* creacion de la tabla liga  */
+drop table liga cascade constraints;
+create table liga(
+    estado varchar2(10) default 'ABIERTO',
+    constraint ck_estado check(upper(estado) in('ABIERTO','CERRADO'))
+);
