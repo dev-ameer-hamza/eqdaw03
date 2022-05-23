@@ -19,6 +19,14 @@ public class DueñoDAO {
         this.conn = conn;
     }
 
+    /**
+     * Metodo con la sentencia para crear un dueño
+     * @param d
+     * @param idEquipo
+     * @return
+     * @throws SQLException
+     */
+
     public boolean registrarDueño(Dueño d, int idEquipo) throws SQLException {
         Persona p =d;
         int idPersona = Main.crearPersona(p);
@@ -28,11 +36,23 @@ public class DueñoDAO {
         return pst.executeUpdate() == 1;
     }
 
+    /**
+     * Metodo con la sentencia para borrar el dueño
+     * @param id
+     * @throws SQLException
+     */
+
     public void borrarDuenyo(int id) throws SQLException {
         PreparedStatement pst = conn.prepareStatement("delete from duenyo where id_equipo=?");
         pst.setInt(1,id);
         pst.executeUpdate();
     }
+
+    /**
+     * Metodo con la sentencia para sacar los datos de los dueños de los equipos
+     * @return
+     * @throws SQLException
+     */
 
     public ArrayList<Dueño> todosDueños() throws SQLException {
         ArrayList<Dueño> dueños = new ArrayList<>();
@@ -49,10 +69,25 @@ public class DueñoDAO {
         return dueños;
     }
 
+    /**
+     * Metodo con sentencia para buscar el dueño
+     * @param str
+     * @return
+     * @throws SQLException
+     */
+
     public Dueño buscarDueñoConString(String str) throws SQLException {
         String[] jug = str.split("-");
         return buscarDueñoPorId(Integer.parseInt(jug[0]));
     }
+
+    /**
+     * Metodo con sentencia para buscar el dueño atraves del usuario
+     * @param id
+     * @return Dueño
+     * @throws SQLException
+     */
+
     public Dueño buscarDueñoPorId(int id) throws SQLException {
         PreparedStatement pst = conn.prepareStatement("select p.nombre,p.apellido,d.id_persona from persona p,duenyo d where d.id_persona = p.id_persona and d.id_persona=?");
         pst.setInt(1,id);
@@ -67,10 +102,24 @@ public class DueñoDAO {
         return dd;
     }
 
+    /**
+     * Metodo para modificar el dueño de un equipo
+     * @param str
+     * @param newD
+     * @throws SQLException
+     */
+
     public  void modificarDueño(String str,Dueño newD) throws SQLException {
         Dueño old = buscarDueñoConString(str);
          actualizarDueño(old.getId_personas(),newD);
     }
+
+    /**
+     * Metodo para actualizar los datos del dueño
+     * @param id
+     * @param d
+     * @throws SQLException
+     */
 
     public void actualizarDueño(int id,Dueño d) throws SQLException {
         Main.actualizarPersona(d.getNombre(),d.getApellido(),id);

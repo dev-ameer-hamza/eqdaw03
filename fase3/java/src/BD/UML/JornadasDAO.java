@@ -60,7 +60,7 @@ public class JornadasDAO {
      * Creamos el metodo para consultar las jornadas
      * Este metodo nos devuelve todas las filas que hay en la tabla jornada
      * en base de datos
-     * @return
+     * @return ArrayList<Jornada>
      * @throws SQLException
      */
     public ArrayList<Jornada> listaJornadas() throws SQLException {

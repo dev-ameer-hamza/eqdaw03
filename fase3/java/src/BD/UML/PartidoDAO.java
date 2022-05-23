@@ -109,6 +109,14 @@ public class PartidoDAO {
         if (resultado != 1){ throw new Exception("Error, no se puede crear el partido");}
     }
 
+
+    /**
+     * Metodo con la sentencia para poder consultar los partidos
+     * @return
+     * @throws SQLException
+     */
+
+
     public ArrayList<Partido> consultarPartidos() throws SQLException {
         ArrayList<Partido> listaPartidos = new ArrayList<>();
         Statement consulta = this.conn.createStatement();
