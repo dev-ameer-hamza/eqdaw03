@@ -41,19 +41,25 @@ public class VentanaPrincipalUsuario {
     private int posClasificacion;
     private int posPartido;
 
+    /**
+     * metodo para que aparezca la ventana de usuario
+     * @return Panel
+     */
     public JPanel getPanelUsuario() {
         return Panel;
     }
 
     /**
-     * funcion para cerrar los paneles de usuario
+     * metodo para cerrar todos los paneles de la ventana usuario
      */
     public void cerrarPanelesUsuario() {
         consultarClasificacion.setVisible(false);
         consultarUltimaJornada.setVisible(false);
         inicio.setVisible(false);
     }
-
+    /**
+     * metodo para deshabilitar botones cuando los emparejamientos esten creados
+     */
     public void deshabilitarBotonesUsuario() throws SQLException {
         if (Main.comprobarEstadoLiga().equals("ABIERTO")) {
             System.out.println(Main.comprobarEstadoLiga());
@@ -65,7 +71,7 @@ public class VentanaPrincipalUsuario {
     }
 
     /**
-     * metodo para conseguir siguiente y anterior clasificacion
+     * metodo para ir al siguiente en consultar jornada
      */
     public void getSiguientePartido() throws Exception{
         if (posPartido != Main.consultarPartido().size() - 1) {
@@ -83,6 +89,9 @@ public class VentanaPrincipalUsuario {
             throw new Exception("No hay siguiente");
         }
     }
+    /**
+     * metodo para ir al anterior en consultar jornada
+     */
     public void getAnteriorPartido() throws Exception{
         if (posPartido != 0) {
             posPartido--;
@@ -99,7 +108,9 @@ public class VentanaPrincipalUsuario {
             throw new Exception("No");
         }
     }
-
+    /**
+     * metodo para ir al siguiente en consultar clasificacion
+     */
     public void getSiguienteClasificacion() throws Exception
     {
         if (posClasificacion != Main.consultarEquipos().size() - 1) {
@@ -125,7 +136,9 @@ public class VentanaPrincipalUsuario {
             throw new Exception("No hay siguiente");
         }
     }
-
+    /**
+     * metodo para ir al anterior en consultar clasificacion
+     */
     public void getAnteriorClasificacion() throws Exception
     {
         if (posClasificacion != 0) {
@@ -151,13 +164,15 @@ public class VentanaPrincipalUsuario {
     }
 
 
-
+    /**
+     * ventana del usuario
+     */
     public VentanaPrincipalUsuario() throws SQLException {
         deshabilitarBotonesUsuario();
         cerrarPanelesUsuario();
         inicio.setVisible(true);
         /**
-         * botones panel usuario
+         * Listener para el boton del menu consultar ultima jornada
          */
         jmiConsultarUltimaJornada.addActionListener(new ActionListener() {
             @Override
@@ -178,7 +193,9 @@ public class VentanaPrincipalUsuario {
                 }
             }
         });
-
+        /**
+         * Listener para el boton del menu consultar clasificacion
+         */
         jmiConsultarClasificacion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -208,7 +225,7 @@ public class VentanaPrincipalUsuario {
         });
 
         /**
-         * botones del menu
+         * listener del boton inicio en el menu
          */
         btInicio.addActionListener(new ActionListener() {
             @Override
@@ -217,7 +234,9 @@ public class VentanaPrincipalUsuario {
                 inicio.setVisible(true);
             }
         });
-
+        /**
+         * listener del boton cerrar sesion en el menu
+         */
         btCerrarSesion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -230,18 +249,9 @@ public class VentanaPrincipalUsuario {
             }
         });
 
-
-        btAtrasConsultarJornadas.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    getAnteriorPartido();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-
+        /**
+         * listener del boton para ir al siguiente en consultar jornadas
+         */
         btSiguienteConsultarJornadas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -252,9 +262,21 @@ public class VentanaPrincipalUsuario {
                 }
             }
         });
-
         /**
-         * botones siguiente y anterior de consultar clasificacion
+         * listener del boton para ir al anterior en consultar jornadas
+         */
+        btAtrasConsultarJornadas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    getAnteriorPartido();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        /**
+         * listener del boton para ir al siguiente en consultar clasificacion
          */
         btSiguienteConsultarClasificacion.addActionListener(new ActionListener() {
             @Override
@@ -266,7 +288,9 @@ public class VentanaPrincipalUsuario {
                 }
             }
         });
-
+        /**
+         * listener del boton para ir al anterior en consultar clasificacion
+         */
         btAtrasConsultarClasificacion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

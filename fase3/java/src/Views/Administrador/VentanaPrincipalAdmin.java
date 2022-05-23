@@ -161,6 +161,9 @@ public class VentanaPrincipalAdmin {
     private JLabel lbEquipoVisitanteConsultarJornada;
     private JLabel lbEquipoGanadorConsultarJornada;
 
+    /**
+     * variable para guardar el salario minimo, de tipo float
+     */
     private final float SALARIOMINIMO = 950.0f;
 
     private JLabel lbPartidosGanadosConsultarClasificacion;
@@ -193,12 +196,16 @@ public class VentanaPrincipalAdmin {
     private int posClasificacion;
     private int posEquipo;
 
+    /**
+     * metodo para que aparezca la ventana de administrador
+     * @return panelAdmin
+     */
     public JPanel getPruebaPanel() {
         return PanelAdmin;
     }
 
     /**
-     * metodo para cerrar paneles
+     * metodo para cerrar todos los paneles de la ventana admin
      */
     public void cerrarPaneles() {
         crearDueño.setVisible(false);
@@ -227,7 +234,7 @@ public class VentanaPrincipalAdmin {
     }
 
     /**
-     * metodo para deshabilitar botones una vez la clasificacion este hecha
+     * metodo para deshabilitar botones cuando los emparejamientos esten creados
      */
     public void deshabilitarBotones() throws SQLException {
         if (Main.comprobarEstadoLiga().equals("ABIERTO")) {
@@ -253,7 +260,7 @@ public class VentanaPrincipalAdmin {
     }
 
     /**
-     * metodo para conseguir siguiente y anterior equipp
+     * metodo para ir al siguiente en consultar equipo
      */
     public void getSiguienteEquipo() throws Exception {
         try {
@@ -274,6 +281,9 @@ public class VentanaPrincipalAdmin {
 
     }
 
+    /**
+     * metodo para ir al anterior en consultar equipo
+     */
     public void getAnteriorEquipo() throws Exception {
         if (posEquipo != 0) {
             posEquipo--;
@@ -283,12 +293,13 @@ public class VentanaPrincipalAdmin {
             lbEntrenadorConsultarDueño.setText(equipo.getNombreEntrenador());
             lbAsistenteConsultarDueño.setText(equipo.getNombreAsistente());
 
-        } else
+        } else {
             throw new Exception("No hay anterior");
+        }
     }
 
     /**
-     * metodo para conseguir siguiente y anterior jugador
+     * metodo para ir al siguiente en consultar jugador
      */
     public void getSiguienteJugador() throws Exception {
         try {
@@ -313,6 +324,9 @@ public class VentanaPrincipalAdmin {
 
     }
 
+    /**
+     * metodo para ir al anterior en consultar jugador
+     */
     public void getAnteriorJugador() throws Exception {
         if (posJugador != 0) {
             posJugador--;
@@ -325,12 +339,14 @@ public class VentanaPrincipalAdmin {
             String sueldoS = String.valueOf(sueldo);
             lbSueldoConsultarJugador.setText(sueldoS);
             lbEquipoConsultarJugador.setText(jugador.getNombreEquipo());
-        } else
+        } else {
             throw new Exception("No hay anterior");
+        }
+
     }
 
     /**
-     * metodo para conseguir siguiente y anterior clasificacion
+     * metodo para ir al siguiente en consultar clasificacion
      */
     public void getSiguienteClasificacion() throws Exception {
         if (posClasificacion != Main.consultarEquipos().size() - 1) {
@@ -356,6 +372,9 @@ public class VentanaPrincipalAdmin {
         }
     }
 
+    /**
+     * metodo para ir al anterior en consultar clasificacion
+     */
     public void getAnteriorClasificacion() throws Exception {
         if (posClasificacion != 0) {
             //lbPosicionConsultarClasificacion.setText();
@@ -374,20 +393,21 @@ public class VentanaPrincipalAdmin {
             int puntos = equipo.getPuntos();
             String puntosS = String.valueOf(puntos);
             lbPuntosConsultarClasificacion.setText(puntosS);
-        } else
+        } else {
             throw new Exception("No hay anterior");
+        }
     }
 
     /**
-     * ventana admin
+     * ventana del admin
      */
-
     public VentanaPrincipalAdmin() throws SQLException {
         cerrarPaneles();
         deshabilitarBotones();
         foto.setVisible(true);
+
         /**
-         * Botones del menu crear
+         * Listener para el boton del menu crear equipo
          */
         jmiCrearEquipo.addActionListener(new ActionListener() {
             @Override
@@ -396,6 +416,9 @@ public class VentanaPrincipalAdmin {
                 crearEquipo.setVisible(true);
             }
         });
+        /**
+         * Listener para el boton del menu crear jugador
+         */
         jmiCrearJugador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -411,6 +434,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * Listener para el boton del menu crear usuario
+         */
         jmiCrearUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -418,6 +444,9 @@ public class VentanaPrincipalAdmin {
                 crearUsuario.setVisible(true);
             }
         });
+        /**
+         * Listener para el boton del menu crear emparejamiento
+         */
         jmiCrearEmparejamiento.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -436,7 +465,7 @@ public class VentanaPrincipalAdmin {
         });
 
         /**
-         * botones del menu borrar
+         * Listener para el boton del menu borrar equipo
          */
         jmiBorrarEquipo.addActionListener(new ActionListener() {
             @Override
@@ -452,6 +481,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * Listener para el boton del menu borrar jugador
+         */
         jmiBorrarJugador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -467,6 +499,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * Listener para el boton del menu borrar usuario
+         */
         jmiBorrarUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -484,7 +519,7 @@ public class VentanaPrincipalAdmin {
             }
         });
         /**
-         *  botones del menu modificar
+         * Listener para el boton del menu modificar equipo
          */
         jmiModificarEquipo.addActionListener(new ActionListener() {
             @Override
@@ -502,6 +537,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * Listener para el boton del menu modificar jugador
+         */
         jmiModificarJugador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -516,6 +554,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * Listener para el boton del menu modificar dueño
+         */
         jmiModificarDueño.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -530,6 +571,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * Listener para el boton del menu modificar entrenador
+         */
         jmiModificarEntrenador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -545,6 +589,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * Listener para el boton del menu modificar asistente
+         */
         jmiModificarAsistente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -561,6 +608,9 @@ public class VentanaPrincipalAdmin {
 
             }
         });
+        /**
+         * Listener para el boton del menu modificar usuario
+         */
         jmiModificarUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -576,6 +626,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * Listener para el boton del menu modificar jornada
+         */
         jmiModificarJornada.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -597,7 +650,7 @@ public class VentanaPrincipalAdmin {
             }
         });
         /**
-         * Botones del moenu consultar
+         * Listener para el boton del menu consultar equipo
          */
         jmiConsultarEquipo.addActionListener(new ActionListener() {
             @Override
@@ -616,6 +669,9 @@ public class VentanaPrincipalAdmin {
 
             }
         });
+        /**
+         * Listener para el boton del menu consultar jugador
+         */
         jmiConsultarJugador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -637,6 +693,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * Listener para el boton del menu consultar jornadas
+         */
         jmiConsultarJornadas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -657,6 +716,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * Listener para el boton del menu consultar clasificacion
+         */
         jmiConsultarClasificacion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -685,7 +747,7 @@ public class VentanaPrincipalAdmin {
             }
         });
         /**
-         * botones siguiente en crear
+         * listener del boton siguiente en crear equipo
          */
         btSiguienteCrearEquipo.addActionListener(new ActionListener() {
             @Override
@@ -701,7 +763,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
-
+        /**
+         * listener del boton siguiente en crear dueño
+         */
         btSiguienteCrearDueño.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -717,7 +781,7 @@ public class VentanaPrincipalAdmin {
             }
         });
         /**
-         * boton Si y No en la ventana de crear entrenador
+         * listener del boton NO en la ventana de crear entrenador
          */
         btSiCrearEntrenador.addActionListener(new ActionListener() {
             @Override
@@ -734,6 +798,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * listener del boton NO en la ventana de crear entrenador
+         */
         btNoCrearEntrenador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -761,7 +828,7 @@ public class VentanaPrincipalAdmin {
         });
 
         /**
-         * botones para ir atras en crear
+         * listener del boton para ir atras en crear dueño
          */
         btAtrasCrearDueño.addActionListener(new ActionListener() {
             @Override
@@ -770,6 +837,9 @@ public class VentanaPrincipalAdmin {
                 crearEquipo.setVisible(true);
             }
         });
+        /**
+         * listener del boton para ir atras en crear entrenador
+         */
         btAtrasCrearEntrenador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -777,6 +847,9 @@ public class VentanaPrincipalAdmin {
                 crearDueño.setVisible(true);
             }
         });
+        /**
+         * listener del boton para ir atras en crear asistente
+         */
         btAtrasCrearAsistente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -785,7 +858,7 @@ public class VentanaPrincipalAdmin {
             }
         });
         /**
-         * boton guardar en crear
+         * listener del boton para guardar en crear asistente
          */
         btGuardarCrearAsistente.addActionListener(new ActionListener() {
             @Override
@@ -812,6 +885,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * listener del boton para guardar en crear jugador
+         */
         btGuardarCrearJugador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -859,6 +935,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * listener del boton para guardar en crear usuario
+         */
         btGuardarCrearUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -884,7 +963,7 @@ public class VentanaPrincipalAdmin {
         });
 
         /**
-         * boton borrar en borrar
+         * listener del boton para borrar en borrar equipo
          */
         btBorrarBorrarEquipo.addActionListener(new ActionListener() {
             @Override
@@ -902,6 +981,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * listener del boton para borrar en borrar jugador
+         */
         btBorrarBorrarJugador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -917,6 +999,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * listener del boton para borrar en borrar usuario
+         */
         btBorrarBorrarUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -937,7 +1022,7 @@ public class VentanaPrincipalAdmin {
         });
 
         /**
-         * boton modificar en modificar
+         * listener del boton para modificar en modificar equipo
          */
         btModificarModificarEquipo.addActionListener(new ActionListener() {
             @Override
@@ -956,6 +1041,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * listener del boton para modificar en modificar jugador
+         */
         btModificarModificarJugador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -994,6 +1082,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * listener del boton para modificar en modificar dueño
+         */
         btModificarModificarDueño.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1012,6 +1103,9 @@ public class VentanaPrincipalAdmin {
 
             }
         });
+        /**
+         * listener del boton para modificar en modificar entrenador
+         */
         btModificarModificarEntrenador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1030,6 +1124,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * listener del boton para modificar en modificar asistente
+         */
         btModificarModificarAsistente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1049,6 +1146,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * listener del boton para modificar en modificar usuario
+         */
         btModificarModificarUsuario.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1076,7 +1176,7 @@ public class VentanaPrincipalAdmin {
             }
         });
         /**
-         * botones del menu
+         * listener del boton inicio en el mmenu
          */
         btInicio.addActionListener(new ActionListener() {
             @Override
@@ -1085,6 +1185,9 @@ public class VentanaPrincipalAdmin {
                 foto.setVisible(true);
             }
         });
+        /**
+         * listener del boton cerrar sesion en el mmenu
+         */
         btCerrarSesion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1097,7 +1200,7 @@ public class VentanaPrincipalAdmin {
             }
         });
         /**
-         * botones siguiente y anterior de consultar jugador
+         * listener del boton siguiente de consultar jugador
          */
         btSiguienteConsultarJugador.addActionListener(new ActionListener() {
             @Override
@@ -1109,7 +1212,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
-
+        /**
+         * listener del boton anterior de consultar jugador
+         */
         btAtrasConsultarJugador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1122,7 +1227,7 @@ public class VentanaPrincipalAdmin {
         });
 
         /**
-         * botones siguiente y anterior de consultar clasificacion
+         * listener del boton siguiente de consultar clasificacion
          */
         btSiguienteConsultarClasificacion.addActionListener(new ActionListener() {
             @Override
@@ -1134,6 +1239,51 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * listener del boton anterior de consultar clasificacion
+         */
+        btAtrasConsultarClasificacion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    getAnteriorClasificacion();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        /**
+         * listener del boton siguiente en consultar equipo
+         */
+        btSiguienteConsultarEquipo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    getSiguienteEquipo();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        /**
+         * listener del boton anterior en consultar equipo
+         */
+        btAtrasConsultarEquipo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    getAnteriorEquipo();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+
+        /**
+         * listener de la combobox del nombre de jugador en modificar jugador
+         */
         cbNombreModificarJugador.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -1149,6 +1299,9 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
+        /**
+         * listener de la combobox del nombre de dueño en modificar dueño
+         */
         cbNombreModificarDueño.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -1162,82 +1315,57 @@ public class VentanaPrincipalAdmin {
                 }
             }
         });
-
-
-        btAtrasConsultarClasificacion.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    getAnteriorClasificacion();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-
         /**
-         * botones siguiente y atras de consultar equipo
+         * listener de la combobox del nombre de entrenador en modificar entrenador
          */
-        btSiguienteConsultarEquipo.addActionListener(new ActionListener() {
+        cbNombreModificarEntrenador.addItemListener(new ItemListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void itemStateChanged(ItemEvent e) {
                 try {
-                    getSiguienteEquipo();
+                    Entrenador en = Main.buscarEntrenadorConString((String) cbNombreModificarEntrenador.getSelectedItem());
+                    tfNuevoNombreModificarEntrenador.setText(en.getNombre());
+                    tfNuevoApellidoModificarEntrenador.setText(en.getApellido());
                 } catch (Exception ex) {
-                    ex.printStackTrace();
+                    mostrarError(ex.getMessage());
+                }
+            }
+        });
+        /**
+         * listener de la combobox del nombre de asistente en modificar asistente
+         */
+        cbNombreModificarAsistente.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                try {
+                    Asistente en = Main.buscarAsistenteConString((String) cbNombreModificarAsistente.getSelectedItem());
+                    tfNuevoNombreModificarAsistente.setText(en.getNombre());
+                    tfNuevoApellidoModificarAsistente.setText(en.getApellido());
+                } catch (Exception ex) {
+                    mostrarError(ex.getMessage());
+                }
+            }
+        });
+        /**
+         * listener de la combobox del nombre de usuario en modificar usuario
+         */
+        cbNombreModificarUsuario.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                try {
+                    Login u = Main.buscarUsuario((String) cbNombreModificarUsuario.getSelectedItem());
+                    tfNuevoUsuarioModificarUsuario.setText(u.getUsuario());
+                } catch (Exception ex) {
+                    mostrarError(ex.getMessage());
+
                 }
             }
         });
 
-        btAtrasConsultarEquipo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    getAnteriorEquipo();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-
-                    cbNombreModificarEntrenador.addItemListener(new ItemListener() {
-                        @Override
-                        public void itemStateChanged(ItemEvent e) {
-                            try {
-                                Entrenador en = Main.buscarEntrenadorConString((String) cbNombreModificarEntrenador.getSelectedItem());
-                                tfNuevoNombreModificarEntrenador.setText(en.getNombre());
-                                tfNuevoApellidoModificarEntrenador.setText(en.getApellido());
-                            } catch (Exception ex) {
-                                mostrarError(ex.getMessage());
-                            }
-                        }
-                    });
-                    cbNombreModificarAsistente.addItemListener(new ItemListener() {
-                        @Override
-                        public void itemStateChanged(ItemEvent e) {
-                            try {
-                                Asistente en = Main.buscarAsistenteConString((String) cbNombreModificarAsistente.getSelectedItem());
-                                tfNuevoNombreModificarAsistente.setText(en.getNombre());
-                                tfNuevoApellidoModificarAsistente.setText(en.getApellido());
-                            } catch (Exception ex) {
-                                mostrarError(ex.getMessage());
-                            }
-                        }
-                    });
-                    cbNombreModificarUsuario.addItemListener(new ItemListener() {
-                        @Override
-                        public void itemStateChanged(ItemEvent e) {
-                            try {
-                                Login u = Main.buscarUsuario((String) cbNombreModificarUsuario.getSelectedItem());
-                                tfNuevoUsuarioModificarUsuario.setText(u.getUsuario());
-                            } catch (Exception ex) {
-                                mostrarError(ex.getMessage());
-
-                            }
-                        }
-                    });
-                }
-            }
-
-        });
     }
+
+    /**
+     * metodo para validar los datos al crear el usuario
+     */
     public boolean validarCrearUsuario (String usuario, String contra, String contraConfirm) throws Exception {
         if (usuario.isEmpty() || contra.isEmpty() || contraConfirm.isEmpty()) {
             throw new Exception("Ningun campo puede estar vacio");
@@ -1260,13 +1388,23 @@ public class VentanaPrincipalAdmin {
 
         return true;
     }
+
+    /**
+    * metodo para mostrar el error
+     */
     public void mostrarError (String msj)
     {
         JOptionPane.showMessageDialog(null, msj);
     }
+    /**
+     * metodo para mostrar el mensaje
+     */
     public void mostrarMensaje (String msj){
         JOptionPane.showMessageDialog(null, msj);
     }
+    /**
+     * metodo para validar los campo de texto
+     */
     public void validarLosCamposDeTexto (String textField, String nombreCampo) throws Exception
     {
         if (textField.isEmpty()) {
