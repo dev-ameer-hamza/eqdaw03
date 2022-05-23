@@ -645,7 +645,7 @@ public class VentanaPrincipalAdmin {
                     }
                     for(int i=0;i<jornadas.size();i++)
                     {
-                        cbJornadaModificarJornada.addItem("Jornada " + jornadas.get(i).getId_jornada());
+                        cbJornadaModificarJornada.addItem( jornadas.get(i).getId_jornada());
                     }
                 }
                 catch(Exception ex){
