@@ -1,8 +1,5 @@
-/*
-un trigger para comprobar si hay minimo dos jugadores en un equipo
-*/
-create or replace trigger minimo_jugadores
-before insert on partido
+create or replace  trigger minimo_jugadores
+before insert or update or delete on partido
 for each row
 declare
 jugadoresDeEquipo1 number(5);
@@ -31,18 +28,3 @@ raise_application_error(-20009,'ERROR, No puede haber menos de 2 jugadores en el
 when minimoJugadoresExcep2 then
 raise_application_error(-20010,'ERROR, No puede haber menos de 2 jugadores en el equipo ' || :new.id_equipo2);
 end;
-
-alter trigger MINIMO_JUGADORES disable;
-/*  una funcion para contar numero de jugadores de un equipo
-    esta usado en trigger minimo_jugadores y en max_6_jugadores
-*/
-create or replace function jugadores_en_equipo (equipo in number) return number
-is
-numJugadores number(5);
-begin
-select count(*) into numJugadores from jugador where id_equipo=equipo;
-return numJugadores;
-end;
-
-
-

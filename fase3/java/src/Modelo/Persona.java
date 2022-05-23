@@ -24,6 +24,10 @@ public class Persona {
         this.apellido = apellido;
     }
 
+    /**
+     * cosntructor vacio de persona
+     */
+
     public Persona() {
 
     }

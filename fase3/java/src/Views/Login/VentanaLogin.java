@@ -1,14 +1,11 @@
-package Vistas.Login;
+package Views.Login;
 
 import Modelo.Login;
-import Vistas.Administrador.VentanaPrincipalAdmin;
 import com.company.Main;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

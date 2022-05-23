@@ -19,9 +19,12 @@ public class Equipo {
     private Dueño duenyo;
     private Asistente asistente;
 
+    private String nombreEntrenador;
+    private String nombreDuenyo;
+    private String nombreAsistente;
 
     /**
-     * Creamos el constructor
+     * Creamos el constructor de equipo
      * @param idEquipo
      * @param nombreEquipo
      * @param puntos
@@ -33,7 +36,7 @@ public class Equipo {
      * @param listaJugadores
      */
 
-    public Equipo(int idEquipo, String nombreEquipo, int puntos, int partidosJugados, int partidosGanados, int partidosPerdidos, String estado, ArrayList<Partido> listaPartidos, ArrayList<Jugador> listaJugadores) {
+    public Equipo(int idEquipo, String nombreEquipo, int puntos, int partidosJugados, int partidosGanados, int partidosPerdidos, String estado, ArrayList<Partido> listaPartidos, ArrayList<Jugador> listaJugadores, String nombreEntrenador, String nombreAsistente, String nombreDuenyo) {
         this.idEquipo = idEquipo;
         this.nombreEquipo = nombreEquipo;
         this.puntos = puntos;
@@ -43,6 +46,9 @@ public class Equipo {
         this.estado = estado;
         this.listaPartidos = listaPartidos;
         this.listaJugadores = listaJugadores;
+        this.nombreEntrenador = nombreEntrenador;
+        this.nombreAsistente = nombreAsistente;
+        this.nombreDuenyo = nombreDuenyo;
     }
 
     /**
@@ -84,6 +90,24 @@ public class Equipo {
     public String getNombreEquipo() {
         return nombreEquipo;
     }
+
+    /**
+     * Getter para dueño
+     * @return
+     */
+    public Dueño getDueñoEquipo() {return duenyo;}
+
+    /**
+     * Getter para entrenador
+     * @return
+     */
+    public Entrenador getEntrenadorEquipo() {return entrenador;}
+
+    /**
+     * Getter para asistente
+     * @return
+     */
+    public Asistente getasistenteEquipo() {return asistente;}
 
     /**
      * Creamos el setter de nombre
@@ -157,20 +181,28 @@ public class Equipo {
         this.partidosPerdidos = partidosPerdidos;
     }
 
-    /**
-     * el getter para el atributo estado
-     * @return estado
-     */
-    public String getEstado() {
-        return estado;
+    public String getNombreEntrenador() {
+        return nombreEntrenador;
     }
 
-    /**
-     * el setter para el atributo estado
-     * @param estado
-     */
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setNombreEntrenador(String nombreEntrenador) {
+        this.nombreEntrenador = nombreEntrenador;
+    }
+
+    public String getNombreDuenyo() {
+        return nombreDuenyo;
+    }
+
+    public void setNombreDuenyo(String nombreDuenyo) {
+        this.nombreDuenyo = nombreDuenyo;
+    }
+
+    public String getNombreAsistente() {
+        return nombreAsistente;
+    }
+
+    public void setNombreAsistente(String nombreAsistente) {
+        this.nombreAsistente = nombreAsistente;
     }
 
     /**

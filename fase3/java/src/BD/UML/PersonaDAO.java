@@ -25,20 +25,14 @@ public class PersonaDAO {
      * @return ResultSet
      * @throws SQLException
      */
-    public Persona crearPersona(Persona p) throws SQLException {
-        System.out.println("aqui estoy");
-        Persona persona = null;
+    public int crearPersona(Persona p) throws SQLException {
+        int persona=0;
         PreparedStatement pst = conn.prepareStatement("insert into persona(nombre,apellido) values(?,?)");
         pst.setString(1,p.getNombre());
         pst.setString(2,p.getApellido());
-        ResultSet datosPersona = pst.executeQuery();
-        System.out.println("aqui estoy otra vex");
-        while(datosPersona.next())
-        {
-            persona = new Persona();
-            persona.setId_personas(datosPersona.getInt("id_persona"));
-            persona.setNombre(datosPersona.getString("nombre"));
-            persona.setApellido(datosPersona.getString("apellido"));
+        int datosPersona = pst.executeUpdate();
+        if (datosPersona == 1){
+            persona = ultimaPersona();
         }
         return persona;
     }
@@ -68,6 +62,42 @@ public class PersonaDAO {
         pst.setString(2,p.getApellido());
         pst.setInt(2,id);
         return pst.executeQuery();
+    }
+
+    public int ultimaPersona() throws SQLException {
+        int pid=0;
+        PreparedStatement pst = conn.prepareStatement("select max(id_persona) as maxi from persona");
+        ResultSet set = pst.executeQuery();
+        while(set.next()){
+            pid = buscarUltimaPersona(set.getInt("maxi"));
+        }
+        return pid;
+    }
+
+    public int buscarUltimaPersona(int id) throws SQLException {
+        int pid =0;
+        PreparedStatement pst = conn.prepareStatement("select * from persona where id_persona=?");
+        pst.setInt(1,id);
+        ResultSet set = pst.executeQuery();
+        while(set.next()){
+            pid = set.getInt("id_persona");
+        }
+        return pid;
+    }
+
+    public void actualizaPersona(String nom,String apell,int id) throws SQLException {
+        System.out.println(id + nom + apell);
+        PreparedStatement pst = conn.prepareStatement("update persona set nombre=?,apellido=? where id_persona=?");
+        pst.setString(1,nom);
+        pst.setString(2,apell);
+        pst.setInt(3,id);
+        if(pst.executeUpdate() == 1){
+            System.out.println("persona actualizada");
+        }
+        else
+        {
+            System.out.println("error con persona");
+        }
     }
 
     // para consultar personas debemos crear una vista
