@@ -18,6 +18,13 @@ public class AsistenteDAO {
         this.conn = conn;
     }
 
+    /**
+     * Metodo con la sentencia para crear un asistente
+     * @param a
+     * @param idEquipo
+     * @return boolean
+     * @throws SQLException
+     */
     public boolean registrarAsistente(Asistente a,int idEquipo) throws SQLException {
         Persona p =a;
         int idPersona = Main.crearPersona(p);
@@ -27,12 +34,22 @@ public class AsistenteDAO {
         return pst.executeUpdate() == 1;
     }
 
+    /**
+     * Metodo con la sentencia para borrar el asistente
+     * @param id
+     * @throws SQLException
+     */
     public void borrarAsistente(int id) throws SQLException {
         PreparedStatement pst = conn.prepareStatement("delete from asistente where id_equipo=?");
         pst.setInt(1,id);
         pst.executeUpdate();
     }
 
+    /**
+     * Te muestra todos los datos del Asistente
+     * @return ArrayList<Asistente>
+     * @throws SQLException
+     */
     public ArrayList<Asistente> todosAsistentes() throws SQLException {
         ArrayList<Asistente> entrenadors = new ArrayList<>();
         PreparedStatement pst = conn.prepareStatement("select p.nombre,p.apellido,d.id_persona from persona p,asistente d where d.id_persona = p.id_persona");
@@ -48,12 +65,25 @@ public class AsistenteDAO {
         return entrenadors;
     }
 
+    /**
+     * Metodo para sacar los datos del
+     * @param str
+     * @return Asistente
+     * @throws SQLException
+     */
+
     public Asistente buscarAsistenteConString(String str) throws SQLException {
         String[] jug = str.split("-");
         System.out.println(Integer.parseInt(jug[0]));
         return buscarAsisPorId(Integer.parseInt(jug[0]));
     }
 
+    /**
+     * Metodo para sacar los datos del asistente atraves del Id
+     * @param id
+     * @return Asistente
+     * @throws SQLException
+     */
     public Asistente buscarAsisPorId(int id) throws SQLException {
         System.out.println("djkhjkljdlñ" + id);
         PreparedStatement pst = conn.prepareStatement("select p.nombre,p.apellido,d.id_persona from persona p,asistente d where d.id_persona = p.id_persona and d.id_persona=?");
@@ -69,10 +99,23 @@ public class AsistenteDAO {
         return en;
     }
 
+    /**
+     * Metodo para modificar el asistente
+     * @param str
+     * @param en
+     * @throws SQLException
+     */
     public void modificarAsistente(String str,Asistente en) throws SQLException {
         Asistente old = buscarAsistenteConString(str);
         actualizarAsistente(old.getId_personas(),en);
     }
+
+    /**
+     * Metodo para actualizar el asistente
+     * @param id
+     * @param d
+     * @throws SQLException
+     */
 
     public void actualizarAsistente(int id,Asistente d) throws SQLException {
         Main.actualizarPersona(d.getNombre(),d.getApellido(),id);

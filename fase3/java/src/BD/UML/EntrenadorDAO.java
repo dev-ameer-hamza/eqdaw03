@@ -18,6 +18,14 @@ public class EntrenadorDAO {
         this.conn = conn;
     }
 
+    /**
+     * Metodo con la sentencia de crear entrenador
+     * @param e
+     * @param idEquipo
+     * @return
+     * @throws SQLException
+     */
+
     public boolean registrarEntrenador(Entrenador e, int idEquipo) throws SQLException {
         Persona p =e;
         int idPersona = Main.crearPersona(p);
@@ -26,11 +34,24 @@ public class EntrenadorDAO {
         pst.setInt(2,idEquipo);
         return pst.executeUpdate() == 1;
     }
+
+    /**
+     * Metodo con la sentencia para borrar el entrenador
+     * @param id
+     * @throws SQLException
+     */
+
     public void borrarEntrenador(int id) throws SQLException {
         PreparedStatement pst = conn.prepareStatement("delete from entrenador where id_equipo=?");
         pst.setInt(1,id);
         pst.executeUpdate();
     }
+
+    /**
+     * Metodo con la sentencia para sacar los datos del entrenado
+     * @return Entrenador
+     * @throws SQLException
+     */
 
     public ArrayList<Entrenador> todosEntrenadores() throws SQLException {
         ArrayList<Entrenador> entrenadors = new ArrayList<>();
@@ -47,11 +68,26 @@ public class EntrenadorDAO {
         return entrenadors;
     }
 
+    /**
+     * Metodo para sacar los datos del entrenador
+     * @param str
+     * @return Entrenador
+     * @throws SQLException
+     */
+
     public Entrenador buscarEntrenadorConString(String str) throws SQLException {
         String[] jug = str.split("-");
         System.out.println(Integer.parseInt(jug[0]));
         return buscarEntPorId(Integer.parseInt(jug[0]));
     }
+
+    /**
+     * Metodo para sacar los datos del entrenador  atraves del Id
+     * @param id
+     * @return Entrenador
+     * @throws SQLException
+     */
+
 
     public Entrenador buscarEntPorId(int id) throws SQLException {
         System.out.println("djkhjkljdlñ" + id);
@@ -68,11 +104,24 @@ public class EntrenadorDAO {
         return en;
     }
 
+    /**
+     * Metodo para modificar los datos del entrenador
+     * @param str
+     * @param en
+     * @throws SQLException
+     */
+
     public void modificarEntrenador(String str,Entrenador en) throws SQLException {
         Entrenador old = buscarEntrenadorConString(str);
         actualizarEntrenador(old.getId_personas(),en);
     }
 
+    /**
+     * Metodo para actualizar los datos del entrenador
+     * @param id
+     * @param d
+     * @throws SQLException
+     */
     public void actualizarEntrenador(int id,Entrenador d) throws SQLException {
         Main.actualizarPersona(d.getNombre(),d.getApellido(),id);
     }

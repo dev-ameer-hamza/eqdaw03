@@ -12,6 +12,10 @@ public class BaseDatos {
 
     private Connection connection;
 
+    /**
+     * Constructor para crear la conexion
+     * @throws Exception
+     */
     public BaseDatos() throws Exception{
         //obtenemos el driver para mysql
         Class.forName("oracle.jdbc.OracleDriver");
@@ -24,11 +28,18 @@ public class BaseDatos {
         }
     }
 
-
+    /**
+     * Getter de Connection
+     * @return
+     */
     public Connection getConnection(){
         return connection;
     }
 
+    /**
+     * Metodo para cerrar la conexion
+     * @throws Exception
+     */
     public void desconectar() throws Exception{
         connection.close();
     }

@@ -128,6 +128,12 @@ public class LoginDAO {
         }
     }
 
+    /**
+     * Metodo con la sentencia para sacar los datos del usuario
+     * @return ArrayList<Login>
+     * @throws SQLException
+     */
+
     public ArrayList<Login> listaUsuarios() throws SQLException {
         ArrayList<Login> usuarios = new ArrayList<>();
         PreparedStatement pst = conn.prepareStatement("select * from login where tipo<>?");

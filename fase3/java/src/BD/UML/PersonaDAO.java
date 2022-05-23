@@ -64,6 +64,11 @@ public class PersonaDAO {
         return pst.executeQuery();
     }
 
+    /**
+     * Metodo con la sentencia para poder sacar la ultima persona
+     * @return int
+     * @throws SQLException
+     */
     public int ultimaPersona() throws SQLException {
         int pid=0;
         PreparedStatement pst = conn.prepareStatement("select max(id_persona) as maxi from persona");
@@ -74,6 +79,12 @@ public class PersonaDAO {
         return pid;
     }
 
+    /**
+     *  Metodo con la sentencia para buscar la ultima persona
+     * @param id
+     * @return int
+     * @throws SQLException
+     */
     public int buscarUltimaPersona(int id) throws SQLException {
         int pid =0;
         PreparedStatement pst = conn.prepareStatement("select * from persona where id_persona=?");
@@ -84,6 +95,14 @@ public class PersonaDAO {
         }
         return pid;
     }
+
+    /**
+     * Metodo con la consulta para poder actualizar los datos de persona
+     * @param nom
+     * @param apell
+     * @param id
+     * @throws SQLException
+     */
 
     public void actualizaPersona(String nom,String apell,int id) throws SQLException {
         System.out.println(id + nom + apell);

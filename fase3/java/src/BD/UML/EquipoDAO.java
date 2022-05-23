@@ -68,18 +68,36 @@ public class EquipoDAO {
         return resultado == 1;
     }
 
+    /**
+     *  Metodo para sacar los datos de un equipo atraves de una sentecia
+     * @param id
+     * @return Equipo
+     * @throws SQLException
+     */
     public Equipo buscarEquipo(int id) throws SQLException {
         PreparedStatement pst = conn.prepareStatement("select * from equipo where id_equipo= ?");
         pst.setInt(1,id);
        return datosConsultaEquipo(pst);
     }
 
+    /**
+     * Metodo con la sentencia para buscar los datos de un equipo
+     * @param nombreEquipo
+     * @return Equipo
+     * @throws SQLException
+     */
     public Equipo buscarEquipoPorNombre(String nombreEquipo) throws SQLException {
         PreparedStatement pst = conn.prepareStatement("select * from equipo where nombre_equipo= ?");
         pst.setString(1,nombreEquipo);
         return datosConsultaEquipo(pst);
     }
 
+    /**
+     * Metodo con la sentencia para consultar los datos del equipo
+     * @param pst
+     * @return Equipo
+     * @throws SQLException
+     */
     public Equipo datosConsultaEquipo(PreparedStatement pst) throws SQLException {
         Equipo eq = new Equipo();
         ResultSet datoEquipo = pst.executeQuery();
@@ -94,6 +112,12 @@ public class EquipoDAO {
         return eq;
     }
 
+    /**
+     * Metodo con una sentencia para crear un equipo
+     * @param eq
+     * @return int
+     * @throws SQLException
+     */
     public int crearEquipo(Equipo eq) throws SQLException {
         int latestEquipo=0;
         if (registrarEquipo(eq)){
@@ -102,6 +126,11 @@ public class EquipoDAO {
         return latestEquipo;
     }
 
+    /**
+     * Metodo con una sentencia para sacar los datos del ultimo equipo
+     * @return int
+     * @throws SQLException
+     */
     public int ultimoEquipo() throws SQLException {
         int idEquipo=0;
         PreparedStatement pst = conn.prepareStatement("select max(id_equipo) as maxid from equipo");
@@ -112,6 +141,14 @@ public class EquipoDAO {
         return idEquipo;
     }
 
+    /**
+     * Metodo que llama a distintos metodos para crear un equipo sin asistente
+     * @param equipo
+     * @param dueno
+     * @param entrenador
+     * @return
+     * @throws SQLException
+     */
     public boolean crearEquipoSinAsistente(Equipo equipo, Dueño dueno, Entrenador entrenador) throws SQLException {
         int idEquipo = crearEquipo(equipo);
         boolean duenoCreado = Main.crearDueno(dueno,idEquipo);
@@ -119,6 +156,15 @@ public class EquipoDAO {
         return duenoCreado && entrenadorCreado;
     }
 
+    /**
+     * Metodo que llama a distintos metodos para crear un equipo asistente
+     * @param equipo
+     * @param dueno
+     * @param entrenador
+     * @param asistente
+     * @return
+     * @throws SQLException
+     */
     public boolean crearEquipoConAsistente(Equipo equipo, Dueño dueno, Entrenador entrenador, Asistente asistente) throws SQLException {
         int idEquipo = crearEquipo(equipo);
         boolean duenoCreado = Main.crearDueno(dueno, idEquipo);
@@ -127,6 +173,12 @@ public class EquipoDAO {
         return duenoCreado && entrenadorCreado && asistenteCreado;
     }
 
+    /**
+     * Metodo con una sentencia para borrar los equipo al borrar el equipo
+     * @param equipo
+     * @return boolean
+     * @throws SQLException
+     */
     public boolean borrarEquipo(String equipo) throws SQLException {
         Equipo eq = buscarEquipoPorNombre(equipo);
         borrarJugadoresDeEquipo(eq.getIdEquipo());
@@ -138,22 +190,52 @@ public class EquipoDAO {
         return pst.executeUpdate() == 1;
     }
 
+    /**
+     * Metodo con sentencia para borrar los jugadores de un equipo al borrar el equipo
+     * @param id
+     * @throws SQLException
+     */
     public void borrarJugadoresDeEquipo(int id) throws SQLException {
         PreparedStatement pst = conn.prepareStatement("delete from jugador where id_equipo=?");
         pst.setInt(1,id);
         pst.executeUpdate();
     }
+
+    /**
+     * Metodo con sentencia para borrar los asistentes de un equipo al borrar el equipo
+     * @param id
+     * @throws SQLException
+     */
+
     public void borrarAsistenteDeEquipo(int id) throws SQLException {
         Main.borrarAsistenteDeEquipo(id);
     }
+
+    /**
+     * Metodo con sentencia para borrar el entrenador de un equipo al borrar el equipo
+     * @param id
+     * @throws SQLException
+     */
     public void borrarEntrenadoreDeEquipo(int id) throws SQLException {
         Main.borrarEntrenadorDeEquipo(id);
     }
+
+    /**
+     * Metodo con sentencia para borrar el dueño del equipo al borrar el equipo
+     * @param id
+     * @throws SQLException
+     */
+
+
     public void borrarDuenyoDeEquipo(int id) throws SQLException {
         Main.borrarDuenyoDeEquipo(id);
     }
 
-
+    /**
+     * Metodo para sacar los datos del equipo
+     * @return ResultSet
+     * @throws SQLException
+     */
     public ResultSet detalleEquipos() throws SQLException {
         PreparedStatement pst = conn.prepareStatement("select distinct e.nombre_equipo,pa.nombre \"nombre asistente\",pd.nombre \"nombre dueno\",pe.nombre \"nombre entrenador\" from \n" +
                 "equipo e,duenyo d,entrenador en,asistente a,persona pa,persona pe,persona pd\n" +
@@ -174,6 +256,13 @@ public class EquipoDAO {
         return pst.executeQuery();
     }
 
+    /**
+     * Metodo con sentencia para modificar los equipos
+     * @param nA
+     * @param nN
+     * @return
+     * @throws SQLException
+     */
     public boolean modificarEquipo(String nA,String nN) throws SQLException {
         Equipo eq = buscarEquipoPorNombre(nA);
         PreparedStatement pst = conn.prepareStatement("update equipo set nombre_equipo=? where id_equipo=?");

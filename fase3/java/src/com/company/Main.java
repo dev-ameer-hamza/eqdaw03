@@ -150,36 +150,72 @@ public class Main {
 
     /**
      * un metodo para consultar todos equipos que existen en base de datos
-     * @return
+     * @return ArrayList<Equipo>
      * @throws SQLException
      */
     public static ArrayList<Equipo> consultarEquipos() throws SQLException {
         return equipoDAO.consultarEquipos();
     }
-
+    /**
+     * un metodo para buscar el usuarios en base de datos
+     * @return ArrayList<Login>
+     * @throws SQLException
+     */
     public static ArrayList<Login> listaUsuario() throws SQLException {
         return loginDAO.listaUsuarios();
     }
+
+    /**
+     * un metodo para sacar los datos de la jornada
+     * @return ArrayList<Equipo>
+     * @throws SQLException
+     */
 
     public static ArrayList<Jornada> listaJornadas() throws SQLException {
         return jornadasDAO.listaJornadas();
     }
 
+    /**
+     * un metodo para sacar todos los jufadores que existen en base de datos
+     * @return ArrayList<Jugador>
+     * @throws SQLException
+     */
+
     public static ArrayList<Jugador> todosJugadores() throws SQLException {
         return jugadorDAO.todoslosJugador();
     }
 
+    /**
+     * un metodo para consultar todos equipos que existen en base de datos
+     * @return ArrayList<Partido>
+     * @throws SQLException
+     */
+
     public static ArrayList<Partido> consultarPartido() throws SQLException {
         return partidoDAO.consultarPartidos();
     }
+
+    /**
+     * un metodo para consultar todos los dueños que existen en base de datos
+     * @return ArrayList<Dueño>
+     * @throws SQLException
+     */
     public static ArrayList<Dueño> todosDueños() throws SQLException {
         return dueñoDAO.todosDueños();
     }
-
+    /**
+     * un metodo para consultar todos los entrenadores que existen en base de datos
+     * @return ArrayList<Entrenador>
+     * @throws SQLException
+     */
     public static ArrayList<Entrenador> todosEntrenadores() throws SQLException {
         return entrenadorDAO.todosEntrenadores();
     }
-
+    /**
+     * un metodo para consultar todos los asistentes que existen en base de datos
+     * @return ArrayList<Asistente>
+     * @throws SQLException
+     */
     public static ArrayList<Asistente> todosAsistentes() throws SQLException {
         return asistenteDAO.todosAsistentes();
 
@@ -232,11 +268,33 @@ public class Main {
         ligaDAO.cambiarEstado();
     }
 
+    /**
+     * Metodo para crear jugador
+     * @param nombre
+     * @param apellido
+     * @param apodo
+     * @param rol
+     * @param sueldo
+     * @param equipo
+     * @return boolean
+     * @throws SQLException
+     */
+
     public static boolean  crearJugador(String nombre,String apellido,String apodo,String rol,Float sueldo,String equipo) throws SQLException {
         jugador = new Jugador(nombre,apellido,apodo,rol,sueldo);
         return jugadorDAO.crearJugador(jugador,equipo);
     }
 
+    /**
+     *  Metodo para crear Equipo sin asistente
+     * @param nombreEquipo
+     * @param nombreDueno
+     * @param apellidoDueno
+     * @param nombreEntrenador
+     * @param apellidoEntrenador
+     * @return boolean
+     * @throws SQLException
+     */
     public static boolean crearEquipoSinAsistente(String nombreEquipo,String nombreDueno,String apellidoDueno,String nombreEntrenador,String apellidoEntrenador) throws SQLException {
         Entrenador entrenedor = new Entrenador(nombreEntrenador,apellidoEntrenador);
         Dueño dueno = new Dueño(nombreDueno,apellidoDueno);
@@ -244,6 +302,19 @@ public class Main {
         equipo.setNombreEquipo(nombreEquipo);
         return equipoDAO.crearEquipoSinAsistente(equipo,dueno,entrenedor);
     }
+
+    /**
+     *  Metodo para crear Equipo con asistente
+     * @param nombreEquipo
+     * @param nombreDueno
+     * @param apellidoDueno
+     * @param nombreEntrenador
+     * @param apellidoEntrenador
+     * @param nombreAsistente
+     * @param apellidoAsistente
+     * @return boolean
+     * @throws SQLException
+     */
     public static boolean crearEquipoConAsistente(String nombreEquipo,String nombreDueno,String apellidoDueno,String nombreEntrenador,String apellidoEntrenador,String nombreAsistente,String apellidoAsistente) throws SQLException {
         Entrenador entrenedor = new Entrenador(nombreEntrenador,apellidoEntrenador);
         Dueño dueno = new Dueño(nombreDueno,apellidoDueno);
@@ -252,15 +323,46 @@ public class Main {
         equipo.setNombreEquipo(nombreEquipo);;
         return equipoDAO.crearEquipoConAsistente(equipo,dueno,entrenedor,asistente);
     }
+
+    /**
+     * Metodo para crear Dueño
+     * @param d
+     * @param idEquipo
+     * @return boolean
+     * @throws SQLException
+     */
     public static boolean crearDueno(Dueño d, int idEquipo) throws SQLException {
         return dueñoDAO.registrarDueño(d,idEquipo);
     }
+
+    /**
+     * Metodo para crear Entrenador
+     * @param e
+     * @param idEquipo
+     * @return boolean
+     * @throws SQLException
+     */
     public static boolean crearEntrenador(Entrenador e, int idEquipo) throws SQLException {
         return  entrenadorDAO.registrarEntrenador(e,idEquipo);
     }
+
+    /**
+     * Metodo para crear Asistente
+     * @param a
+     * @param idEquipo
+     * @return boolean
+     * @throws SQLException
+     */
     public static boolean crearAsistente(Asistente a,int idEquipo) throws SQLException {
         return  asistenteDAO.registrarAsistente(a,idEquipo);
     }
+
+    /**
+     * Metod para crear Personas
+     * @param p
+     * @return
+     * @throws SQLException
+     */
     public static int crearPersona(Persona p) throws SQLException {
         return personaDAO.crearPersona(p);
     }
@@ -269,25 +371,69 @@ public class Main {
     //     OPERACIONES DE BORRAR LOS DATOS     //
     // ****************************************//
 
+    /**
+     * Metodo para borrar usuarios
+     * @param usuario
+     * @throws Exception
+     */
+
     public static void borrarUsuario(String usuario) throws Exception {
         loginDAO.borrarUsuario(usuario);
     }
 
+    /**
+     * Metodo para borrar jugadores con su persona correspondiente
+     * @param jugador
+     * @return boolean
+     * @throws Exception
+     */
     public static boolean borrarJugador(String jugador) throws Exception {
         return jugadorDAO.borrarJugador(jugador);
     }
+
+    /**
+     * Metodo para borrar la persona referente al usuario, jugador,asistente,
+     * @param id
+     * @throws SQLException
+     */
     public static void borrarPersona(int id) throws SQLException {
         personaDAO.borrarPersona(id);
     }
+
+    /**
+     * Metodo para borrar el equipo con sus jugadores correspondientes
+     * @param equipo
+     * @return boolean
+     * @throws SQLException
+     */
     public static boolean borrarEquipo(String equipo) throws SQLException {
         return equipoDAO.borrarEquipo(equipo);
     }
+
+    /**
+     * Metodo para borrar el asistente  con su persona correspondientes
+     * @param id
+     * @throws SQLException
+     */
     public static void borrarAsistenteDeEquipo(int id) throws SQLException {
         asistenteDAO.borrarAsistente(id);
     }
+
+    /**
+     * Metodo para borrar el dueño con su persona referente
+     * @param id
+     * @throws SQLException
+     */
     public static void borrarDuenyoDeEquipo(int id) throws SQLException {
         dueñoDAO.borrarDuenyo(id);
     }
+
+    /**
+     * Metodo para borrar el entrenador con su persona referente
+     * @param id
+     * @throws SQLException
+     */
+
     public static void borrarEntrenadorDeEquipo(int id) throws SQLException {
         entrenadorDAO.borrarEntrenador(id);
     }
