@@ -104,7 +104,7 @@ public class Main {
     public static void mostrarVentanaAdmin() throws SQLException {
         panelAdmin = new JFrame("default");
         panelAdmin.setContentPane(new VentanaPrincipalAdmin().getPruebaPanel());
-        panelAdmin.setSize(600,600);
+        panelAdmin.setSize(600,650);
         panelAdmin.setLocationRelativeTo(null);
         panelAdmin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panelAdmin.setVisible(true);
@@ -113,7 +113,7 @@ public class Main {
     public static void mostrarVentanaUsuario() throws SQLException {
         panelUsuario = new JFrame("default");
         panelUsuario.setContentPane(new VentanaPrincipalUsuario().getPanelUsuario());
-        panelUsuario.setSize(600,600);
+        panelUsuario.setSize(600,650);
         panelUsuario.setLocationRelativeTo(null);
         panelUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panelUsuario.setVisible(true);
