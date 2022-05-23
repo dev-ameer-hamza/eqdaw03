@@ -1365,6 +1365,37 @@ public class VentanaPrincipalAdmin {
             }
         });
 
+        cbJornadaModificarJornada.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                try{
+                    Main.listaPartidosMod(Integer.parseInt(cbJornadaModificarJornada.getSelectedItem().toString()));
+                }
+                catch(Exception ex){}
+            }
+        });
+        btSiguienteModificarJornada.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    Main.getSiguienteParMod();
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
+            }
+        });
+        btAtrasModificarJornada.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    Main.getPrevParMod();
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
+            }
+        });
     }
 
     /**
@@ -1420,5 +1451,12 @@ public class VentanaPrincipalAdmin {
         if (!matcherTexto.matches()) {
             throw new Exception(nombreCampo + " Invalido, solo puede tener letras");
         }
+    }
+
+    public void setDatosModificarJornada(int idp,String elocal,String eVisi,String eGanador){
+        lbPartidoModificarJornada.setText(Integer.toString(idp));
+        lbEquipoLocalModificarJornada.setText(elocal);
+        lbEquipoVisitanteModificarJornada.setText(eVisi);
+        lbEquipoGanadorConsultarJornada.setText(eGanador);
     }
 }

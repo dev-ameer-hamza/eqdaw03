@@ -26,7 +26,7 @@ public class Main {
     public static PersonaDAO personaDAO;
     public static AsistenteDAO asistenteDAO;
     public static EntrenadorDAO entrenadorDAO;
-
+    private static VentanaPrincipalAdmin vpa;
     public static Dueño dueño;
     public static Equipo equipo;
     public static Jornada jornada;
@@ -37,12 +37,16 @@ public class Main {
     public static Persona persona;
     public static Connection conn;
 
-    ArrayList<Entrenador>Entrenadores = new ArrayList<>();
-    ArrayList<Dueño>Duenyos = new ArrayList<>();
+    private static ArrayList<Partido> partidosModificar = new ArrayList<>();
+    private static ArrayList<Partido> partidosConsultar = new ArrayList<>();
+    private static ArrayList<Dueño>Duenyos = new ArrayList<>();
     private static JFrame panelAdminCrear;
     private static JFrame panelAdmin;
     private static JFrame panelUsuario;
     private static JFrame panelLogin;
+
+    private static int posMod;
+    private static int posCon;
 
     /**
      * metodo main y punto de incio de nuestra aplicacion
@@ -67,7 +71,7 @@ public class Main {
 
     }
 
-    public static void incializarObjetosDAOS(){
+    public static void incializarObjetosDAOS() throws SQLException {
         dueñoDAO = new DueñoDAO(bd.getConnection());
         equipoDAO = new EquipoDAO(bd.getConnection());
         jornadasDAO = new JornadasDAO(bd.getConnection());
@@ -173,6 +177,35 @@ public class Main {
 
     public static ArrayList<Jornada> listaJornadas() throws SQLException {
         return jornadasDAO.listaJornadas();
+    }
+
+    public static void listaPartidosMod(int jornada) throws SQLException {
+        partidosModificar = partidoDAO.listaPartidos(jornada);
+        posMod = 0;
+        vpa.setDatosModificarJornada(partidosModificar.get(posMod).getId_partido(),partidosModificar.get(posMod).getEquipo1(),partidosModificar.get(posMod).getEquipo2(),partidosModificar.get(posMod).getEquipo_ganador());
+    }
+
+    public static void getSiguienteParMod() throws Exception {
+        if (posMod != partidosModificar.size() - 1){
+            posMod++;
+            vpa.setDatosModificarJornada(partidosModificar.get(posMod).getId_partido(),partidosModificar.get(posMod).getEquipo1(),partidosModificar.get(posMod).getEquipo2(),partidosModificar.get(posMod).getEquipo_ganador());
+        }
+        else
+        {
+            throw new Exception("No hay mas partidos");
+        }
+    }
+
+    public static void getPrevParMod() throws Exception {
+        if (posMod != 0)
+        {
+            posMod--;
+            vpa.setDatosModificarJornada(partidosModificar.get(posMod).getId_partido(),partidosModificar.get(posMod).getEquipo1(),partidosModificar.get(posMod).getEquipo2(),partidosModificar.get(posMod).getEquipo_ganador());
+        }
+        else
+        {
+            throw new Exception("No hay mas partidos");
+        }
     }
 
     /**

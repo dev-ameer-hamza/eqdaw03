@@ -19,8 +19,7 @@ public class PartidoDAO {
      * Creamos el constructor para JornadaDAO
      * @param conn
      */
-    public PartidoDAO(Connection conn)
-    {
+    public PartidoDAO(Connection conn) throws SQLException {
         this.conn = conn;
         this.equipoDAO = new EquipoDAO(this.conn);
         this.jornadasDAO = new JornadasDAO(this.conn);
@@ -131,6 +130,25 @@ public class PartidoDAO {
             listaPartidos.add(eq);
         }
         return listaPartidos;
+    }
+
+    public ArrayList<Partido> listaPartidos(int jornada) throws SQLException {
+        ArrayList<Partido> partidoArrayList = new ArrayList<>();
+        CallableStatement cst = conn.prepareCall("{call todospartidos(?,?)}");
+        cst.registerOutParameter(1,oracle.jdbc.OracleTypes.CURSOR);
+        cst.setInt(2,jornada);
+        ResultSet set = cst.executeQuery();
+
+        while(set.next()){
+            Partido p = new Partido();
+            p.setId_partido(set.getInt("id_partido"));
+            p.setEquipo1(set.getString("equipo_local"));
+            p.setEquipo2(set.getString("equipo_visitante"));
+            p.setEquipo_ganador(set.getString("equipo_ganador"));
+            partidoArrayList.add(p);
+
+        }
+        return partidoArrayList;
     }
 
 }

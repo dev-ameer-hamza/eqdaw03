@@ -8,7 +8,6 @@ public class BaseDatos {
     private String user = "eqdaw03";
     private String password = "eqdaw03";
     private String url = "jdbc:oracle:thin:@172.20.225.114:1521:orcl";
-    //private String url = "jdbc:oracle:thin:@localhost:1521:orcldb";
 
     private Connection connection;
 
