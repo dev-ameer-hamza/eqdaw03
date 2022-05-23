@@ -38,6 +38,7 @@ public class VentanaPrincipalUsuario {
     private JLabel lbPosicionConsultarClasificacion;
     private JLabel lbNombreConsultarClasificacion;
     private JLabel lbPartidosJugadosConsultarClasificacion;
+    private JButton btInicioUsuario;
     private int posClasificacion;
     private int posPartido;
 
