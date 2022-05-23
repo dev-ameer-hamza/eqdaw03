@@ -24,7 +24,7 @@ public class Equipo {
     private String nombreAsistente;
 
     /**
-     * Creamos el constructor
+     * Creamos el constructor de equipo
      * @param idEquipo
      * @param nombreEquipo
      * @param puntos

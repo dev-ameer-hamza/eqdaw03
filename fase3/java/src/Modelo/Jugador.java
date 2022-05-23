@@ -11,7 +11,7 @@ public class Jugador extends Persona{
 
 
     /**
-     * Crteamos el constructor
+     * Crteamos el constructor de jugador
      * @param id_personas
      * @param nombre
      * @param apellido
@@ -35,12 +35,15 @@ public class Jugador extends Persona{
         this.sueldo = sueldo;
     }
 
+    /**
+     * constructor de jugador vacio
+     */
     public Jugador() {
 
     }
 
     /**
-     * Creamos el getter de apodo
+     * Creamos el getter de apodo de jugador
      * @return apodo
      */
 
