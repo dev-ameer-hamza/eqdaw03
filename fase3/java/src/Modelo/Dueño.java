@@ -17,7 +17,9 @@ public class Dueño extends Persona{
         super(nombre, apellido);
     }
 
-
+    /**
+     * constructor vacio de dueño
+     */
     public Dueño() {
 
     }
@@ -29,10 +31,10 @@ public class Dueño extends Persona{
      */
     public void crearDuenyo(Equipo equipo){}
 
-    /**
-     * Creamos el metodo para sacar los datos del equipo al que pertenece
-     * @param id_equipo
-     * @return Equipo
-     */
+ //   /**
+ //    * Creamos el metodo para sacar los datos del equipo al que pertenece
+ //    * @param id_equipo
+ //    * @return Equipo
+ //    */
     //public Equipo getEquipo(int id_equipo){return new Dueño();}
 }

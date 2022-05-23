@@ -17,6 +17,9 @@ public class Asistente extends Persona {
         super(nombre, apellido);
     }
 
+    /**
+     * constructor vacio de persona
+     */
     public Asistente() {
 
     }

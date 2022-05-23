@@ -7,6 +7,14 @@ public class Login {
     private String contrasenya;
     private String tipo_persona; // Admin o user
 
+    /**
+     * constructor del login
+     * @param id_login
+     * @param usuario
+     * @param contrasenya
+     * @param tipo_persona
+     */
+
     public Login(int id_login, String usuario, String contrasenya, String tipo_persona) {
         this.id_login = id_login;
         this.usuario = usuario;
@@ -14,6 +22,9 @@ public class Login {
         this.tipo_persona = tipo_persona;
     }
 
+    /**
+     * constructor vacio del login
+     */
     public Login() {
     }
 
