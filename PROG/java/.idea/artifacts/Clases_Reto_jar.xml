@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Clases_Reto:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Clases_Reto_jar</output-path>
+    <root id="archive" name="Clases_Reto.jar">
+      <element id="module-output" name="Clases_Reto" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/librerias/ojdbc6.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
