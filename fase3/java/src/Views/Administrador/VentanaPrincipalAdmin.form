@@ -175,33 +175,6 @@
                   </component>
                 </children>
               </grid>
-              <grid id="fed08" class="javax.swing.JMenu" binding="jmGenerarXML" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
-                <constraints/>
-                <properties>
-                  <text value="Generar XML"/>
-                </properties>
-                <border type="none"/>
-                <children>
-                  <component id="13c64" class="javax.swing.JMenuItem" binding="jmiGenerarUltimaJornada">
-                    <constraints/>
-                    <properties>
-                      <text value="Última Jornada"/>
-                    </properties>
-                  </component>
-                  <component id="6089c" class="javax.swing.JMenuItem" binding="jmiGenerarJornadas">
-                    <constraints/>
-                    <properties>
-                      <text value="Todas las jornadas"/>
-                    </properties>
-                  </component>
-                  <component id="5b818" class="javax.swing.JMenuItem" binding="jmiGenerarClasificacion">
-                    <constraints/>
-                    <properties>
-                      <text value="Clasificación"/>
-                    </properties>
-                  </component>
-                </children>
-              </grid>
               <component id="70b7a" class="javax.swing.JButton" binding="btCerrarSesion">
                 <constraints/>
                 <properties>

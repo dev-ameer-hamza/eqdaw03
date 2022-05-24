@@ -191,10 +191,6 @@ public class VentanaPrincipalAdmin {
     private JLabel lbPosicionConsultarClasificacion;
     private JLabel lbNombreConsultarClasificacion;
     private JLabel lbPartidosJugadosConsultarClasificacion;
-    private JMenu jmGenerarXML;
-    private JMenuItem jmiGenerarUltimaJornada;
-    private JMenuItem jmiGenerarJornadas;
-    private JMenuItem jmiGenerarClasificacion;
     private JLabel lbTest;
     private JButton btGuardarPartidoJornada;
     private JMenu jmInicio;
