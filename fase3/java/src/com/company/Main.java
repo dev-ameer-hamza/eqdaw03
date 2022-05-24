@@ -108,7 +108,7 @@ public class Main {
     public static void mostrarVentanaAdmin() throws SQLException {
         panelAdmin = new JFrame("default");
         panelAdmin.setContentPane(new VentanaPrincipalAdmin().getPruebaPanel());
-        panelAdmin.setSize(600,650);
+        panelAdmin.setSize(635,675);
         panelAdmin.setLocationRelativeTo(null);
         panelAdmin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panelAdmin.setVisible(true);
@@ -117,7 +117,7 @@ public class Main {
     public static void mostrarVentanaUsuario() throws SQLException {
         panelUsuario = new JFrame("default");
         panelUsuario.setContentPane(new VentanaPrincipalUsuario().getPanelUsuario());
-        panelUsuario.setSize(600,650);
+        panelUsuario.setSize(635,675);
         panelUsuario.setLocationRelativeTo(null);
         panelUsuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panelUsuario.setVisible(true);
@@ -179,6 +179,12 @@ public class Main {
         return jornadasDAO.listaJornadas();
     }
 
+    /**
+     * el metodo para consultar partidos de una jornada
+     * @param jornada
+     * @return Partido
+     * @throws SQLException
+     */
     public static Partido listaPartidosMod(int jornada) throws SQLException {
         partidosModificar = partidoDAO.listaPartidos(jornada);
         posMod = 0;
@@ -189,6 +195,13 @@ public class Main {
         p.setEquipo_ganador(partidosModificar.get(posMod).getEquipo_ganador());
         return p;
     }
+
+    /**
+     * el metodo para consultar partidos una jornada
+     * @param jornada
+     * @return Partido
+     * @throws SQLException
+     */
 
     public static Partido listaPartidosCon(int jornada) throws SQLException {
         partidosConsultar = partidoDAO.listaPartidos(jornada);
@@ -202,6 +215,11 @@ public class Main {
         return p;
     }
 
+    /**
+     * el metodo para ver el siguiente partido
+     * @return Partido
+     * @throws Exception
+     */
     public static Partido getSiguienteParMod() throws Exception {
         if (posMod != partidosModificar.size() - 1){
             posMod++;
@@ -217,6 +235,11 @@ public class Main {
             throw new Exception("No hay mas partidos");
         }
     }
+    /**
+     * el metodo para ver el partido anterior
+     * @return Partido
+     * @throws Exception
+     */
 
     public static Partido getSiguienteParCon() throws Exception {
         if (posCon != partidosConsultar.size() - 1){
@@ -233,7 +256,11 @@ public class Main {
             throw new Exception("No hay mas partidos");
         }
     }
-
+    /**
+     * el metodo para ver el siguiente partido
+     * @return Partido
+     * @throws Exception
+     */
     public static Partido getPrevParMod() throws Exception {
         if (posMod != 0)
         {
@@ -251,7 +278,11 @@ public class Main {
             throw new Exception("No hay mas partidos");
         }
     }
-
+    /**
+     * el metodo para ver el partido anterior
+     * @return Partido
+     * @throws Exception
+     */
     public static Partido getPrevParCon() throws Exception {
         if (posCon != 0)
         {
@@ -535,38 +566,63 @@ public class Main {
 
 
 
-
-
-
-
-
-
-
-
-
     // ****************************************//
     //     OPERACIONES DE BUSCAR LOS DATOS     //
     // ****************************************//
 
+    /**
+     * el metodo para buscar equipo por nombre
+     * @param nombreEquipo
+     * @return Equipo
+     * @throws SQLException
+     */
     public static Equipo buscarEquipoPorNombre(String nombreEquipo) throws SQLException {
         return equipoDAO.buscarEquipoPorNombre(nombreEquipo);
     }
 
+    /**
+     * el metodo para buscar jugador por nombre
+     * @param ju
+     * @return Jugador
+     * @throws Exception
+     */
     public static Jugador buscarJugadorPorNombre(String ju) throws Exception {
         return jugadorDAO.buscarJugadorPorNombre(ju);
     }
+
+    /**
+     * el metodo para buscar el dueño por nombre
+     * @param str
+     * @return Dueño
+     * @throws SQLException
+     */
     public static Dueño buscarDueñoConString(String str) throws SQLException {
         return dueñoDAO.buscarDueñoConString(str);
     }
 
+    /**
+     * elmetodo para buscar entrenador por nombre
+     * @param str
+     * @return Entrenador
+     * @throws SQLException
+     */
     public static Entrenador buscarEntrenadorConString(String str) throws SQLException {
         return entrenadorDAO.buscarEntrenadorConString(str);
     }
-
+    /**
+     * elmetodo para buscar Asistente por nombre
+     * @param str
+     * @return Asistente
+     * @throws SQLException
+     */
     public static Asistente buscarAsistenteConString(String str) throws SQLException {
         return asistenteDAO.buscarAsistenteConString(str);
     }
-
+    /**
+     * elmetodo para buscar usuario por nombre
+     * @return Login
+     * @throws SQLException
+     */
     public static Login buscarUsuario(String u) throws SQLException {
         return loginDAO.buscarUsuario(u);
     }
@@ -577,38 +633,104 @@ public class Main {
     //    OPERACIONES DE MODIFICAR LOS DATOS   //
     // ****************************************//
 
+    /**
+     * el metodo para modificar equipo
+     * @param nombreAnti
+     * @param nombreNue
+     * @return boolean
+     * @throws SQLException
+     */
     public static boolean modificarEquipo(String nombreAnti,String nombreNue) throws SQLException {
         return equipoDAO.modificarEquipo(nombreAnti,nombreNue);
     }
 
+    /**
+     * el metodo para modificar jugador
+     * @param jugador
+     * @param nNombre
+     * @param nApellido
+     * @param nApodo
+     * @param nRol
+     * @param sueldo
+     * @return
+     * @throws Exception
+     */
     public static boolean modificarJugador(String jugador,String nNombre,String nApellido,String nApodo,String nRol,Float sueldo) throws Exception {
         System.out.println(nNombre + nApellido + nApodo + nRol + sueldo);
 
         Jugador j = new Jugador(nNombre,nApellido,nApodo,nRol,sueldo);
         return jugadorDAO.modificarJugador(jugador,j);
     }
+
+    /**
+     * el metodo para modificar persona
+     * @param nom
+     * @param ape
+     * @param id
+     * @throws SQLException
+     */
     public static void actualizarPersona(String nom,String ape,int id) throws SQLException {
         personaDAO.actualizaPersona(nom,ape,id);
     }
 
+    /**
+     * el metodo para modificar dueño
+     * @param str
+     * @param nNombre
+     * @param nApel
+     * @throws SQLException
+     */
     public static void modificarDueño(String str,String nNombre,String nApel) throws SQLException {
         Dueño d = new Dueño(nNombre,nApel);
          dueñoDAO.modificarDueño(str,d);
     }
 
+    /**
+     * el metodo para modificar entrenador
+     * @param str
+     * @param nNombre
+     * @param nApel
+     * @throws SQLException
+     */
     public static void modificarEntrenador(String str,String nNombre,String nApel) throws SQLException {
         Entrenador e = new Entrenador(nNombre,nApel);
         entrenadorDAO.modificarEntrenador(str,e);
     }
 
+    /**
+     * el metodo para modificar asistente
+     * @param str
+     * @param nom
+     * @param apel
+     * @throws SQLException
+     */
     public static void modificarAsistente(String str,String nom,String apel) throws SQLException {
         Asistente a = new Asistente(nom,apel);
          asistenteDAO.modificarAsistente(str,a);
     }
 
+    /**
+     * el metodo para modificar usuario
+     * @param oldNom
+     * @param nNom
+     * @param nCont
+     * @return
+     * @throws Exception
+     */
     public  static boolean modificarUsuario(String oldNom,String nNom,String nCont) throws Exception {
         Login l = new Login(nNom,nCont);
         return loginDAO.modificarUsuario(l,oldNom);
+    }
+
+    /**
+     * el metodo para modificar partidos de cada jornada
+     * @param equipo
+     * @param idPartido
+     * @throws SQLException
+     */
+    public static void actualizaPartidoDeJornada(String equipo,int idPartido) throws SQLException {
+        System.out.println("datos pdjfj " + equipo+idPartido);
+        partidoDAO.actualizarPartido(equipo,idPartido);
     }
 
 }

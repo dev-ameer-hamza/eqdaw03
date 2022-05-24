@@ -159,6 +159,45 @@ public class PartidoDAO {
         return partidoArrayList;
     }
 
+    /**
+     * el metodo para actualizar partido para añadir el equipo ganador
+     * @param equipo
+     * @param idP
+     * @throws SQLException
+     */
+    public void actualizarPartido(String equipo,int idP) throws SQLException {
+        Equipo e = equipoDAO.buscarEquipoPorNombre(equipo);
+        PreparedStatement pst = conn.prepareStatement("select * from partido where id_partido=?");
+        pst.setInt(1,idP);
+        ResultSet set = pst.executeQuery();
+
+        while(set.next()){
+            if (e.getIdEquipo() == set.getInt("id_equipo1")){
+                equipoDAO.addClasificacionEquipoPerdido(set.getInt("id_equipo2"));
+            }
+
+            if (e.getIdEquipo() == set.getInt("id_equipo2")){
+                equipoDAO.addClasificacionEquipoPerdido(set.getInt("id_equipo1"));
+            }
+
+            equipoDAO.addClasificacionEquipoGanado(e.getIdEquipo());
+            updatePartido(idP,e.getIdEquipo());
+        }
+    }
+
+    /**
+     * el metodo para hacer una consula para actualizar el partido
+     * @param idp
+     * @param idE
+     * @throws SQLException
+     */
+    public void updatePartido(int idp,int idE) throws SQLException {
+        PreparedStatement pst = conn.prepareStatement("update partido set equipo_ganador=? where id_partido=?");
+        pst.setInt(1,idE);
+        pst.setInt(2,idp);
+        pst.executeUpdate();
+    }
+
 }
 
 

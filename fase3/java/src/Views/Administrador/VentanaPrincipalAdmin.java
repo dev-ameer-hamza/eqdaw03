@@ -196,6 +196,7 @@ public class VentanaPrincipalAdmin {
     private JMenuItem jmiGenerarJornadas;
     private JMenuItem jmiGenerarClasificacion;
     private JLabel lbTest;
+    private JButton btGuardarPartidoJornada;
     private JMenu jmInicio;
     private int posJugador;
     private int posClasificacion;
@@ -1453,6 +1454,17 @@ public class VentanaPrincipalAdmin {
                     setDatosConsultarJornada(p);
                 }
                 catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
+            }
+        });
+        btGuardarPartidoJornada.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Main.actualizaPartidoDeJornada(cbEquipoGanadorModificarJornada.getSelectedItem().toString(),Integer.parseInt(lbPartidoModificarJornada.getText()));
+                    mostrarMensaje("Partido actualizado");
+                } catch (SQLException ex) {
                     mostrarError(ex.getMessage());
                 }
             }

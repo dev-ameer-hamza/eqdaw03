@@ -271,4 +271,36 @@ public class EquipoDAO {
         return pst.executeUpdate() == 1;
     }
 
+    /**
+     * el metodo para añadir clasificacion del equipo ganado
+     * @param ide
+     * @throws SQLException
+     */
+    public void addClasificacionEquipoGanado(int ide) throws SQLException {
+        Equipo e = buscarEquipo(ide);
+        System.out.println("equipo ganado");
+        PreparedStatement pst = conn.prepareStatement("update equipo set puntos=?,partidos_jugados=?,partidos_ganados=? where id_equipo=?");
+        pst.setInt(1,e.getPuntos() + 2);
+        pst.setInt(2,e.getPartidosJugados() + 1);
+        pst.setInt(3,e.getPartidosGanados() + 1);
+        pst.setInt(4,ide);
+        pst.executeUpdate();
+    }
+
+    /**
+     * el metodo para añadir la clasificacion del equipo perdido
+     * @param ide
+     * @throws SQLException
+     */
+    public void addClasificacionEquipoPerdido(int ide) throws SQLException {
+        Equipo e = buscarEquipo(ide);
+        System.out.println("equipo perdido");
+
+        PreparedStatement pst = conn.prepareStatement("update equipo set partidos_jugados=?,partidos_perdidos=? where id_equipo=?");
+        pst.setInt(1,e.getPartidosJugados() + 1);
+        pst.setInt(2,e.getPartidosPerdidos() + 1);
+        pst.setInt(3,ide);
+        pst.executeUpdate();
+    }
+
 }
