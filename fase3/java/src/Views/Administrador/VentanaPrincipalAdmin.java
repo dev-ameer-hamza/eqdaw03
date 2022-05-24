@@ -195,6 +195,7 @@ public class VentanaPrincipalAdmin {
     private JMenuItem jmiGenerarUltimaJornada;
     private JMenuItem jmiGenerarJornadas;
     private JMenuItem jmiGenerarClasificacion;
+    private JLabel lbTest;
     private JMenu jmInicio;
     private int posJugador;
     private int posClasificacion;
@@ -400,6 +401,24 @@ public class VentanaPrincipalAdmin {
         } else {
             throw new Exception("No hay anterior");
         }
+    }
+
+    public void setDatosModificarJornada(Partido p){
+        cbEquipoGanadorModificarJornada.removeAllItems();
+        lbPartidoModificarJornada.setText(String.valueOf(p.getId_partido()));
+        lbEquipoLocalModificarJornada.setText(p.getEquipo1());
+        lbEquipoVisitanteModificarJornada.setText(p.getEquipo2());
+        lbEquipoGanadorConsultarJornada.setText(p.getEquipo_ganador());
+        cbEquipoGanadorModificarJornada.addItem(p.getEquipo1());
+        cbEquipoGanadorModificarJornada.addItem(p.getEquipo2());
+    }
+
+    public void setDatosConsultarJornada(Partido p){
+
+        lbPartidoConsultarJornada.setText(String.valueOf(p.getId_partido()));
+        lbEquipoLocalConsultarJornada.setText(p.getEquipo1());
+        lbEquipoVisitanteConsultarJornada.setText(p.getEquipo2());
+        lbEquipoGanadorConsultarJornada.setText(p.getEquipo_ganador());
     }
 
     /**
@@ -712,7 +731,7 @@ public class VentanaPrincipalAdmin {
                     }
                     for(int i=0;i<jornadas.size();i++)
                     {
-                        cbJornadaConsultarJornada.addItem("Jornada " + jornadas.get(i).getId_jornada());
+                        cbJornadaConsultarJornada.addItem(jornadas.get(i).getId_jornada());
                     }
                 }
                 catch(Exception ex){
@@ -1369,16 +1388,20 @@ public class VentanaPrincipalAdmin {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 try{
-                    Main.listaPartidosMod(Integer.parseInt(cbJornadaModificarJornada.getSelectedItem().toString()));
+                    Partido p = Main.listaPartidosMod(Integer.parseInt(cbJornadaModificarJornada.getSelectedItem().toString()));
+                    setDatosModificarJornada(p);
                 }
-                catch(Exception ex){}
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
             }
         });
         btSiguienteModificarJornada.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    Main.getSiguienteParMod();
+                    Partido p = Main.getSiguienteParMod();
+                    setDatosModificarJornada(p);
                 }
                 catch(Exception ex){
                     mostrarError(ex.getMessage());
@@ -1389,7 +1412,45 @@ public class VentanaPrincipalAdmin {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    Main.getPrevParMod();
+                    Partido p = Main.getPrevParMod();
+                    setDatosModificarJornada(p);
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
+            }
+        });
+        cbJornadaConsultarJornada.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                try{
+                    Partido p = Main.listaPartidosCon(Integer.parseInt(cbJornadaConsultarJornada.getSelectedItem().toString()));
+                    setDatosConsultarJornada(p);
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
+            }
+        });
+        btSiguienteConsultarJornadas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    Partido p = Main.getSiguienteParCon();
+                    setDatosConsultarJornada(p);
+                }
+                catch(Exception ex){
+                    mostrarError(ex.getMessage());
+                }
+            }
+        });
+        btAtrasConsultarJornadas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    System.out.println("funciona");
+                    Partido p = Main.getPrevParCon();
+                    setDatosConsultarJornada(p);
                 }
                 catch(Exception ex){
                     mostrarError(ex.getMessage());
@@ -1453,10 +1514,5 @@ public class VentanaPrincipalAdmin {
         }
     }
 
-    public void setDatosModificarJornada(int idp,String elocal,String eVisi,String eGanador){
-        lbPartidoModificarJornada.setText(Integer.toString(idp));
-        lbEquipoLocalModificarJornada.setText(elocal);
-        lbEquipoVisitanteModificarJornada.setText(eVisi);
-        lbEquipoGanadorConsultarJornada.setText(eGanador);
-    }
+
 }

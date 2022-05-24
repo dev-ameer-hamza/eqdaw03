@@ -26,7 +26,7 @@ public class Main {
     public static PersonaDAO personaDAO;
     public static AsistenteDAO asistenteDAO;
     public static EntrenadorDAO entrenadorDAO;
-    private static VentanaPrincipalAdmin vpa;
+    private static VentanaPrincipalAdmin vpa ;
     public static Dueño dueño;
     public static Equipo equipo;
     public static Jornada jornada;
@@ -63,7 +63,7 @@ public class Main {
         try{
             bd = new BaseDatos();
             incializarObjetosDAOS();
-            System.out.println(jornadasDAO.listaJornadas().size());
+            //vpa = new VentanaPrincipalAdmin();
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null,e.getMessage());
@@ -179,16 +179,38 @@ public class Main {
         return jornadasDAO.listaJornadas();
     }
 
-    public static void listaPartidosMod(int jornada) throws SQLException {
+    public static Partido listaPartidosMod(int jornada) throws SQLException {
         partidosModificar = partidoDAO.listaPartidos(jornada);
         posMod = 0;
-        vpa.setDatosModificarJornada(partidosModificar.get(posMod).getId_partido(),partidosModificar.get(posMod).getEquipo1(),partidosModificar.get(posMod).getEquipo2(),partidosModificar.get(posMod).getEquipo_ganador());
+        Partido p = new Partido();
+        p.setId_partido(partidosModificar.get(posMod).getId_partido());
+        p.setEquipo1(partidosModificar.get(posMod).getEquipo1());
+        p.setEquipo2(partidosModificar.get(posMod).getEquipo2());
+        p.setEquipo_ganador(partidosModificar.get(posMod).getEquipo_ganador());
+        return p;
     }
 
-    public static void getSiguienteParMod() throws Exception {
+    public static Partido listaPartidosCon(int jornada) throws SQLException {
+        partidosConsultar = partidoDAO.listaPartidos(jornada);
+        posCon = 0;
+        Partido p = new Partido();
+        p.setId_partido(partidosConsultar.get(posCon).getId_partido());
+        p.setEquipo1(partidosConsultar.get(posCon).getEquipo1());
+        p.setEquipo2(partidosConsultar.get(posCon).getEquipo2());
+        p.setEquipo_ganador(partidosConsultar.get(posCon).getEquipo_ganador());
+
+        return p;
+    }
+
+    public static Partido getSiguienteParMod() throws Exception {
         if (posMod != partidosModificar.size() - 1){
             posMod++;
-            vpa.setDatosModificarJornada(partidosModificar.get(posMod).getId_partido(),partidosModificar.get(posMod).getEquipo1(),partidosModificar.get(posMod).getEquipo2(),partidosModificar.get(posMod).getEquipo_ganador());
+            Partido p = new Partido();
+            p.setId_partido(partidosModificar.get(posMod).getId_partido());
+            p.setEquipo1(partidosModificar.get(posMod).getEquipo1());
+            p.setEquipo2(partidosModificar.get(posMod).getEquipo2());
+            p.setEquipo_ganador(partidosModificar.get(posMod).getEquipo_ganador());
+            return p;
         }
         else
         {
@@ -196,11 +218,50 @@ public class Main {
         }
     }
 
-    public static void getPrevParMod() throws Exception {
+    public static Partido getSiguienteParCon() throws Exception {
+        if (posCon != partidosConsultar.size() - 1){
+            posCon++;
+            Partido p = new Partido();
+            p.setId_partido(partidosConsultar.get(posCon).getId_partido());
+            p.setEquipo1(partidosConsultar.get(posCon).getEquipo1());
+            p.setEquipo2(partidosConsultar.get(posCon).getEquipo2());
+            p.setEquipo_ganador(partidosConsultar.get(posCon).getEquipo_ganador());
+            return p;
+        }
+        else
+        {
+            throw new Exception("No hay mas partidos");
+        }
+    }
+
+    public static Partido getPrevParMod() throws Exception {
         if (posMod != 0)
         {
             posMod--;
-            vpa.setDatosModificarJornada(partidosModificar.get(posMod).getId_partido(),partidosModificar.get(posMod).getEquipo1(),partidosModificar.get(posMod).getEquipo2(),partidosModificar.get(posMod).getEquipo_ganador());
+            Partido p = new Partido();
+            p.setId_partido(partidosModificar.get(posMod).getId_partido());
+            p.setEquipo1(partidosModificar.get(posMod).getEquipo1());
+            p.setEquipo2(partidosModificar.get(posMod).getEquipo2());
+            p.setEquipo_ganador(partidosModificar.get(posMod).getEquipo_ganador());
+            //vpa.setDatosModificarJornada(p);
+            return p;
+        }
+        else
+        {
+            throw new Exception("No hay mas partidos");
+        }
+    }
+
+    public static Partido getPrevParCon() throws Exception {
+        if (posCon != 0)
+        {
+            posCon--;
+            Partido p = new Partido();
+            p.setId_partido(partidosConsultar.get(posCon).getId_partido());
+            p.setEquipo1(partidosConsultar.get(posCon).getEquipo1());
+            p.setEquipo2(partidosConsultar.get(posCon).getEquipo2());
+            p.setEquipo_ganador(partidosConsultar.get(posCon).getEquipo_ganador());
+            return p;
         }
         else
         {

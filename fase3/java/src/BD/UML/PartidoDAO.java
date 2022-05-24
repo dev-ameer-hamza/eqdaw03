@@ -134,9 +134,17 @@ public class PartidoDAO {
 
     public ArrayList<Partido> listaPartidos(int jornada) throws SQLException {
         ArrayList<Partido> partidoArrayList = new ArrayList<>();
-        CallableStatement cst = conn.prepareCall("{call todospartidos(?,?)}");
-        cst.registerOutParameter(1,oracle.jdbc.OracleTypes.CURSOR);
-        cst.setInt(2,jornada);
+//        System.out.println("jornadad " + jornada);
+//        CallableStatement cst = conn.prepareCall("{call todospartidos(?,?)}");
+//        cst.registerOutParameter(1,oracle.jdbc.OracleTypes.CURSOR);
+        PreparedStatement cst = conn.prepareStatement("select partido.id_partido, cp1.nombre_equipo as equipo_local,cp2.nombre_equipo as equipo_Visitante,\n" +
+                "cp3.nombre_equipo as equipo_Ganador\n" +
+                "from partido, equipo cp1,equipo cp2,equipo cp3, jornada j\n" +
+                "where (partido.id_equipo1=cp1.id_equipo and partido.id_equipo2=cp2.id_equipo and \n" +
+                "partido.equipo_ganador=cp3.id_equipo and j.id_jornada=partido.id_jornada)\n" +
+                "and (partido.id_jornada=?)");
+        cst.setInt(1,jornada);
+        cst.execute();
         ResultSet set = cst.executeQuery();
 
         while(set.next()){

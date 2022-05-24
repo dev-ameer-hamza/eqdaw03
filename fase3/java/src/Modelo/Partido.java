@@ -33,6 +33,9 @@ public class Partido {
     public Partido() {
     }
 
+    public Partido(int id_partido, String equipo1, String equipo2, String equipo_ganador) {
+    }
+
     /**
      * Creamos el getter de id_partido
      * @return id_partido

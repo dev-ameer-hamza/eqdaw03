@@ -37,10 +37,7 @@ public class LigaDAO {
 
     public void cambiarEstado() throws SQLException{
         Statement st = conn.createStatement();
-        if (consultarEstado().equals("ABIERTO")){
-            st.executeUpdate("update liga set estado = 'CERRADO'");
-        } else{
-            st.executeUpdate("update liga set estado = 'ABIERTO'");
-        }
+        st.executeUpdate("update liga set estado = 'CERRADO'");
+
     }
 }
