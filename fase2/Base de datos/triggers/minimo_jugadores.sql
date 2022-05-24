@@ -1,5 +1,5 @@
-create or replace  trigger minimo_jugadores
-before insert or update or delete on partido
+create or replace trigger minimo_jugadores
+before insert or update on partido
 for each row
 declare
 jugadoresDeEquipo1 number(5);

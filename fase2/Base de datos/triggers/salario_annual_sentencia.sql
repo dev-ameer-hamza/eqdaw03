@@ -1,17 +1,3 @@
-
-CREATE OR REPLACE PACKAGE pcq_sueldo_anual
-AS
-idEquipo number(5);
-sueldoAnual number(6);
-END;
-create or replace trigger salario_annual_fila
-before insert or update on jugador
-for each row
-begin
-pcq_sueldo_anual.idequipo := :new.id_equipo;
-pcq_sueldo_anual.sueldoAnual := :new.sueldo;
-end;
-
 create or replace trigger salario_annual_sentencia
 after insert or update on jugador
 declare
